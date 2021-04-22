@@ -250,7 +250,11 @@ BEGIN
 		a.account_type,
 		a.annual_revenue,
 		a.billing_address_city,
-		a.billing_address_country,
+		case 
+			when a.billing_address_country = 'US' then 'United States' 
+			when a.billing_address_country = 'CA' then 'Canada'
+		end as billing_address_country,
+		#a.billing_address_country,
 		a.billing_address_postalcode,
 		a.billing_address_state,
 		a.billing_address_street,
@@ -262,7 +266,11 @@ BEGIN
 		a.phone_fax,
 		a.phone_office,
 		a.shipping_address_city,
-		a.shipping_address_country,
+		case 
+			when a.shipping_address_country = 'US' then 'United States' 
+			when a.shipping_address_country = 'CA' then 'Canada'
+		end as shipping_address_country,
+		#a.shipping_address_country,
 		a.shipping_address_postalcode,
 		a.shipping_address_state,
 		a.shipping_address_street,
