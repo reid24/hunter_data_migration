@@ -1,3 +1,10 @@
+DROP TABLE IF EXISTS ref_vlookup;
+CREATE TABLE ref_vlookup (
+	vlookup_type varchar(30) NOT NULL,
+	sugar_type varchar(255) DEFAULT NULL,
+	sfdc_type varchar(255)  DEFAULT NULL
+);
+
 DROP FUNCTION IF EXISTS vlookup;
 
 DELIMITER $$
@@ -12,3 +19,9 @@ BEGIN
 	RETURN @out_sfdc_type;
 END$$
 DELIMITER ;
+
+LOAD DATA LOCAL INFILE 'data/vlookup_country.csv' INTO TABLE ref_vlookup FIELDS TERMINATED BY ',';
+
+SELECT vlookup('Country','United States of America');
+SELECT vlookup('Country','United States OF America');
+SELECT vlookup('Country','australia');

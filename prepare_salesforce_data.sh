@@ -4,7 +4,10 @@
 
 echo ""
 echo "*** Setup ****"
-mysql -u root hunter_sfdc < setup.sql
+# May have to do this command in mysql if this creates an error:
+# SHOW VARIABLES LIKE 'local_infile';
+# SET GLOBAL local_infile = 1;
+mysql --local-infile -u root hunter_sfdc < setup.sql
 
 echo ""
 echo "*** Program ****"
