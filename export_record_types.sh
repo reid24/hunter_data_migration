@@ -1,0 +1,1 @@
+sfdx force:data:soql:query -u $1 -q "SELECT Id, SobjectType, Name FROM RecordType WHERE IsActive = TRUE AND SobjectType = 'Account'" -r csv > data/ref_record_types.csv

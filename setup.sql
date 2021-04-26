@@ -20,8 +20,20 @@ BEGIN
 END$$
 DELIMITER ;
 
-LOAD DATA LOCAL INFILE 'data/vlookup_country.csv' INTO TABLE ref_vlookup FIELDS TERMINATED BY ',';
+LOAD DATA LOCAL INFILE 'data/vlookup_country.csv' INTO TABLE ref_vlookup FIELDS TERMINATED BY ',' ENCLOSED BY '"';
+LOAD DATA LOCAL INFILE 'data/vlookup_accounttype.csv' INTO TABLE ref_vlookup FIELDS TERMINATED BY ',' ENCLOSED BY '"';
+
+DROP TABLE IF EXISTS ref_record_type;
+CREATE TABLE ref_record_type (
+	id char(18) PRIMARY KEY NOT NULL,
+	sobject_type varchar(100) NOT NULL,
+	name varchar(255) NOT NULL
+);
+
+LOAD DATA LOCAL INFILE 'data/ref_record_types.csv' INTO TABLE ref_record_type FIELDS TERMINATED BY ',' ENCLOSED BY '"' IGNORE 1 LINES;
 
 SELECT vlookup('Country','United States of America');
 SELECT vlookup('Country','United States OF America');
 SELECT vlookup('Country','australia');
+
+SELECT * FROM ref_record_type;
