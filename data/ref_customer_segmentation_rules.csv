@@ -1,0 +1,7 @@
+RCGL Distributor,,Direct Purchaser,Landscape Distributor,Hunter,
+RCGL Distributor,Distributor - Non Hunter,Indirect Purchaser,Dealer/Sub-Distributor,Hunter,"Irrigation, Landscape Lighting"
+RCGL Distributor,Distributor Branch,Direct Purchaser,Landscape Distributor,Hunter,"Irrigation, Landscape Lighting"
+RCGL Distributor,Distributor Sales Parent,Direct Purchaser,Landscape Distributor,Hunter,"Irrigation, Landscape Lighting"
+RCGL Distributor,Lighting Distributor,Direct Purchaser,FX Only Distributor,Hunter,Landscape Lighting
+RCGL Distributor,Retail Store,Indirect Purchaser,Dealer/Sub-Distributor,Hunter,Irrigation
+RCGL Distributor,Retailer,Indirect Purchaser,Dealer/Sub-Distributor,Hunter,Irrigation

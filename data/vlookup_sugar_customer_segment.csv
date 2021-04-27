@@ -1,0 +1,21 @@
+SugarCustomerSegment,Distributor,RCGL Distributor
+SugarCustomerSegment,Contractor,RCGL Contractor
+SugarCustomerSegment,Specifier,RCGL Specifier
+SugarCustomerSegment,Agency,RCGL Agency
+SugarCustomerSegment,RCGL Dealer,RCGL Dealer
+SugarCustomerSegment,RCGL_Builders,RCGL Builder/Developer
+SugarCustomerSegment,Other,Other
+SugarCustomerSegment,Golf,Golf
+SugarCustomerSegment,FXL_Only_Distributor,FXL Only Distributor
+SugarCustomerSegment,Electrical_Channel,Holm Lighting
+SugarCustomerSegment,Custom_Manufacturing,Custom Manufacturing
+SugarCustomerSegment,SEN Pivot,SEN Pivot
+SugarCustomerSegment,SEN Pivot Solid Set,SEN Pivot & Solid Set
+SugarCustomerSegment,SEN Solid Set,SEN Solid Set
+SugarCustomerSegment,SEN_Frost,SEN Frost Protection
+SugarCustomerSegment,SEN Livestock,SEN Livestock
+SugarCustomerSegment,SEN Nursery Greenhouse,SEN Nursery & Greenhouse
+SugarCustomerSegment,SEN Turf,SEN Turf
+SugarCustomerSegment,SEN Mining,SEN Mining
+SugarCustomerSegment,SEN Wastewater,SEN Wastewater
+SugarCustomerSegment,SEN Other,SEN Other

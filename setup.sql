@@ -22,6 +22,7 @@ DELIMITER ;
 
 LOAD DATA LOCAL INFILE 'data/vlookup_country.csv' INTO TABLE ref_vlookup FIELDS TERMINATED BY ',' ENCLOSED BY '"';
 LOAD DATA LOCAL INFILE 'data/vlookup_accounttype.csv' INTO TABLE ref_vlookup FIELDS TERMINATED BY ',' ENCLOSED BY '"';
+LOAD DATA LOCAL INFILE 'data/vlookup_sugar_customer_segment.csv' INTO TABLE ref_vlookup FIELDS TERMINATED BY ',' ENCLOSED BY '"';
 
 DROP TABLE IF EXISTS ref_record_type;
 CREATE TABLE ref_record_type (
@@ -37,3 +38,16 @@ SELECT vlookup('Country','United States OF America');
 SELECT vlookup('Country','australia');
 
 SELECT * FROM ref_record_type;
+
+DROP TABLE IF EXISTS ref_customer_segmentation;
+
+CREATE TABLE ref_customer_segmentation (
+	sugar_customer_segment varchar(100) NOT NULL,
+	sugar_customer_type varchar(100) NOT NULL,
+	sfdc_record_type_name varchar(100) NOT NULL,
+	sfdc_account_type varchar(100) NOT NULL,
+	sfdc_business_unit varchar(100) NOT NULL,
+	sfdc_market varchar(100) NOT NULL
+);
+
+LOAD DATA LOCAL INFILE 'data/ref_customer_segmentation_rules.csv' INTO TABLE ref_customer_segmentation FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"';

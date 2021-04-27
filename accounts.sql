@@ -2,6 +2,7 @@ DROP TABLE IF EXISTS mig_account;
 CREATE TABLE mig_account (
 	`External_ID__c` char(36),
 	`Type` varchar(100)  DEFAULT NULL,
+	`RecordTypeId` varchar(18) DEFAULT NULL,
 	`annual_revenue__c` varchar(100)  DEFAULT NULL,
 	`BillingCity` varchar(100)  DEFAULT NULL,
 	`BillingCountryCode` varchar(255)  DEFAULT NULL,
@@ -128,6 +129,7 @@ BEGIN
 	INSERT INTO mig_account(
 		`External_ID__c`,
 		`Type`,
+		`RecordTypeId`,
 		`annual_revenue__c`,
 		`BillingCity`,
 		`BillingCountryCode`,
@@ -138,7 +140,7 @@ BEGIN
 		`NumberOfEmployees`,
 		`Name`,
 		`next_renewal_date__c`,
-		`Alternate Phone`,
+		`phone_alternate__c`,
 		`Fax`,
 		`Phone`,
 		`ShippingCity`,
@@ -248,6 +250,7 @@ BEGIN
 		SELECT 
 		a.id,
 		a.account_type,
+		rt.id, -- record type id
 		a.annual_revenue,
 		a.billing_address_city,
 		vlookup('Country', a.billing_address_country),
@@ -378,6 +381,9 @@ BEGIN
 		ac.year_established_c
 		FROM hunter.accounts a
 		INNER JOIN hunter.accounts_cstm ac ON ac.id_c = a.id
+		LEFT OUTER JOIN ref_vlookup sugar_segment ON sugar_segment.vlookup_type = 'SugarCustomerSegment' AND sugar_segment.sugar_type = ac.customer_type_category_c
+		LEFT OUTER JOIN ref_customer_segmentation segment_rule ON segment_rule.sugar_customer_segment = sugar_segment.sfdc_type and a.account_type = segment_rule.sugar_customer_type
+		LEFT OUTER JOIN ref_record_type rt ON rt.name = segment_rule.sfdc_record_type_name
 		WHERE a.deleted = 0
   );
 END &&
