@@ -3,34 +3,38 @@
 #from command-line, export MYSQL_PWD=yourpasswordhere
 ORG_ALIAS=hunter-fulluat
 
-echo ""
-echo "*** Setup ****"
+# echo ""
+# echo "*** Setup ****"
 
-echo "Salesforce reference data exports..."
-echo "*** Export record types... ****"
-./export_record_types.sh $ORG_ALIAS
+# echo "Salesforce reference data exports..."
+# echo "*** Export record types... ****"
+# ./export_record_types.sh $ORG_ALIAS
 
 # May have to do this command in mysql if this creates an error:
 # SHOW VARIABLES LIKE 'local_infile';
 # SET GLOBAL local_infile = 1;
-mysql --local-infile -u root hunter_sfdc < setup.sql
+
+# mysql --local-infile -u root hunter_sfdc < setup.sql
 
 # echo ""
 # echo "*** Program ****"
 # mysql -u root hunter_sfdc < programs.sql
 
 echo ""
-echo "*** Account ****"
-mysql -u root hunter_sfdc < accounts.sql
+echo "*** Account (ERP) ****"
+echo "Parents..."
+mysql -u root hunter_sfdc < accounts_parents.sql
+echo "Children..."
+mysql -u root hunter_sfdc < accounts_children.sql
 
-echo ""
-echo "*** Contact ****"
-mysql -u root hunter_sfdc < contacts.sql
+# echo ""
+# echo "*** Contact ****"
+# mysql -u root hunter_sfdc < contacts.sql
 
-echo ""
-echo "*** Opportunity ****"
-mysql -u root hunter_sfdc < opportunities.sql
+# echo ""
+# echo "*** Opportunity ****"
+# mysql -u root hunter_sfdc < opportunities.sql
 
-echo ""
-echo "*** Sales Summary Data ****"
-mysql -u root hunter_sfdc < sales_summary_data.sql
+# echo ""
+# echo "*** Sales Summary Data ****"
+# mysql -u root hunter_sfdc < sales_summary_data.sql

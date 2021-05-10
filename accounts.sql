@@ -384,7 +384,7 @@ BEGIN
 		LEFT OUTER JOIN ref_vlookup sugar_segment ON sugar_segment.vlookup_type = 'SugarCustomerSegment' AND sugar_segment.sugar_type = ac.customer_type_category_c
 		LEFT OUTER JOIN ref_customer_segmentation segment_rule ON segment_rule.sugar_customer_segment = sugar_segment.sfdc_type and a.account_type = segment_rule.sugar_customer_type
 		LEFT OUTER JOIN ref_record_type rt ON rt.name = segment_rule.sfdc_record_type_name
-		WHERE a.deleted = 0
+		WHERE a.deleted = 0 AND id <> '2e142ce0-a8f7-11eb-a8c9-02d962f59f52';
   );
 END &&
 DELIMITER ;

@@ -1,131 +1,7 @@
-DROP TABLE IF EXISTS mig_account;
-CREATE TABLE mig_account (
-	`External_ID__c` char(36),
-	`Type` varchar(100)  DEFAULT NULL,
-	`RecordTypeId` varchar(18) DEFAULT NULL,
-	`annual_revenue__c` varchar(100)  DEFAULT NULL,
-	`BillingCity` varchar(100)  DEFAULT NULL,
-	`BillingCountryCode` varchar(255)  DEFAULT NULL,
-	`BillingPostalCode` varchar(20)  DEFAULT NULL,
-	`BillingState` varchar(100)  DEFAULT NULL,
-	`BillingStreet` varchar(150)  DEFAULT NULL,
-	`Description` text  DEFAULT NULL,
-	`NumberOfEmployees` varchar(10)  DEFAULT NULL,
-	`Name` varchar(150)  DEFAULT NULL,
-	`next_renewal_date__c` date  DEFAULT NULL,
-	`phone_alternate__c` varchar(100)  DEFAULT NULL,
-	`Fax` varchar(100)  DEFAULT NULL,
-	`Phone` varchar(100)  DEFAULT NULL,
-	`ShippingCity` varchar(100)  DEFAULT NULL,
-	`ShippingCountryCode` varchar(255)  DEFAULT NULL,
-	`ShippingPostalCode` varchar(20)  DEFAULT NULL,
-	`ShippingState` varchar(100)  DEFAULT NULL,
-	`ShippingStreet` varchar(150)  DEFAULT NULL,
-	`Website` varchar(255)  DEFAULT NULL,
-	`architect__c` varchar(100)  DEFAULT NULL,
-	`back_orders__c` int(50)  DEFAULT NULL,
-	`central_control_brand__c` varchar(100)  DEFAULT NULL,
-	-- `Commercial Irrigation Referral Request` text  DEFAULT NULL,
-	-- `Commercial Lighting Referral Request` text  DEFAULT NULL,
-	-- `Contact Frequency` varchar(100)  DEFAULT NULL,
-	-- `Contact Overdue` tinyint(1)  DEFAULT NULL,
-	`control_system_age__c` varchar(4)  DEFAULT NULL,
-	`control_system__c` varchar(100)  DEFAULT NULL,
-	`controller_brand_type__c` varchar(100)  DEFAULT NULL,
-	`county__c` varchar(50)  DEFAULT NULL,
-	`course_category__c` varchar(100)  DEFAULT NULL,
-	`course_opening_year__c` varchar(6)  DEFAULT NULL,
-	`course_type__c` varchar(100)  DEFAULT NULL,
-	`customer_marketing_priority__c` varchar(255)  DEFAULT NULL,
-	`customer_type_category__c` varchar(100)  DEFAULT NULL,
-	`days_since_last_contact__c` int(6)  DEFAULT NULL,
-	`days_until_hsn_expiration__c` int(8)  DEFAULT NULL,
-	`dealer_number__c` varchar(50)  DEFAULT NULL,
-	`dist_irrigation_2018__c` decimal(26,6)  DEFAULT NULL,
-	`dist_irrigation_2019__c` decimal(26,6)  DEFAULT NULL,
-	`dist_lighting_2018__c` decimal(26,6)  DEFAULT NULL,
-	`dist_lighting_2019__c` decimal(26,6)  DEFAULT NULL,
-	`distibutor_salesman_name__c` varchar(255)  DEFAULT NULL,
-	`distributor_rep__c` varchar(50)  DEFAULT NULL,
-	`distributor_salesman_email__c` varchar(255)  DEFAULT NULL,
-	`dm__c` varchar(50)  DEFAULT NULL,
-	`expired__c` varchar(100)  DEFAULT NULL,
-	`facility_id__c` varchar(50)  DEFAULT NULL,
-	`golf_distributor_billing__c` varchar(255)  DEFAULT NULL,
-	`golf_holes_type__c` varchar(100)  DEFAULT NULL,
-	`golf_irrigation_installation__c` date  DEFAULT NULL,
-	`hmds_id__c` int(11)  DEFAULT NULL,
-	`hpp_primary_contact__c` varchar(50)  DEFAULT NULL,
-	`hpp_primary_contact_email__c` varchar(255)  DEFAULT NULL,
-	`hpp_secondary_contact__c` varchar(255)  DEFAULT NULL,
-	`hpp_secondary_contact_email__c` varchar(255)  DEFAULT NULL,
-	`hsn_expiration_date__c` date  DEFAULT NULL,
-	`hsn_start_date__c` date  DEFAULT NULL,
-	`hunter_golf_customer__c` tinyint(1)  DEFAULT NULL,
-	`hunter_golf_reference__c` tinyint(1)  DEFAULT NULL,
-	`hunter_pilot_course__c` tinyint(1)  DEFAULT NULL,
-	`hunter_preferred_balance__c` int(18)  DEFAULT NULL,
-	`hunter_product__c` varchar(63)  DEFAULT NULL,
-	`hunter_product_samples__c` varchar(100)  DEFAULT NULL,
-	`hunter_service_network__c` tinyint(1)  DEFAULT NULL,
-	`hydrawise_customers__c` int(50)  DEFAULT NULL,
-	`hydrawise_id__c` int(50)  DEFAULT NULL,
-	`irrigation_2016__c` varchar(50)  DEFAULT NULL,
-	`irrigation_2017__c` varchar(50)  DEFAULT NULL,
-	`irrigation_2018__c` varchar(50)  DEFAULT NULL,
-	`irrigation_2019__c` decimal(26,6)  DEFAULT NULL,
-	`irrigation_design_projects__c` varchar(100)  DEFAULT NULL,
-	`irrigation_install_projects__c` varchar(100)  DEFAULT NULL,
-	`last_contact__c` datetime  DEFAULT NULL,
-	`last_visit_date__c` datetime  DEFAULT NULL,
-	`level__c` varchar(100)  DEFAULT NULL,
-	`lighting_2016__c` varchar(50)  DEFAULT NULL,
-	`lighting_2017__c` varchar(50)  DEFAULT NULL,
-	`lighting_2018__c` varchar(50)  DEFAULT NULL,
-	`lighting_2019__c` decimal(26,6)  DEFAULT NULL,
-	`mailing_preference__c` varchar(100)  DEFAULT NULL,
-	`management_company__c` varchar(20)  DEFAULT NULL,
-	`next_contact_due_date__c` date  DEFAULT NULL,
-	`number_of_holes__c` varchar(255)  DEFAULT NULL,
-	`number_of_installation_crews__c` varchar(100)  DEFAULT NULL,
-	`oem__c` varchar(100)  DEFAULT NULL,
-	`pcp_points_on_hold__c` varchar(100)  DEFAULT NULL,
-	`pilot_version__c` varchar(100)  DEFAULT NULL,
-	-- `PO Box City` varchar(100)  DEFAULT NULL,
-	-- `PO Box Country` varchar(255)  DEFAULT NULL,
-	-- `PO Box PostalCode` varchar(20)  DEFAULT NULL,
-	-- `PO Box State` varchar(100)  DEFAULT NULL,
-	-- `PO Box Address` text  DEFAULT NULL,
-	`points_about_to_expire__c` int(18)  DEFAULT NULL,
-	`preferred_language_list__c` varchar(100)  DEFAULT NULL,
-	`referral_program__c` varchar(100)  DEFAULT NULL,
-	`res_irr_ref_req__c` text  DEFAULT NULL,
-	`res_light_ref_req__c` text  DEFAULT NULL,
-	`returned_mail_bad_address__c` tinyint(1)  DEFAULT NULL,
-	`rewards_id__c` int(20)  DEFAULT NULL,
-	`rewards_point_balance__c` int(11)  DEFAULT NULL,
-	`rewards_points_at_risk__c` int(11)  DEFAULT NULL,
-	`rewards_points_earned_monthl__c` int(11)  DEFAULT NULL,
-	`rewards_points_redeemed_mont__c` int(11)  DEFAULT NULL,
-	`rewards_primary_contact__c` varchar(255)  DEFAULT NULL,
-	`rewards_primary_contact_emai__c` varchar(255)  DEFAULT NULL,
-	`rotor_age__c` varchar(4)  DEFAULT NULL,
-	`rotor_brand__c` varchar(100)  DEFAULT NULL,
-	`rotor_count__c` varchar(25)  DEFAULT NULL,
-	`rotor_type__c` varchar(100)  DEFAULT NULL,
-	`sales_reporting_number__c` varchar(50)  DEFAULT NULL,
-	`services__c` text  DEFAULT NULL,
-	`specialty_list__c` text  DEFAULT NULL,
-	`sso_account_name__c` varchar(50)  DEFAULT NULL,
-	`year_established__c` int(4)  DEFAULT NULL,
-	`ParentId` varchar(18) DEFAULT NULL,
-	PRIMARY KEY (External_ID__c)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
-DROP PROCEDURE IF EXISTS create_accounts;
+DROP PROCEDURE IF EXISTS create_erp_child_accounts;
 
 DELIMITER &&
-CREATE PROCEDURE create_accounts()
+CREATE PROCEDURE create_erp_child_accounts()
 BEGIN    
 	INSERT INTO mig_account(
 		`External_ID__c`,
@@ -382,8 +258,8 @@ BEGIN
 		ac.sso_account_name_c,
 		ac.year_established_c,
 		ac.distributor_parent_c
-		FROM accounts a
-		INNER JOIN accounts_cstm ac ON ac.id_c = a.id
+		FROM hunter.accounts a
+		INNER JOIN hunter.accounts_cstm ac ON ac.id_c = a.id
 		LEFT OUTER JOIN ref_vlookup sugar_segment ON sugar_segment.vlookup_type = 'SugarCustomerSegment' AND sugar_segment.sugar_type = ac.customer_type_category_c
 		LEFT OUTER JOIN ref_customer_segmentation segment_rule ON segment_rule.sugar_customer_segment = sugar_segment.sfdc_type and a.account_type = segment_rule.sugar_customer_type
 		LEFT OUTER JOIN ref_record_type rt ON rt.name = segment_rule.sfdc_record_type_name
@@ -391,11 +267,14 @@ BEGIN
 		a.deleted = 0
 		and ac.sales_reporting_number_c is not NULL 
 		and ac.sales_reporting_number_c <> ''
-		and ac.sales_reporting_number_c <> distributor_parent_c
+		and ac.sales_reporting_number_c <> distributor_parent_c and distributor_parent_c is not null
   );
 END &&
 DELIMITER ;
 
-call create_accounts();
+call create_erp_child_accounts();
 
-select count(*) from mig_account;
+select count(*) Children from mig_account where `ParentId` is not null;
+select count(*) ParentNotExists from mig_account where `ParentId` is not null and `ParentId` NOT IN (select `sales_reporting_number__c` from mig_account);
+select count(*) ParentExists from mig_account where `ParentId` is not null and `ParentId` IN (select `sales_reporting_number__c` from mig_account);
+select count(distinct `ParentId`) DistinctParents from mig_account where `ParentId` is not null;

@@ -118,13 +118,14 @@ CREATE TABLE mig_account (
 	`specialty_list__c` text  DEFAULT NULL,
 	`sso_account_name__c` varchar(50)  DEFAULT NULL,
 	`year_established__c` int(4)  DEFAULT NULL,
+	`ParentId` varchar(18) DEFAULT NULL,
 	PRIMARY KEY (External_ID__c)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-DROP PROCEDURE IF EXISTS create_accounts;
+DROP PROCEDURE IF EXISTS create_erp_parent_accounts;
 
 DELIMITER &&
-CREATE PROCEDURE create_accounts()
+CREATE PROCEDURE create_erp_parent_accounts()
 BEGIN    
 	INSERT INTO mig_account(
 		`External_ID__c`,
@@ -379,8 +380,8 @@ BEGIN
 		replace(REPLACE(replace(ac.specialty_list_c,' ^','^'),',',';'),'^','') AS specialty_list_c,
 		ac.sso_account_name_c,
 		ac.year_established_c
-		FROM accounts a
-		INNER JOIN accounts_cstm ac ON ac.id_c = a.id
+		FROM hunter.accounts a
+		INNER JOIN hunter.accounts_cstm ac ON ac.id_c = a.id
 		LEFT OUTER JOIN ref_vlookup sugar_segment ON sugar_segment.vlookup_type = 'SugarCustomerSegment' AND sugar_segment.sugar_type = ac.customer_type_category_c
 		LEFT OUTER JOIN ref_customer_segmentation segment_rule ON segment_rule.sugar_customer_segment = sugar_segment.sfdc_type and a.account_type = segment_rule.sugar_customer_type
 		LEFT OUTER JOIN ref_record_type rt ON rt.name = segment_rule.sfdc_record_type_name
@@ -388,11 +389,11 @@ BEGIN
 		a.deleted = 0
 		and ac.sales_reporting_number_c is not NULL 
 		and ac.sales_reporting_number_c <> ''
-		and ac.sales_reporting_number_c = distributor_parent_c
+		and (ac.distributor_parent_c is null or ac.distributor_parent_c = '')
   );
 END &&
 DELIMITER ;
 
-call create_accounts();
+call create_erp_parent_accounts();
 
 select count(*) from mig_account;
