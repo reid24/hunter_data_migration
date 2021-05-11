@@ -265,11 +265,7 @@ BEGIN
 		LEFT OUTER JOIN ref_record_type rt ON rt.name = segment_rule.sfdc_record_type_name
 		WHERE 
 		a.deleted = 0
-		and ac.sales_reporting_number_c is not NULL 
-		and ac.sales_reporting_number_c <> ''
-		and ac.distributor_parent_c is not null
-		and ac.distributor_parent_c <> ''
-		and ac.sales_reporting_number_c <> ac.distributor_parent_c
+		AND a.parent_id IS NULL
   );
 END &&
 DELIMITER ;
