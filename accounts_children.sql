@@ -267,7 +267,9 @@ BEGIN
 		a.deleted = 0
 		and ac.sales_reporting_number_c is not NULL 
 		and ac.sales_reporting_number_c <> ''
-		and ac.sales_reporting_number_c <> distributor_parent_c and distributor_parent_c is not null
+		and ac.distributor_parent_c is not null
+		and ac.distributor_parent_c <> ''
+		and ac.sales_reporting_number_c <> ac.distributor_parent_c
   );
 END &&
 DELIMITER ;
