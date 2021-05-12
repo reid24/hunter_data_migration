@@ -257,7 +257,7 @@ BEGIN
 		replace(REPLACE(replace(ac.specialty_list_c,' ^','^'),',',';'),'^','') AS specialty_list_c,
 		ac.sso_account_name_c,
 		ac.year_established_c,
-		ac.distributor_parent_c
+		a.parent_id
 		FROM hunter.accounts a
 		INNER JOIN hunter.accounts_cstm ac ON ac.id_c = a.id
 		LEFT OUTER JOIN ref_vlookup sugar_segment ON sugar_segment.vlookup_type = 'SugarCustomerSegment' AND sugar_segment.sugar_type = ac.customer_type_category_c
@@ -265,7 +265,7 @@ BEGIN
 		LEFT OUTER JOIN ref_record_type rt ON rt.name = segment_rule.sfdc_record_type_name
 		WHERE 
 		a.deleted = 0
-		AND a.parent_id IS NULL
+		AND a.parent_id IS NOT NULL
   );
 END &&
 DELIMITER ;
@@ -273,6 +273,3 @@ DELIMITER ;
 call create_erp_child_accounts();
 
 select count(*) Children from mig_account where `ParentId` is not null;
-select count(*) ParentNotExists from mig_account where `ParentId` is not null and `ParentId` NOT IN (select `sales_reporting_number__c` from mig_account);
-select count(*) ParentExists from mig_account where `ParentId` is not null and `ParentId` IN (select `sales_reporting_number__c` from mig_account);
-select count(distinct `ParentId`) DistinctParents from mig_account where `ParentId` is not null;

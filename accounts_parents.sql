@@ -122,7 +122,7 @@ CREATE TABLE mig_account (
 	`specialty_list__c` text  DEFAULT NULL,
 	`sso_account_name__c` varchar(50)  DEFAULT NULL,
 	`year_established__c` int(4)  DEFAULT NULL,
-	`ParentId` varchar(18) DEFAULT NULL,
+	`ParentId` varchar(255) DEFAULT NULL,
 	PRIMARY KEY (External_ID__c)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -391,7 +391,7 @@ BEGIN
 		LEFT OUTER JOIN ref_record_type rt ON rt.name = segment_rule.sfdc_record_type_name
 		WHERE 
 		a.deleted = 0
-		AND a.parent_id IS NOT NULL
+		AND a.parent_id IS NULL
   );
 END &&
 DELIMITER ;
