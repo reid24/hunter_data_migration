@@ -1,7 +1,3 @@
--- special cases for May 12, to be removed
-update accounts set deleted = 0 where id = '1015193624c761666aa4c10-02687045';
-update accounts set deleted = 0 where id = '7622427784c761666044834-19622061';
-
 DROP TABLE IF EXISTS mig_account;
 CREATE TABLE mig_account (
 	`External_ID__c` char(36),
@@ -372,7 +368,7 @@ BEGIN
 		ac.points_about_to_expire_c,
 		ac.preferred_language_list_c,
 		ac.referral_program_c,
-		ac.res_irr_ref_req_c,
+		replace(REPLACE(replace(ac.res_irr_ref_req_c,' ^','^'),',',';'),'^','') AS res_irr_ref_req_c,
 		ac.res_light_ref_req_c,
 		ac.returned_mail_bad_address_c,
 		ac.rewards_id_c,
@@ -391,8 +387,8 @@ BEGIN
 		replace(REPLACE(replace(ac.specialty_list_c,' ^','^'),',',';'),'^','') AS specialty_list_c,
 		ac.sso_account_name_c,
 		ac.year_established_c
-		FROM accounts a
-		INNER JOIN accounts_cstm ac ON ac.id_c = a.id
+		FROM hunter.accounts a
+		INNER JOIN hunter.accounts_cstm ac ON ac.id_c = a.id
 		LEFT OUTER JOIN ref_vlookup sugar_segment ON sugar_segment.vlookup_type = 'SugarCustomerSegment' AND sugar_segment.sugar_type = ac.customer_type_category_c
 		LEFT OUTER JOIN ref_customer_segmentation segment_rule ON segment_rule.sugar_customer_segment = sugar_segment.sfdc_type and a.account_type = segment_rule.sugar_customer_type
 		LEFT OUTER JOIN ref_record_type rt ON rt.name = segment_rule.sfdc_record_type_name
@@ -402,6 +398,10 @@ BEGIN
   );
 END &&
 DELIMITER ;
+
+-- special cases for May 12, to be removed
+update hunter.accounts set deleted = 0 where id = '1015193624c761666aa4c10-02687045';
+update hunter.accounts set deleted = 0 where id = '7622427784c761666044834-19622061';
 
 call create_erp_parent_accounts();
 

@@ -238,7 +238,7 @@ BEGIN
 		ac.points_about_to_expire_c,
 		ac.preferred_language_list_c,
 		ac.referral_program_c,
-		ac.res_irr_ref_req_c,
+		replace(REPLACE(replace(ac.res_irr_ref_req_c,' ^','^'),',',';'),'^','') AS res_irr_ref_req_c,
 		ac.res_light_ref_req_c,
 		ac.returned_mail_bad_address_c,
 		ac.rewards_id_c,
