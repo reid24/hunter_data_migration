@@ -1,3 +1,7 @@
+-- special cases for May 12, to be removed
+update hunter.accounts set deleted = 0 where id = '1015193624c761666aa4c10-02687045';
+update hunter.accounts set deleted = 0 where id = '7622427784c761666044834-19622061';
+
 DROP TABLE IF EXISTS mig_account;
 CREATE TABLE mig_account (
 	`External_ID__c` char(36),
