@@ -1,7 +1,192 @@
-RCGL Distributor,,Direct Purchaser,Landscape Distributor,Hunter,
-RCGL Distributor,Distributor - Non Hunter,Indirect Purchaser,Dealer/Sub-Distributor,Hunter,"Irrigation, Landscape Lighting"
-RCGL Distributor,Distributor Branch,Direct Purchaser,Landscape Distributor,Hunter,"Irrigation, Landscape Lighting"
-RCGL Distributor,Distributor Sales Parent,Direct Purchaser,Landscape Distributor,Hunter,"Irrigation, Landscape Lighting"
-RCGL Distributor,Lighting Distributor,Direct Purchaser,FX Only Distributor,Hunter,Landscape Lighting
-RCGL Distributor,Retail Store,Indirect Purchaser,Dealer/Sub-Distributor,Hunter,Irrigation
-RCGL Distributor,Retailer,Indirect Purchaser,Dealer/Sub-Distributor,Hunter,Irrigation
+﻿RCGL Distributor,,Direct Purchaser,Landscape Distributor,RCGL,
+RCGL Distributor,Distributor - Non Hunter,Indirect Purchaser,Dealer/Sub-Distributor,RCGL,"Irrigation, Landscape Lighting"
+RCGL Distributor,Distributor Branch,Direct Purchaser,Landscape Distributor,RCGL,"Irrigation, Landscape Lighting"
+RCGL Distributor,Distributor Sales Parent,Direct Purchaser,Landscape Distributor,RCGL,"Irrigation, Landscape Lighting"
+RCGL Distributor,Lighting Distributor,Direct Purchaser,FX Only Distributor,RCGL,Landscape Lighting
+RCGL Distributor,Retail Store,Indirect Purchaser,Dealer/Sub-Distributor,RCGL,Irrigation
+RCGL Distributor,Retailer,Indirect Purchaser,Dealer/Sub-Distributor,RCGL,Irrigation
+RCGL Installer,,Indirect Purchaser,Installer/Contractor,RCGL,Irrigation
+RCGL Installer,Builder,Influencer,Builder/Developer,RCGL,Irrigation
+RCGL Installer,Contractor,Indirect Purchaser,Installer/Contractor,RCGL,Irrigation
+RCGL Installer,General Contractor,Influencer,Construction Managment / GC,RCGL,Irrigation
+RCGL Installer,Irrigation Contractor,Indirect Purchaser,Installer/Contractor,RCGL,Irrigation
+RCGL Installer,Landscape Contractor,Indirect Purchaser,Installer/Contractor,RCGL,Irrigation
+RCGL Installer,Maintenance Contractor,Indirect Purchaser,Installer/Contractor,RCGL,Irrigation
+RCGL Installer,Developer,Influencer,Builder/Developer,RCGL,"Irrigation, Commercial"
+RCGL Installer,Cemetery,Indirect Purchaser,Site - Purchase from Distribution,RCGL,Irrigation
+RCGL Installer,Corporate Institute,Indirect Purchaser,Site - Purchase from Distribution,RCGL,Irrigation
+RCGL Installer,HOA,Influencer,Other - Influencer,RCGL,"Irrigation, HOA"
+RCGL Agency,,Indirect Purchaser,Muncipality/Public Agency,RCGL,Irrigation
+RCGL Agency,Agricultural/greenhouses/growers,Indirect Purchaser,Site - Purchase from Distribution,RCGL,"Irrigation, Nursery & Greenhouse"
+RCGL Agency,Association,Influencer,Trade Organization,RCGL,Irrigation
+RCGL Agency,Educator (professor/teacher),Influencer,Education,RCGL,Irrigation
+RCGL Agency,Government,Indirect Purchaser,Muncipality/Public Agency,RCGL,Irrigation
+RCGL Agency,Hospital/institutions,Influencer,Site - sub-contract,RCGL,Irrigation
+RCGL Agency,Hotel/Resorts/Master Planned Community Developer,Indirect Purchaser,Site - Purchase from Distribution,RCGL,"Irrigation, Hotel/Resort"
+RCGL Agency,Management Company,Indirect Purchaser,Site - Purchase from Distribution,RCGL,Irrigation
+RCGL Agency,Municipality,Indirect Purchaser,Muncipality/Public Agency,RCGL,Irrigation
+RCGL Agency,Parks And Recreation,Indirect Purchaser,Site - Purchase from Distribution,RCGL,"Irrigation, Parks & Recreation"
+RCGL Agency,Property Manager,Indirect Purchaser,Site - Purchase from Distribution,RCGL,Irrigation
+RCGL Agency,School - Grounds Maintenance,Indirect Purchaser,Site - Purchase from Distribution,RCGL,"Irrigation, School District"
+RCGL Agency,Sports Facilities,Indirect Purchaser,Site - Purchase from Distribution,RCGL,"Irrigation, Sports Fields"
+RCGL Agency,Sports Surface Consultant,Influencer,Specifier/Designer,RCGL,"Irrigation, Sports Fields"
+RCGL Agency,Theme/amusement Park,Indirect Purchaser,Site - Purchase from Distribution,RCGL,Irrigation
+RCGL Agency,Water Agency,Influencer,Water District,RCGL,"Irrigation, Water District"
+RCGL Specifier,,Influencer,Specifier/Designer,RCGL,Irrigation
+RCGL Specifier,Architect,Infuencer,Specifier/Designer,RCGL,Irrigation
+RCGL Specifier,Engineer,Infuencer,Specifier/Designer,RCGL,Irrigation
+RCGL Specifier,Engineering Architect,Infuencer,Specifier/Designer,RCGL,Irrigation
+RCGL Specifier,Irrigation Consultant,Infuencer,Specifier/Designer,RCGL,Irrigation
+RCGL Specifier,Irrigation Designer,Infuencer,Specifier/Designer,RCGL,Irrigation
+RCGL Specifier,Landscape Architect,Infuencer,Specifier/Designer,RCGL,Irrigation
+RCGL Specifier,Landscape Designer,Infuencer,Specifier/Designer,RCGL,Irrigation
+RCGL Specifier,Lighting Consultant,Infuencer,Specifier/Designer,RCGL,Landscape Lighting
+RCGL Specifier,Lighting Designer,Infuencer,Specifier/Designer,RCGL,Landscape Lighting
+RCGL Specifier,Specifier,Infuencer,Specifier/Designer,RCGL,Irrigation
+RCGL Specifier,Landscape Architecture Student,Infuencer,Specifier/Designer,RCGL,Irrigation
+RCGL Dealer,,Indirect Purchaser,Dealer/Sub-Distributor,RCGL,"Irrigation, Landscape Lighting"
+RCGL Builder/Developer,,Infuencer,Builder/Developer,RCGL,"Irrigation, New Home Construction"
+RCGL Builder/Developer,National,Infuencer,Builder/Developer,RCGL,"Irrigation, New Home Construction"
+RCGL Builder/Developer,Regional,Infuencer,Builder/Developer,RCGL,"Irrigation, New Home Construction"
+Other,Building Automation,Infuencer,Other - Influencer,RCGL,"Irrigation, Commercial"
+Other,End User,Infuencer,Other - Influencer,RCGL,
+Other,Hunter Employee,,,RCGL,
+Other,Senninger Employee,,,RCGL,
+Other,Industry Contact,Infuencer,Competitor,RCGL,
+Other,Manufacturer,Infuencer,Competitor,RCGL,
+Other,Other,Infuencer,Other - Influencer,RCGL,
+Other,Publications,Infuencer,Media,RCGL,
+Golf,Golf,Golf Course,Golf Course,RCGL,Golf
+Golf,Golf Course,Golf Course,Golf Course,RCGL,Golf
+Golf,Golf Contractor,Indirect Purchaser,Golf Contractor,RCGL,Golf
+Golf,Golf Course Architect,Infuencer,Golf Course Architect,RCGL,Golf
+Golf,Golf Course Developer/Owner,Infuencer,Golf Course Developer/Owner,RCGL,Golf
+Golf,Golf Irrigation Consultant,Infuencer,Golf Irrigation Consultant,RCGL,Golf
+Golf,Golf Course Management,Infuencer,Golf Course Management,RCGL,Golf
+Golf,Golf Maintenance/Superintendent,Indirect Purchaser,Golf Maintenance/Superintendent,RCGL,Golf
+FXL Only Distributor,,Direct Purchaser,FX Only Distributor,RCGL,Landscape Lighting
+Lumascape Lighting,,,,RCGL,Commercial & Industrial Lighting
+Lumascape Lighting,A/V Contact,Infuencer,,RCGL,Audio & Visual Lighting
+Lumascape Lighting,A/V Distributor,Direct Purchaser,Electrical Distributor,RCGL,Audio & Visual Lighting
+Lumascape Lighting,C&I Contact,Infuencer,,RCGL,Commercial & Industrial Lighting
+Lumascape Lighting,C&I Distributor,Direct Purchaser,Electrical Distributor,RCGL,Commercial & Industrial Lighting
+Lumascape Lighting,Holm A/V Rep,Direct Purchaser,Rep Agent,RCGL,Audio & Visual Lighting
+Lumascape Lighting,Non-Holm AV Rep,Infuencer,Competitor,RCGL,Audio & Visual Lighting
+Lumascape Lighting,Holm C&I Rep,Direct Purchaser,Rep Agent,RCGL,Commercial & Industrial Lighting
+Lumascape Lighting,Non-Holm C&I Rep,Infuencer,Competitor,RCGL,Commercial & Industrial Lighting
+Custom Manufacturing,Aerospace,Direct Purchaser,Custom Manufacturing,RCGL,
+Custom Manufacturing,Automotive,Direct Purchaser,Custom Manufacturing,RCGL,
+Custom Manufacturing,Consumer,Direct Purchaser,Custom Manufacturing,RCGL,
+Custom Manufacturing,Electronic,Direct Purchaser,Custom Manufacturing,RCGL,
+Custom Manufacturing,Industrial,Direct Purchaser,Custom Manufacturing,RCGL,
+Custom Manufacturing,Medical,Direct Purchaser,Custom Manufacturing,RCGL,
+SEN Pivot,Dealer - Direct,Direct Purchaser,Dealer - Direct,Senninger,Pivot
+SEN Pivot,Dealer - Branch,Indirect Purchaser,Indirect Purchaser,Senninger,Pivot
+SEN Pivot,Dealer - Indirect,Indirect Purchaser,Dealer - Indirect,Senninger,Pivot
+SEN Pivot,Master Distributor,Direct Purchaser,Master Distributor,Senninger,Pivot
+SEN Pivot,OEM,Direct Purchaser,OEM,Senninger,Pivot
+SEN Pivot,Grower | End User,Direct Purchaser,End User - Direct,Senninger,Pivot
+SEN Pivot,Consultant | Specifier,Influencer,Consultant/Specifier,Senninger,Pivot
+SEN Pivot,Contractor,Indirect Purchaser,Indirect Purchaser,Senninger,Pivot
+SEN Pivot,Government Agency,Influencer,Government Agency,Senninger,Pivot
+SEN Pivot,University | Research,Influencer,University/Research,Senninger,Pivot
+SEN Pivot,Prospect,Indirect Purchaser,Indirect Purchaser,Senninger,Pivot
+SEN Pivot & Solid Set,Dealer - Direct,Direct Purchaser,Dealer - Direct,Senninger,"Pivot, Solid Set"
+SEN Pivot & Solid Set,Dealer - Branch,Indirect Purchaser,Indirect Purchaser,Senninger,"Pivot, Solid Set"
+SEN Pivot & Solid Set,Dealer - Indirect,Indirect Purchaser,Dealer - Indirect,Senninger,"Pivot, Solid Set"
+SEN Pivot & Solid Set,Master Distributor,Direct Purchaser,Master Distributor,Senninger,"Pivot, Solid Set"
+SEN Pivot & Solid Set,OEM,Direct Purchaser,OEM,Senninger,"Pivot, Solid Set"
+SEN Pivot & Solid Set,Grower | End User,Direct Purchaser,End User - Direct,Senninger,"Pivot, Solid Set"
+SEN Pivot & Solid Set,Consultant | Specifier,Influencer,Consultant/Specifier,Senninger,"Pivot, Solid Set"
+SEN Pivot & Solid Set,Contractor,Indirect Purchaser,Indirect Purchaser,Senninger,"Pivot, Solid Set"
+SEN Pivot & Solid Set,Government Agency,Influencer,Government Agency,Senninger,"Pivot, Solid Set"
+SEN Pivot & Solid Set,University | Research,Influencer,University/Research,Senninger,"Pivot, Solid Set"
+SEN Pivot & Solid Set,Prospect,Indirect Purchaser,Indirect Purchaser,Senninger,"Pivot, Solid Set"
+SEN Solid Set,Dealer - Direct,Direct Purchaser,Dealer - Direct,Senninger,Solid Set
+SEN Solid Set,Dealer - Branch,Indirect Purchaser,Indirect Purchaser,Senninger,Solid Set
+SEN Solid Set,Dealer - Indirect,Indirect Purchaser,Dealer - Indirect,Senninger,Solid Set
+SEN Solid Set,Master Distributor,Direct Purchaser,Master Distributor,Senninger,Solid Set
+SEN Solid Set,OEM,Direct Purchaser,OEM,Senninger,Solid Set
+SEN Solid Set,Grower | End User,Direct Purchaser,End User - Direct,Senninger,Solid Set
+SEN Solid Set,Consultant | Specifier,Influencer,Consultant/Specifier,Senninger,Solid Set
+SEN Solid Set,Contractor,Indirect Purchaser,Indirect Purchaser,Senninger,Solid Set
+SEN Solid Set,Government Agency,Influencer,Government Agency,Senninger,Solid Set
+SEN Solid Set,University | Research,Influencer,University/Research,Senninger,Solid Set
+SEN Solid Set,Prospect,Indirect Purchaser,Indirect Purchaser,Senninger,Solid Set
+SEN Frost Protection,Dealer - Direct,Direct Purchaser,Dealer - Direct,Senninger,Solid Set
+SEN Frost Protection,Dealer - Branch,Indirect Purchaser,Indirect Purchaser,Senninger,Solid Set
+SEN Frost Protection,Dealer - Indirect,Indirect Purchaser,Dealer - Indirect,Senninger,Solid Set
+SEN Frost Protection,Master Distributor,Direct Purchaser,Master Distributor,Senninger,Solid Set
+SEN Frost Protection,OEM,Direct Purchaser,OEM,Senninger,Solid Set
+SEN Frost Protection,Grower | End User,Direct Purchaser,End User - Direct,Senninger,Solid Set
+SEN Frost Protection,Consultant | Specifier,Influencer,Consultant/Specifier,Senninger,Solid Set
+SEN Frost Protection,Contractor,Indirect Purchaser,Indirect Purchaser,Senninger,Solid Set
+SEN Frost Protection,Government Agency,Influencer,Government Agency,Senninger,Solid Set
+SEN Frost Protection,University | Research,Influencer,University/Research,Senninger,Solid Set
+SEN Frost Protection,Prospect,Indirect Purchaser,Indirect Purchaser,Senninger,Solid Set
+SEN Livestock,Dealer - Direct,Direct Purchaser,Dealer - Direct,Senninger,"Pivot, Solid Set"
+SEN Livestock,Dealer - Branch,Indirect Purchaser,Indirect Purchaser,Senninger,"Pivot, Solid Set"
+SEN Livestock,Dealer - Indirect,Indirect Purchaser,Dealer - Indirect,Senninger,"Pivot, Solid Set"
+SEN Livestock,Master Distributor,Direct Purchaser,Master Distributor,Senninger,"Pivot, Solid Set"
+SEN Livestock,OEM,Direct Purchaser,OEM,Senninger,"Pivot, Solid Set"
+SEN Livestock,Grower | End User,Direct Purchaser,End User - Direct,Senninger,"Pivot, Solid Set"
+SEN Livestock,Consultant | Specifier,Influencer,Consultant/Specifier,Senninger,"Pivot, Solid Set"
+SEN Livestock,Contractor,Indirect Purchaser,Indirect Purchaser,Senninger,"Pivot, Solid Set"
+SEN Livestock,Government Agency,Influencer,Government Agency,Senninger,"Pivot, Solid Set"
+SEN Livestock,University | Research,Influencer,University/Research,Senninger,"Pivot, Solid Set"
+SEN Livestock,Prospect,Indirect Purchaser,Indirect Purchaser,Senninger,"Pivot, Solid Set"
+SEN Nursery & Greenhouse,Dealer - Direct,Direct Purchaser,Dealer - Direct,Senninger,Solid Set
+SEN Nursery & Greenhouse,Dealer - Branch,Indirect Purchaser,Indirect Purchaser,Senninger,Solid Set
+SEN Nursery & Greenhouse,Dealer - Indirect,Indirect Purchaser,Dealer - Indirect,Senninger,Solid Set
+SEN Nursery & Greenhouse,Master Distributor,Direct Purchaser,Master Distributor,Senninger,Solid Set
+SEN Nursery & Greenhouse,OEM,Direct Purchaser,OEM,Senninger,Solid Set
+SEN Nursery & Greenhouse,Grower | End User,Direct Purchaser,End User - Direct,Senninger,Solid Set
+SEN Nursery & Greenhouse,Consultant | Specifier,Influencer,Consultant/Specifier,Senninger,Solid Set
+SEN Nursery & Greenhouse,Contractor,Indirect Purchaser,Indirect Purchaser,Senninger,Solid Set
+SEN Nursery & Greenhouse,Government Agency,Influencer,Government Agency,Senninger,Solid Set
+SEN Nursery & Greenhouse,University | Research,Influencer,University/Research,Senninger,Solid Set
+SEN Nursery & Greenhouse,Prospect,Indirect Purchaser,Indirect Purchaser,Senninger,Solid Set
+SEN Regulators Only,Dealer - Direct,Direct Purchaser,Dealer - Direct,Senninger,Turf
+SEN Regulators Only,Dealer - Branch,Indirect Purchaser,Indirect Purchaser,Senninger,Turf
+SEN Regulators Only,Dealer - Indirect,Indirect Purchaser,Dealer - Indirect,Senninger,Turf
+SEN Regulators Only,Master Distributor,Direct Purchaser,Master Distributor,Senninger,Turf
+SEN Regulators Only,OEM,Direct Purchaser,OEM,Senninger,Turf
+SEN Regulators Only,Grower | End User,Direct Purchaser,End User - Direct,Senninger,Turf
+SEN Regulators Only,Consultant | Specifier,Influencer,Consultant/Specifier,Senninger,Turf
+SEN Regulators Only,Contractor,Indirect Purchaser,Indirect Purchaser,Senninger,Turf
+SEN Regulators Only,Government Agency,Influencer,Government Agency,Senninger,Turf
+SEN Regulators Only,University | Research,Influencer,University/Research,Senninger,Turf
+SEN Regulators Only,Prospect,Indirect Purchaser,Indirect Purchaser,Senninger,Turf
+SEN Mining,Dealer - Direct,Direct Purchaser,Dealer - Direct,Senninger,Mining
+SEN Mining,Dealer - Branch,Indirect Purchaser,Indirect Purchaser,Senninger,Mining
+SEN Mining,Dealer - Indirect,Indirect Purchaser,Dealer - Indirect,Senninger,Mining
+SEN Mining,Master Distributor,Direct Purchaser,Master Distributor,Senninger,Mining
+SEN Mining,OEM,Direct Purchaser,OEM,Senninger,Mining
+SEN Mining,Grower | End User,Direct Purchaser,End User - Direct,Senninger,Mining
+SEN Mining,Consultant | Specifier,Influencer,Consultant/Specifier,Senninger,Mining
+SEN Mining,Contractor,Indirect Purchaser,Indirect Purchaser,Senninger,Mining
+SEN Mining,Government Agency,Influencer,Government Agency,Senninger,Mining
+SEN Mining,University | Research,Influencer,University/Research,Senninger,Mining
+SEN Mining,Prospect,Indirect Purchaser,Indirect Purchaser,Senninger,Mining
+SEN Wastewater,Dealer - Direct,Direct Purchaser,Dealer - Direct,Senninger,"Pivot, Solid Set"
+SEN Wastewater,Dealer - Branch,Indirect Purchaser,Indirect Purchaser,Senninger,"Pivot, Solid Set"
+SEN Wastewater,Dealer - Indirect,Indirect Purchaser,Dealer - Indirect,Senninger,"Pivot, Solid Set"
+SEN Wastewater,Master Distributor,Direct Purchaser,Master Distributor,Senninger,"Pivot, Solid Set"
+SEN Wastewater,OEM,Direct Purchaser,OEM,Senninger,"Pivot, Solid Set"
+SEN Wastewater,Grower | End User,Direct Purchaser,End User - Direct,Senninger,"Pivot, Solid Set"
+SEN Wastewater,Consultant | Specifier,Influencer,Consultant/Specifier,Senninger,"Pivot, Solid Set"
+SEN Wastewater,Contractor,Indirect Purchaser,Indirect Purchaser,Senninger,"Pivot, Solid Set"
+SEN Wastewater,Government Agency,Influencer,Government Agency,Senninger,"Pivot, Solid Set"
+SEN Wastewater,University | Research,Influencer,University/Research,Senninger,"Pivot, Solid Set"
+SEN Wastewater,Prospect,Indirect Purchaser,Indirect Purchaser,Senninger,"Pivot, Solid Set"
+SEN Other,Dealer - Direct,Direct Purchaser,Dealer - Direct,Senninger,"Pivot, Solid Set"
+SEN Other,Dealer - Branch,Indirect Purchaser,Indirect Purchaser,Senninger,"Pivot, Solid Set"
+SEN Other,Dealer - Indirect,Indirect Purchaser,Dealer - Indirect,Senninger,"Pivot, Solid Set"
+SEN Other,Master Distributor,Direct Purchaser,Master Distributor,Senninger,"Pivot, Solid Set"
+SEN Other,OEM,Direct Purchaser,OEM,Senninger,"Pivot, Solid Set"
+SEN Other,Grower | End User,Direct Purchaser,End User - Direct,Senninger,"Pivot, Solid Set"
+SEN Other,Consultant | Specifier,Influencer,Consultant/Specifier,Senninger,"Pivot, Solid Set"
+SEN Other,Contractor,Indirect Purchaser,Indirect Purchaser,Senninger,"Pivot, Solid Set"
+SEN Other,Government Agency,Influencer,Government Agency,Senninger,"Pivot, Solid Set"
+SEN Other,University | Research,Influencer,University/Research,Senninger,"Pivot, Solid Set"
+SEN Other,Prospect,Indirect Purchaser,Indirect Purchaser,Senninger,"Pivot, Solid Set"

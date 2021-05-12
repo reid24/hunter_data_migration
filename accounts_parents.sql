@@ -1,11 +1,14 @@
 -- special cases for May 12, to be removed
-update hunter.accounts set deleted = 0 where id = '1015193624c761666aa4c10-02687045';
-update hunter.accounts set deleted = 0 where id = '7622427784c761666044834-19622061';
+update accounts set deleted = 0 where id = '1015193624c761666aa4c10-02687045';
+update accounts set deleted = 0 where id = '7622427784c761666044834-19622061';
 
 DROP TABLE IF EXISTS mig_account;
 CREATE TABLE mig_account (
 	`External_ID__c` char(36),
-	`Type` varchar(100)  DEFAULT NULL,
+	`customer_type_category__c` varchar(100)  DEFAULT NULL,
+	`Account_Type__c` varchar(100)  DEFAULT NULL,
+	`Business_Unit__c` varchar(100)  DEFAULT NULL,
+	`Markets__c` VARCHAR(255)  DEFAULT NULL,
 	`RecordTypeId` varchar(18) DEFAULT NULL,
 	`annual_revenue__c` varchar(100)  DEFAULT NULL,
 	`BillingCity` varchar(100)  DEFAULT NULL,
@@ -41,7 +44,6 @@ CREATE TABLE mig_account (
 	`course_opening_year__c` varchar(6)  DEFAULT NULL,
 	`course_type__c` varchar(100)  DEFAULT NULL,
 	`customer_marketing_priority__c` varchar(255)  DEFAULT NULL,
-	`customer_type_category__c` varchar(100)  DEFAULT NULL,
 	`days_since_last_contact__c` int(6)  DEFAULT NULL,
 	`days_until_hsn_expiration__c` int(8)  DEFAULT NULL,
 	`dealer_number__c` varchar(50)  DEFAULT NULL,
@@ -122,7 +124,7 @@ CREATE TABLE mig_account (
 	`specialty_list__c` text  DEFAULT NULL,
 	`sso_account_name__c` varchar(50)  DEFAULT NULL,
 	`year_established__c` int(4)  DEFAULT NULL,
-	`ParentId` varchar(255) DEFAULT NULL,
+	`ParentId` varchar(18) DEFAULT NULL,
 	PRIMARY KEY (External_ID__c)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -133,7 +135,10 @@ CREATE PROCEDURE create_erp_parent_accounts()
 BEGIN    
 	INSERT INTO mig_account(
 		`External_ID__c`,
-		`Type`,
+		`customer_type_category__c`,
+		`Account_Type__c`,
+		`Business_Unit__c`,
+		`Markets__c`,
 		`RecordTypeId`,
 		`annual_revenue__c`,
 		`BillingCity`,
@@ -169,7 +174,6 @@ BEGIN
 		`course_opening_year__c`,
 		`course_type__c`,
 		`customer_marketing_priority__c`,
-		`customer_type_category__c`,
 		`days_since_last_contact__c`,
 		`days_until_hsn_expiration__c`,
 		`dealer_number__c`,
@@ -254,7 +258,11 @@ BEGIN
 		(
 		SELECT 
 		a.id,
-		a.account_type,
+		-- a.account_type,
+		segment_rule.sfdc_record_type_name,
+		segment_rule.sfdc_account_type,
+		segment_rule.sfdc_business_unit,
+		replace(segment_rule.sfdc_market,', ',';') AS sfdc_market,
 		rt.id, -- record type id
 		a.annual_revenue,
 		a.billing_address_city,
@@ -300,7 +308,6 @@ BEGIN
 		ac.course_opening_year_c,
 		ac.course_type_c,
 		ac.customer_marketing_priority_c,
-		ac.customer_type_category_c,
 		ac.days_since_last_contact_c,
 		ac.days_until_hsn_expiration_c,
 		ac.dealer_number_c,
@@ -349,8 +356,8 @@ BEGIN
 		ac.mailing_preference_c,
 		ac.management_company_c,
 		case 
-			when ac.next_contact_due_date_c = '0000-00-00' then NULL
-			else ac.next_contact_due_date_c
+		when ac.next_contact_due_date_c = '0000-00-00' then NULL
+		else ac.next_contact_due_date_c
 		end as next_contact_due_date_c,
 		ac.number_of_holes_c,
 		ac.number_of_installation_crews_c,
@@ -384,8 +391,8 @@ BEGIN
 		replace(REPLACE(replace(ac.specialty_list_c,' ^','^'),',',';'),'^','') AS specialty_list_c,
 		ac.sso_account_name_c,
 		ac.year_established_c
-		FROM hunter.accounts a
-		INNER JOIN hunter.accounts_cstm ac ON ac.id_c = a.id
+		FROM accounts a
+		INNER JOIN accounts_cstm ac ON ac.id_c = a.id
 		LEFT OUTER JOIN ref_vlookup sugar_segment ON sugar_segment.vlookup_type = 'SugarCustomerSegment' AND sugar_segment.sugar_type = ac.customer_type_category_c
 		LEFT OUTER JOIN ref_customer_segmentation segment_rule ON segment_rule.sugar_customer_segment = sugar_segment.sfdc_type and a.account_type = segment_rule.sugar_customer_type
 		LEFT OUTER JOIN ref_record_type rt ON rt.name = segment_rule.sfdc_record_type_name
