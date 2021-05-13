@@ -36,9 +36,9 @@ echo ""
 echo "*** Lead ****"
 mysql -u root hunter_sfdc < leads.sql
 
-# echo ""
-# echo "*** Opportunity ****"
-# mysql -u root hunter_sfdc < opportunities.sql
+echo ""
+echo "*** Opportunity ****"
+mysql -u root hunter_sfdc < opportunities.sql
 
 # echo ""
 # echo "*** Sales Summary Data ****"
