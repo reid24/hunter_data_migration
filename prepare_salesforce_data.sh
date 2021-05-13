@@ -40,6 +40,10 @@ echo ""
 echo "*** Opportunity ****"
 mysql -u root hunter_sfdc < opportunities.sql
 
+echo ""
+echo "*** Case ****"
+mysql -u root hunter_sfdc < cases.sql
+
 # echo ""
 # echo "*** Sales Summary Data ****"
 # mysql -u root hunter_sfdc < sales_summary_data.sql
