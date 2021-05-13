@@ -22,15 +22,23 @@ echo "*** Export record types... ****"
 # mysql -u root hunter_sfdc < programs.sql
 
 echo ""
-echo "*** Account (ERP) ****"
+echo "*** Account ****"
+./export_migrated_accounts.sh $ORG_ALIAS
+mysql -u root hunter_sfdc < load_migrated_accounts.sql
+
 echo "Parents..."
 mysql -u root hunter_sfdc < accounts_parents.sql
 echo "Children..."
 mysql -u root hunter_sfdc < accounts_children.sql
 
-echo ""
-echo "*** Contact ****"
-mysql -u root hunter_sfdc < contacts.sql
+mysql -u root hunter_sfdc -e "delete from mig_account where External_ID__c in (select external_id from migrated_accounts)"
+mysql -u root hunter_sfdc -e "select count(*) from mig_account"
+
+mysqldump -u root ––tab=/tmp/accounts.csv ––fields–enclosed–by='"' ––fields–terminated–by=',' ––lines–terminated–by='n' hunter_sfdc.mig_account
+
+# echo ""
+# echo "*** Contact ****"
+# mysql -u root hunter_sfdc < contacts.sql
 
 # echo ""
 # echo "*** Opportunity ****"

@@ -1,0 +1,1 @@
+sfdx force:data:soql:query -u $1 -q "SELECT Id, External_ID__c, CreatedDate, CreatedBy.Name FROM Account WHERE External_ID__c != null and CreatedBy.Name IN ('Arthur Tayamen', 'Reid Beckett')" -r csv > data/migrated_accounts.csv
