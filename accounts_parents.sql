@@ -121,7 +121,8 @@ CREATE TABLE mig_account (
 	`sso_account_name__c` varchar(50)  DEFAULT NULL,
 	`year_established__c` int(4)  DEFAULT NULL,
 	`ParentId` varchar(18) DEFAULT NULL,
-	PRIMARY KEY (External_ID__c)
+	PRIMARY KEY (External_ID__c),
+	INDEX(External_ID__c)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 DROP PROCEDURE IF EXISTS create_erp_parent_accounts;

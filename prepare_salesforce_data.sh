@@ -34,7 +34,7 @@ mysql -u root hunter_sfdc < accounts_children.sql
 mysql -u root hunter_sfdc -e "delete from mig_account where External_ID__c in (select external_id from migrated_accounts)"
 mysql -u root hunter_sfdc -e "select count(*) from mig_account"
 
-mysqldump -u root ––tab=/tmp/accounts.csv ––fields–enclosed–by='"' ––fields–terminated–by=',' ––lines–terminated–by='n' hunter_sfdc.mig_account
+mysql -u root hunter_sfdc < export_accounts_to_file.sql
 
 # echo ""
 # echo "*** Contact ****"

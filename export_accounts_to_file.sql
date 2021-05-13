@@ -1,0 +1,15 @@
+SELECT *
+INTO OUTFILE '/tmp/parent_accounts.csv'
+FIELDS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+FROM mig_account
+WHERE ParentId IS NULL;
+
+SELECT *
+INTO OUTFILE '/tmp/child_accounts.csv'
+FIELDS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+FROM mig_account
+WHERE ParentId IS NOT NULL;
