@@ -44,6 +44,10 @@ echo ""
 echo "*** Case ****"
 mysql -u root hunter_sfdc < cases.sql
 
+echo ""
+echo "*** Number Lookup Contacts ****"
+mysql -u root hunter_sfdc < number_lookup_contacts.sql
+
 # echo ""
 # echo "*** Sales Summary Data ****"
 # mysql -u root hunter_sfdc < sales_summary_data.sql
