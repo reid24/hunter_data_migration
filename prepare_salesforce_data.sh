@@ -32,6 +32,10 @@ echo ""
 echo "*** Contact ****"
 mysql -u root hunter_sfdc < contacts.sql
 
+echo ""
+echo "*** Lead ****"
+mysql -u root hunter_sfdc < leads.sql
+
 # echo ""
 # echo "*** Opportunity ****"
 # mysql -u root hunter_sfdc < opportunities.sql
