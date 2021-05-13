@@ -3,7 +3,7 @@ CREATE TABLE mig_contact (
   External_ID__c varchar(255) NOT NULL,
   FirstName varchar(255) DEFAULT NULL,
   LastName varchar(255) DEFAULT NULL,
-  AccountId varchar(255) DEFAULT NULL,
+  `Account.External_ID__c` varchar(255) DEFAULT NULL,
   Description text DEFAULT NULL,
   Type__c VARCHAR(255) DEFAULT NULL,
   Salutation VARCHAR(255) DEFAULT NULL,
@@ -111,7 +111,7 @@ DROP PROCEDURE IF EXISTS create_contacts;
 DELIMITER &&
 CREATE PROCEDURE create_contacts()
 BEGIN    
-  INSERT INTO mig_contact(External_ID__c, FirstName, LastName, AccountId, Description, Type__c,
+  INSERT INTO mig_contact(External_ID__c, FirstName, LastName, `Account.External_ID__c`, Description, Type__c,
     Salutation,
     Title,
     Department,
@@ -315,7 +315,7 @@ BEGIN
   );
 
   -- back up to the non-primary
-  update mig_contact set AccountId = (select contact_id from hunter.accounts_contacts where contact_id = mig_contact.External_ID__c and deleted = 0 limit 1) where AccountId is null;
+  update mig_contact set `Account.External_ID__c` = (select contact_id from hunter.accounts_contacts where contact_id = mig_contact.External_ID__c and deleted = 0 limit 1) where `Account.External_ID__c` is null;
 
 END &&
 DELIMITER ;
@@ -323,4 +323,10 @@ DELIMITER ;
 call create_contacts();
 
 select count(*) from mig_contact;
-select count(*) from mig_contact where AccountId is null;
+select count(*) from mig_contact where `Account.External_ID__c` is null;
+
+delete from mig_contact where External_ID__c in (select external_id from migrated_contacts);
+delete from mig_contact where `Account.External_ID__c` IS NULL OR `Account.External_ID__c` NOT IN (select external_id from migrated_accounts);
+
+select count(*) from mig_contact;
+select count(*) from mig_contact where `Account.External_ID__c` is null;
