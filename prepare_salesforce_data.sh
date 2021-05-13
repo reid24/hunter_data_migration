@@ -3,12 +3,13 @@
 #from command-line, export MYSQL_PWD=yourpasswordhere
 ORG_ALIAS=hunter-fulluat
 
-# echo ""
-# echo "*** Setup ****"
+echo ""
+echo "*** Setup ****"
+mysql -u root hunter_sfdc < setup.sql
 
-# echo "Salesforce reference data exports..."
-# echo "*** Export record types... ****"
-# ./export_record_types.sh $ORG_ALIAS
+echo "Salesforce reference data exports..."
+echo "*** Export record types... ****"
+./export_record_types.sh $ORG_ALIAS
 
 # May have to do this command in mysql if this creates an error:
 # SHOW VARIABLES LIKE 'local_infile';
@@ -27,9 +28,9 @@ mysql -u root hunter_sfdc < accounts_parents.sql
 echo "Children..."
 mysql -u root hunter_sfdc < accounts_children.sql
 
-# echo ""
-# echo "*** Contact ****"
-# mysql -u root hunter_sfdc < contacts.sql
+echo ""
+echo "*** Contact ****"
+mysql -u root hunter_sfdc < contacts.sql
 
 # echo ""
 # echo "*** Opportunity ****"
