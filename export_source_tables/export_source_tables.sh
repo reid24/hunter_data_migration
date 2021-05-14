@@ -18,8 +18,8 @@ mysqldump -u root hunter leads > leads.sql
 mysqldump -u root hunter leads_cstm > leads_cstm.sql
 mysqldump -u root hunter opportunities > opportunities.sql
 mysqldump -u root hunter opportunities_cstm > opportunities_cstm.sql
-mysqldump -u root hunter bhc_brachhealthchecks > bhc_brachhealthchecks.sql
-mysqldump -u root hunter bhc_brachhealthchecks_cstm > bhc_brachhealthchecks_cstm.sql
+mysqldump -u root hunter bhc_branchhealthchecks > bhc_branchhealthchecks.sql
+mysqldump -u root hunter bhc_branchhealthchecks_cstm > bhc_branchhealthchecks_cstm.sql
 mysqldump -u root hunter fst_field_service_tickets > fst_field_service_tickets.sql
 mysqldump -u root hunter fst_field_service_tickets_cstm > fst_field_service_tickets_cstm.sql
 mysqldump -u root hunter nl_number_lookup > nl_number_lookup.sql
