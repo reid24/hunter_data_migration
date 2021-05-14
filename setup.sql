@@ -20,9 +20,11 @@ BEGIN
 END$$
 DELIMITER ;
 
-LOAD DATA LOCAL INFILE 'data/vlookup_country.csv' INTO TABLE ref_vlookup FIELDS TERMINATED BY ',' ENCLOSED BY '"';
-LOAD DATA LOCAL INFILE 'data/vlookup_accounttype.csv' INTO TABLE ref_vlookup FIELDS TERMINATED BY ',' ENCLOSED BY '"';
-LOAD DATA LOCAL INFILE 'data/vlookup_sugar_customer_segment.csv' INTO TABLE ref_vlookup FIELDS TERMINATED BY ',' ENCLOSED BY '"';
+LOAD DATA LOCAL INFILE 'data/vlookup_country.csv' INTO TABLE ref_vlookup FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\r\n';
+LOAD DATA LOCAL INFILE 'data/vlookup_accounttype.csv' INTO TABLE ref_vlookup FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\r\n';
+LOAD DATA LOCAL INFILE 'data/vlookup_sugar_customer_segment.csv' INTO TABLE ref_vlookup FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\r\n';
+LOAD DATA LOCAL INFILE 'data/vlookup_sugar_specialty_list.csv' INTO TABLE ref_vlookup FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\r\n';
+
 
 DROP TABLE IF EXISTS ref_record_type;
 CREATE TABLE ref_record_type (
@@ -31,7 +33,7 @@ CREATE TABLE ref_record_type (
 	name varchar(255) NOT NULL
 );
 
-LOAD DATA LOCAL INFILE 'data/ref_record_types.csv' INTO TABLE ref_record_type FIELDS TERMINATED BY ',' ENCLOSED BY '"' IGNORE 1 LINES;
+LOAD DATA LOCAL INFILE 'data/ref_record_types.csv' INTO TABLE ref_record_type FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\r\n' IGNORE 1 LINES;
 
 SELECT vlookup('Country','United States of America');
 SELECT vlookup('Country','United States OF America');
@@ -50,4 +52,4 @@ CREATE TABLE ref_customer_segmentation (
 	sfdc_market varchar(100) NOT NULL
 );
 
-LOAD DATA LOCAL INFILE 'data/ref_customer_segmentation_rules.csv' INTO TABLE ref_customer_segmentation FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"';
+LOAD DATA LOCAL INFILE 'data/ref_customer_segmentation_rules.csv' INTO TABLE ref_customer_segmentation FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\r\n';

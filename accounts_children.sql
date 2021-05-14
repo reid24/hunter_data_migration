@@ -5,13 +5,17 @@ CREATE PROCEDURE create_erp_child_accounts()
 BEGIN    
 	INSERT INTO mig_account(
 		`External_ID__c`,
-		`Type`,
+		`customer_type_category__c`,
+		`Account_Type__c`,
+		`Business_Unit__c`,
+		`Markets__c`,
 		`RecordTypeId`,
 		`annual_revenue__c`,
 		`BillingCity`,
 		`BillingCountryCode`,
 		`BillingPostalCode`,
 		`BillingState`,
+		`BillingStateCode`,
 		`BillingStreet`,
 		`Description`,
 		`NumberOfEmployees`,
@@ -24,6 +28,7 @@ BEGIN
 		`ShippingCountryCode`,
 		`ShippingPostalCode`,
 		`ShippingState`,
+		`ShippingStateCode`,
 		`ShippingStreet`,
 		`Website`,
 		`architect__c`,
@@ -41,7 +46,6 @@ BEGIN
 		`course_opening_year__c`,
 		`course_type__c`,
 		`customer_marketing_priority__c`,
-		`customer_type_category__c`,
 		`days_since_last_contact__c`,
 		`days_until_hsn_expiration__c`,
 		`dealer_number__c`,
@@ -127,18 +131,26 @@ BEGIN
 		(
 		SELECT 
 		a.id,
-		a.account_type,
+		-- a.account_type,
+		segment_rule.sfdc_record_type_name,
+		segment_rule.sfdc_account_type,
+		segment_rule.sfdc_business_unit,
+		replace(segment_rule.sfdc_market,', ',';') AS sfdc_market,
 		rt.id, -- record type id
 		a.annual_revenue,
 		a.billing_address_city,
 		vlookup('Country', a.billing_address_country),
-		-- case 
-		-- 	when a.billing_address_country = 'US' then 'United States' 
-		-- 	when a.billing_address_country = 'CA' then 'Canada'
-		-- end as billing_address_country,
-		#a.billing_address_country,
+		-- a.billing_address_country,
 		a.billing_address_postalcode,
-		a.billing_address_state,
+		-- a.billing_address_state,
+		case 
+			when LENGTH(a.billing_address_state) > 2 AND a.billing_address_country != 'AU'
+				then a.billing_address_state 
+		END AS billing_address_state,
+		case 
+			when LENGTH(a.billing_address_state) = 2 OR (LENGTH(a.billing_address_state) = 3 AND a.billing_address_country = 'AU')
+				then a.billing_address_state 
+		END AS shipping_address_state_code,	
 		a.billing_address_street,
 		a.description,
 		a.employees,
@@ -149,13 +161,17 @@ BEGIN
 		a.phone_office,
 		a.shipping_address_city,
 		vlookup('Country', a.shipping_address_country),
-		-- case 
-		-- 	when a.shipping_address_country = 'US' then 'United States' 
-		-- 	when a.shipping_address_country = 'CA' then 'Canada'
-		-- end as shipping_address_country,
-		#a.shipping_address_country,
+		-- a.shipping_address_country,
 		a.shipping_address_postalcode,
-		a.shipping_address_state,
+		-- a.shipping_address_state,
+		case 
+			when LENGTH(a.shipping_address_state) > 2 AND a.shipping_address_country != 'AU'
+				then a.shipping_address_state 
+		END AS shipping_address_state,
+		case 
+			when LENGTH(a.shipping_address_state) = 2 OR (LENGTH(a.shipping_address_state) = 3 AND a.shipping_address_country = 'AU')
+				then a.shipping_address_state 
+		END AS shipping_address_state_code,		
 		a.shipping_address_street,
 		a.website,
 		ac.architect_c,
@@ -173,7 +189,6 @@ BEGIN
 		ac.course_opening_year_c,
 		ac.course_type_c,
 		ac.customer_marketing_priority_c,
-		ac.customer_type_category_c,
 		ac.days_since_last_contact_c,
 		ac.days_until_hsn_expiration_c,
 		ac.dealer_number_c,
@@ -222,8 +237,8 @@ BEGIN
 		ac.mailing_preference_c,
 		ac.management_company_c,
 		case 
-			when ac.next_contact_due_date_c = '0000-00-00' then NULL
-			else ac.next_contact_due_date_c
+		when ac.next_contact_due_date_c = '0000-00-00' then NULL
+		else ac.next_contact_due_date_c
 		end as next_contact_due_date_c,
 		ac.number_of_holes_c,
 		ac.number_of_installation_crews_c,
@@ -239,7 +254,7 @@ BEGIN
 		ac.preferred_language_list_c,
 		ac.referral_program_c,
 		replace(REPLACE(replace(ac.res_irr_ref_req_c,' ^','^'),',',';'),'^','') AS res_irr_ref_req_c,
-		ac.res_light_ref_req_c,
+		replace(REPLACE(replace(ac.res_light_ref_req_c,' ^','^'),',',';'),'^','') AS res_light_ref_req_c,
 		ac.returned_mail_bad_address_c,
 		ac.rewards_id_c,
 		ac.rewards_point_balance_c,
@@ -254,15 +269,16 @@ BEGIN
 		ac.rotor_type_c,
 		ac.sales_reporting_number_c,
 		replace(REPLACE(replace(ac.services_c,' ^','^'),',',';'),'^','') AS services_c,
-		replace(REPLACE(replace(ac.specialty_list_c,' ^','^'),',',';'),'^','') AS specialty_list_c,
+		REPLACE(REPLACE(replace(REPLACE(replace(ac.specialty_list_c,' ^','^'),',',';'),'^',''),
+			'Res_Com Irrigation','Hunter_Res_Com Irrigation'),'Res-Com Irrigation','Hunter_Res_Com Irrigation') AS specialty_list_c,
 		ac.sso_account_name_c,
 		ac.year_established_c,
 		a.parent_id
-		FROM hunter.accounts a
-		INNER JOIN hunter.accounts_cstm ac ON ac.id_c = a.id
+		FROM accounts a
+		INNER JOIN accounts_cstm ac ON ac.id_c = a.id
 		LEFT OUTER JOIN ref_vlookup sugar_segment ON sugar_segment.vlookup_type = 'SugarCustomerSegment' AND sugar_segment.sugar_type = ac.customer_type_category_c
 		LEFT OUTER JOIN ref_customer_segmentation segment_rule ON segment_rule.sugar_customer_segment = sugar_segment.sfdc_type and a.account_type = segment_rule.sugar_customer_type
-		LEFT OUTER JOIN ref_record_type rt ON rt.name = segment_rule.sfdc_record_type_name
+		LEFT OUTER JOIN ref_record_type rt ON rt.Name = segment_rule.sfdc_record_type_name
 		WHERE 
 		a.deleted = 0
 		AND a.parent_id IS NOT NULL

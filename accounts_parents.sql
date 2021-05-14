@@ -11,6 +11,7 @@ CREATE TABLE mig_account (
 	`BillingCountryCode` varchar(255)  DEFAULT NULL,
 	`BillingPostalCode` varchar(20)  DEFAULT NULL,
 	`BillingState` varchar(100)  DEFAULT NULL,
+	`BillingStateCode` varchar(100)  DEFAULT NULL,
 	`BillingStreet` varchar(150)  DEFAULT NULL,
 	`Description` text  DEFAULT NULL,
 	`NumberOfEmployees` varchar(10)  DEFAULT NULL,
@@ -23,6 +24,7 @@ CREATE TABLE mig_account (
 	`ShippingCountryCode` varchar(255)  DEFAULT NULL,
 	`ShippingPostalCode` varchar(20)  DEFAULT NULL,
 	`ShippingState` varchar(100)  DEFAULT NULL,
+	`ShippingStateCode` varchar(100)  DEFAULT NULL,
 	`ShippingStreet` varchar(150)  DEFAULT NULL,
 	`Website` varchar(255)  DEFAULT NULL,
 	`architect__c` varchar(100)  DEFAULT NULL,
@@ -120,7 +122,7 @@ CREATE TABLE mig_account (
 	`specialty_list__c` text  DEFAULT NULL,
 	`sso_account_name__c` varchar(50)  DEFAULT NULL,
 	`year_established__c` int(4)  DEFAULT NULL,
-	`ParentId` varchar(18) DEFAULT NULL,
+	`ParentId` VARCHAR(255) DEFAULT NULL,
 	PRIMARY KEY (External_ID__c)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -141,6 +143,7 @@ BEGIN
 		`BillingCountryCode`,
 		`BillingPostalCode`,
 		`BillingState`,
+		`BillingStateCode`,
 		`BillingStreet`,
 		`Description`,
 		`NumberOfEmployees`,
@@ -153,6 +156,7 @@ BEGIN
 		`ShippingCountryCode`,
 		`ShippingPostalCode`,
 		`ShippingState`,
+		`ShippingStateCode`,
 		`ShippingStreet`,
 		`Website`,
 		`architect__c`,
@@ -249,7 +253,8 @@ BEGIN
 		`services__c`,
 		`specialty_list__c`,
 		`sso_account_name__c`,
-		`year_established__c`
+		`year_established__c`,
+		`ParentId`
 		)
 		(
 		SELECT 
@@ -263,13 +268,17 @@ BEGIN
 		a.annual_revenue,
 		a.billing_address_city,
 		vlookup('Country', a.billing_address_country),
-		-- case 
-		-- 	when a.billing_address_country = 'US' then 'United States' 
-		-- 	when a.billing_address_country = 'CA' then 'Canada'
-		-- end as billing_address_country,
-		#a.billing_address_country,
+		-- a.billing_address_country,
 		a.billing_address_postalcode,
-		a.billing_address_state,
+		-- a.billing_address_state,
+		case 
+			when LENGTH(a.billing_address_state) > 2 AND a.billing_address_country != 'AU'
+				then a.billing_address_state 
+		END AS billing_address_state,
+		case 
+			when LENGTH(a.billing_address_state) = 2 OR (LENGTH(a.billing_address_state) = 3 AND a.billing_address_country = 'AU')
+				then a.billing_address_state 
+		END AS shipping_address_state_code,	
 		a.billing_address_street,
 		a.description,
 		a.employees,
@@ -280,13 +289,17 @@ BEGIN
 		a.phone_office,
 		a.shipping_address_city,
 		vlookup('Country', a.shipping_address_country),
-		-- case 
-		-- 	when a.shipping_address_country = 'US' then 'United States' 
-		-- 	when a.shipping_address_country = 'CA' then 'Canada'
-		-- end as shipping_address_country,
-		#a.shipping_address_country,
+		-- a.shipping_address_country,
 		a.shipping_address_postalcode,
-		a.shipping_address_state,
+		-- a.shipping_address_state,
+		case 
+			when LENGTH(a.shipping_address_state) > 2 AND a.shipping_address_country != 'AU'
+				then a.shipping_address_state 
+		END AS shipping_address_state,
+		case 
+			when LENGTH(a.shipping_address_state) = 2 OR (LENGTH(a.shipping_address_state) = 3 AND a.shipping_address_country = 'AU')
+				then a.shipping_address_state 
+		END AS shipping_address_state_code,		
 		a.shipping_address_street,
 		a.website,
 		ac.architect_c,
@@ -369,7 +382,7 @@ BEGIN
 		ac.preferred_language_list_c,
 		ac.referral_program_c,
 		replace(REPLACE(replace(ac.res_irr_ref_req_c,' ^','^'),',',';'),'^','') AS res_irr_ref_req_c,
-		ac.res_light_ref_req_c,
+		replace(REPLACE(replace(ac.res_light_ref_req_c,' ^','^'),',',';'),'^','') AS res_light_ref_req_c,
 		ac.returned_mail_bad_address_c,
 		ac.rewards_id_c,
 		ac.rewards_point_balance_c,
@@ -384,14 +397,16 @@ BEGIN
 		ac.rotor_type_c,
 		ac.sales_reporting_number_c,
 		replace(REPLACE(replace(ac.services_c,' ^','^'),',',';'),'^','') AS services_c,
-		replace(REPLACE(replace(ac.specialty_list_c,' ^','^'),',',';'),'^','') AS specialty_list_c,
+		REPLACE(REPLACE(replace(REPLACE(replace(ac.specialty_list_c,' ^','^'),',',';'),'^',''),
+			'Res_Com Irrigation','Hunter_Res_Com Irrigation'),'Res-Com Irrigation','Hunter_Res_Com Irrigation') AS specialty_list_c,
 		ac.sso_account_name_c,
-		ac.year_established_c
-		FROM hunter.accounts a
-		INNER JOIN hunter.accounts_cstm ac ON ac.id_c = a.id
+		ac.year_established_c,
+		a.parent_id
+		FROM accounts a
+		INNER JOIN accounts_cstm ac ON ac.id_c = a.id
 		LEFT OUTER JOIN ref_vlookup sugar_segment ON sugar_segment.vlookup_type = 'SugarCustomerSegment' AND sugar_segment.sugar_type = ac.customer_type_category_c
 		LEFT OUTER JOIN ref_customer_segmentation segment_rule ON segment_rule.sugar_customer_segment = sugar_segment.sfdc_type and a.account_type = segment_rule.sugar_customer_type
-		LEFT OUTER JOIN ref_record_type rt ON rt.name = segment_rule.sfdc_record_type_name
+		LEFT OUTER JOIN ref_record_type rt ON rt.Name = segment_rule.sfdc_record_type_name
 		WHERE 
 		a.deleted = 0
 		AND a.parent_id IS NULL
@@ -400,8 +415,8 @@ END &&
 DELIMITER ;
 
 -- special cases for May 12, to be removed
-update hunter.accounts set deleted = 0 where id = '1015193624c761666aa4c10-02687045';
-update hunter.accounts set deleted = 0 where id = '7622427784c761666044834-19622061';
+update accounts set deleted = 0 where id = '1015193624c761666aa4c10-02687045';
+update accounts set deleted = 0 where id = '7622427784c761666044834-19622061';
 
 call create_erp_parent_accounts();
 
