@@ -48,6 +48,10 @@ echo ""
 echo "*** Number Lookup Contacts ****"
 mysql -u root hunter_sfdc < number_lookup_contacts.sql
 
+echo ""
+echo "*** Distributor Health Checks ****"
+mysql -u root hunter_sfdc < distributor_health_checks.sql
+
 # echo ""
 # echo "*** Sales Summary Data ****"
 # mysql -u root hunter_sfdc < sales_summary_data.sql
