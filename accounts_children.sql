@@ -273,7 +273,7 @@ BEGIN
 			'Res_Com Irrigation','Hunter_Res_Com Irrigation'),'Res-Com Irrigation','Hunter_Res_Com Irrigation') AS specialty_list_c,
 		ac.sso_account_name_c,
 		ac.year_established_c,
-		a.parent_id
+		case when a.parent_id = a.id then NULL ELSE a.parent_id END AS parent_id
 		FROM accounts a
 		INNER JOIN accounts_cstm ac ON ac.id_c = a.id
 		LEFT OUTER JOIN ref_vlookup sugar_segment ON sugar_segment.vlookup_type = 'SugarCustomerSegment' AND sugar_segment.sugar_type = ac.customer_type_category_c
@@ -281,7 +281,7 @@ BEGIN
 		LEFT OUTER JOIN ref_record_type rt ON rt.Name = segment_rule.sfdc_record_type_name
 		WHERE 
 		a.deleted = 0
-		AND a.parent_id IS NOT NULL
+		AND (a.parent_id IS NOT NULL AND a.parent_id != a.id)
   );
 END &&
 DELIMITER ;
