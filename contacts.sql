@@ -15,14 +15,16 @@ CREATE TABLE mig_contact (
   phone_work__c VARCHAR(255) DEFAULT NULL,
   OtherPhone VARCHAR(255) DEFAULT NULL,
   Fax VARCHAR(255) DEFAULT NULL,
-  MailingStreet VARCHAR(255) DEFAULT NULL,
+  MailingStreet text DEFAULT NULL,
   MailingCity VARCHAR(255) DEFAULT NULL,
   MailingState VARCHAR(255) DEFAULT NULL,
+  MailingStateCode VARCHAR(255) DEFAULT NULL,
   MailingPostalCode VARCHAR(255) DEFAULT NULL,
   MailingCountry VARCHAR(255) DEFAULT NULL,
-  OtherStreet VARCHAR(255) DEFAULT NULL,
+  OtherStreet text DEFAULT NULL,
   OtherCity VARCHAR(255) DEFAULT NULL,
   OtherState VARCHAR(255) DEFAULT NULL,
+  OtherStateCode VARCHAR(255) DEFAULT NULL,
   OtherPostalCode VARCHAR(255) DEFAULT NULL,
   OtherCountry VARCHAR(255) DEFAULT NULL,
   AssistantName VARCHAR(255) DEFAULT NULL,
@@ -119,11 +121,13 @@ INSERT INTO mig_contact(External_ID__c, FirstName, LastName, AccountId, Descript
   MailingStreet,
   MailingCity,
   MailingState,
+  MailingStateCode,
   MailingPostalCode,
   MailingCountry,
   OtherStreet,
   OtherCity,
   OtherState,
+  OtherStateCode,
   OtherPostalCode,
   OtherCountry,
   AssistantName,
@@ -205,7 +209,7 @@ INSERT INTO mig_contact(External_ID__c, FirstName, LastName, AccountId, Descript
   fx_luminaire_lighting_sub__c,
   senninger_ag_irr_sub__c
     ) (
-  SELECT c.id, c.first_name, c.last_name, ac.account_id, c.description, c_cstm.customer_type_c,
+SELECT c.id, c.first_name, c.last_name, ac.account_id, c.description, c_cstm.customer_type_c,
   c.salutation, 
   c.title,
   c.department,
@@ -217,14 +221,32 @@ INSERT INTO mig_contact(External_ID__c, FirstName, LastName, AccountId, Descript
   c.phone_fax,
   c.primary_address_street,
   c.primary_address_city,
-  c.primary_address_state,
+  -- c.primary_address_state,
+	case 
+		when LENGTH(c.primary_address_state) > 2 AND c.primary_address_country != 'AU'
+			then c.primary_address_state 
+	END AS primary_address_state,
+	case 
+		when LENGTH(c.primary_address_state) = 2 OR (LENGTH(c.primary_address_state) = 3 AND c.primary_address_country = 'AU')
+			then c.primary_address_state
+	END AS primary_address_state_code,	
   c.primary_address_postalcode,
-  c.primary_address_country,
+  -- c.primary_address_country,
+  vlookup('Country', c.primary_address_country) AS primary_address_country,
   c.alt_address_street,
   c.alt_address_city,
-  c.alt_address_state,
+  -- c.alt_address_state,
+  	case 
+		when LENGTH(c.alt_address_state) > 2 AND c.alt_address_country != 'AU'
+			then c.alt_address_state
+	END AS alt_address_state,
+	case 
+		when LENGTH(c.alt_address_state) = 2 OR (LENGTH(c.alt_address_state) = 3 AND c.alt_address_country = 'AU')
+			then c.alt_address_state
+	END AS alt_address_state_code,	
   c.alt_address_postalcode,
-  c.alt_address_country,
+  -- c.alt_address_country,
+  vlookup('Country', c.alt_address_country) AS alt_address_country,
   c.assistant,
   c.assistant_phone,
   c.lead_source,
@@ -236,9 +258,12 @@ INSERT INTO mig_contact(External_ID__c, FirstName, LastName, AccountId, Descript
   c_cstm.last_name_phonetically_c,
   c_cstm.first_name_phonetically_c,
   c_cstm.free_phone_c,
-  c_cstm.specialty_list_c,
+  -- c_cstm.specialty_list_c,
+  REPLACE(REPLACE(replace(REPLACE(replace(c_cstm.specialty_list_c,' ^','^'),',',';'),'^',''),
+		'Res_Com Irrigation','Hunter_Res_Com Irrigation'),'Res-Com Irrigation','Hunter_Res_Com Irrigation') AS specialty_list_c,
   c_cstm.mailing_preference_c,
-  c_cstm.contact_type_c,
+  -- c_cstm.contact_type_c,
+  replace(REPLACE(replace(c_cstm.contact_type_c,' ^','^'),',',';'),'^','') AS contact_type_c,
   c_cstm.interest_c,
   c_cstm.return_mail_bad_address_c,
   c_cstm.program_member_c,
@@ -303,14 +328,14 @@ INSERT INTO mig_contact(External_ID__c, FirstName, LastName, AccountId, Descript
   c_cstm.hunter_golf_irrigation_sub_c,
   c_cstm.fx_luminaire_lighting_sub_c,
   c_cstm.senninger_ag_irr_sub_c
-  FROM hunter.contacts c
-  INNER JOIN hunter.contacts_cstm c_cstm ON c_cstm.id_c = c.id
-  LEFT OUTER JOIN hunter.accounts_contacts ac ON ac.contact_id = c.id AND ac.deleted = 0 AND ac.primary_account = 1
+  FROM contacts c
+  INNER JOIN contacts_cstm c_cstm ON c_cstm.id_c = c.id
+  LEFT OUTER JOIN accounts_contacts ac ON ac.contact_id = c.id AND ac.deleted = 0 AND ac.primary_account = 1
   WHERE c.deleted = 0
 );
 
 -- back up to the non-primary
-update mig_contact set AccountId = (select contact_id from hunter.accounts_contacts where contact_id = mig_contact.External_ID__c and deleted = 0 limit 1) where AccountId is null;
+update mig_contact set AccountId = (select contact_id from accounts_contacts where contact_id = mig_contact.External_ID__c and deleted = 0 limit 1) where AccountId is null;
 
 select count(*) from mig_contact;
 select count(*) from mig_contact where AccountId is null;
