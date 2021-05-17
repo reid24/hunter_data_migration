@@ -121,12 +121,13 @@ BEGIN
 		`rotor_brand__c`,
 		`rotor_count__c`,
 		`rotor_type__c`,
-		`sales_reporting_number__c`,
+		`Ship_To_Number__c`,
 		`services__c`,
 		`specialty_list__c`,
 		`sso_account_name__c`,
 		`year_established__c`,
-		`ParentId`
+		`ParentId`,
+		`sales_reporting_number__c`
 		)
 		(
 		SELECT 
@@ -273,9 +274,12 @@ BEGIN
 			'Res_Com Irrigation','Hunter_Res_Com Irrigation'),'Res-Com Irrigation','Hunter_Res_Com Irrigation') AS specialty_list_c,
 		ac.sso_account_name_c,
 		ac.year_established_c,
-		case when a.parent_id = a.id then NULL ELSE a.parent_id END AS parent_id
-		FROM accounts a
-		INNER JOIN accounts_cstm ac ON ac.id_c = a.id
+		case when a.parent_id = a.id then NULL ELSE a.parent_id END AS parent_id,
+		pac.sales_reporting_number_c
+		FROM hunter.accounts a
+		INNER JOIN hunter.accounts_cstm ac ON ac.id_c = a.id
+		LEFT OUTER JOIN hunter.accounts pa ON pa.id = a.parent_id
+		LEFT OUTER JOIN hunter.accounts_cstm pac ON pac.id_c = pa.id
 		LEFT OUTER JOIN ref_vlookup sugar_segment ON sugar_segment.vlookup_type = 'SugarCustomerSegment' AND sugar_segment.sugar_type = ac.customer_type_category_c
 		LEFT OUTER JOIN ref_customer_segmentation segment_rule ON segment_rule.sugar_customer_segment = sugar_segment.sfdc_type and a.account_type = segment_rule.sugar_customer_type
 		LEFT OUTER JOIN ref_record_type rt ON rt.Name = segment_rule.sfdc_record_type_name
