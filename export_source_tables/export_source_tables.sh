@@ -10,6 +10,8 @@ mysqldump -u root hunter accounts_cstm > accounts_cstm.sql
 mysqldump -u root hunter contacts > contacts.sql
 mysqldump -u root hunter contacts_cstm > contacts_cstm.sql
 mysqldump -u root hunter accounts_contacts > accounts_contacts.sql
+mysqldump -u root hunter accounts_opportunities > accounts_opportunities.sql
+mysqldump -u root hunter accounts_bhc_branchhealthchecks_1_c > accounts_bhc_branchhealthchecks_1_c.sql
 mysqldump -u root hunter campaigns > campaigns.sql
 mysqldump -u root hunter campaigns_cstm > campaigns_cstm.sql
 mysqldump -u root hunter cases > cases.sql
@@ -37,6 +39,8 @@ mysqldump -u root hunter levjl_grades > levjl_grades.sql
 mysqldump -u root hunter tasks > tasks.sql
 mysqldump -u root hunter tasks_cstm > tasks_cstm.sql
 mysqldump -u root hunter hi_homeowners > hi_homeowners.sql
+mysqldump -u root hunter contacts_fst_field_service_tickets_1_c > contacts_fst_field_service_tickets_1_c.sql
+mysqldump -u root hunter fst_field_service_tickets_accounts_c > fst_field_service_tickets_accounts_c.sql
 
 zip sugar_data.zip *.sql
 rm *.sql
