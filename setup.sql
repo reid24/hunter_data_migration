@@ -53,3 +53,11 @@ CREATE TABLE ref_customer_segmentation (
 );
 
 LOAD DATA LOCAL INFILE 'data/ref_customer_segmentation_rules.csv' INTO TABLE ref_customer_segmentation FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\r\n';
+
+DROP TABLE IF EXISTS ref_users;
+CREATE TABLE ref_users (
+	id char(18) PRIMARY KEY NOT NULL,
+	username varchar(255) NOT NULL,
+	sugar_id char(36)
+);
+LOAD DATA LOCAL INFILE 'data/ref_users.csv' INTO TABLE ref_users FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\r\n' IGNORE 1 LINES;
