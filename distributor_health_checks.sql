@@ -43,7 +43,8 @@ CREATE TABLE mig_distributor_health_check (
     store_sales_pct_other__c varchar(255) NULL,
     store_sales_pct_other_rpt__c varchar(255) NULL,
     store_sales_pct_total_forui__c varchar(255) NULL,
-    dhc_scope_c__c varchar(255) NULL
+    dhc_scope_c__c varchar(255) NULL,
+    Distributor_Account__c varchar(255) NULL
 );
 
 INSERT INTO mig_distributor_health_check (
@@ -90,7 +91,8 @@ INSERT INTO mig_distributor_health_check (
     store_sales_pct_other__c,
     store_sales_pct_other_rpt__c,
     store_sales_pct_total_forui__c,
-    dhc_scope_c__c
+    dhc_scope_c__c,
+    Distributor_Account__c
 )(
     SELECT
         bhc.id,
@@ -136,10 +138,12 @@ INSERT INTO mig_distributor_health_check (
         bhcc.store_sales_pct_other_c,
         bhcc.store_sales_pct_other_rpt_c,
         bhcc.store_sales_pct_total_forui_c,
-        bhcc.dhc_scope_c
+        bhcc.dhc_scope_c,
+        abhc.accounts_bhc_branchhealthchecks_1accounts_ida
     FROM 
-    hunter.bhc_branchhealthchecks bhc
-    INNER JOIN hunter.bhc_branchhealthchecks_cstm bhcc ON bhcc.id_c = bhc.id 
+    bhc_branchhealthchecks bhc
+    INNER JOIN bhc_branchhealthchecks_cstm bhcc ON bhcc.id_c = bhc.id 
+    INNER JOIN accounts_bhc_branchhealthchecks_1_c abhc ON abhc.accounts_bhc_branchhealthchecks_1bhc_branchhealthchecks_idb = bhc.id
     WHERE bhc.deleted = 0
 );
 

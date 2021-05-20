@@ -38,15 +38,15 @@ INSERT INTO mig_case (
     fstc.problem_description_c,
     fstc.request_status_c
     FROM 
-    hunter.fst_field_service_tickets fst
-    INNER JOIN hunter.fst_field_service_tickets_cstm fstc ON fstc.id_c = fst.id
+    fst_field_service_tickets fst
+    INNER JOIN fst_field_service_tickets_cstm fstc ON fstc.id_c = fst.id
     WHERE fst.deleted = 0
 );
 
 select count(*) NumberOfCases from mig_case;
 select '';
-update mig_case set ContactId = (select contacts_fst_field_service_tickets_1contacts_ida from hunter.contacts_fst_field_service_tickets_1_c where contacts_f061etickets_idb = mig_case.External_ID__c and deleted = 0 limit 1) where ContactId is null;
-update mig_case set AccountId = (select fst_field_service_tickets_accountsaccounts_ida from hunter.fst_field_service_tickets_accounts_c where fst_field_service_tickets_accountsfst_field_service_tickets_idb = mig_case.External_ID__c and deleted = 0 limit 1) where AccountId is null;
+update mig_case set ContactId = (select contacts_fst_field_service_tickets_1contacts_ida from contacts_fst_field_service_tickets_1_c where contacts_f061etickets_idb = mig_case.External_ID__c and deleted = 0 limit 1) where ContactId is null;
+update mig_case set AccountId = (select fst_field_service_tickets_accountsaccounts_ida from fst_field_service_tickets_accounts_c where fst_field_service_tickets_accountsfst_field_service_tickets_idb = mig_case.External_ID__c and deleted = 0 limit 1) where AccountId is null;
 select '';
 select count(*) CasesWithContactId from mig_case where ContactId is not null;
 select '';

@@ -18,6 +18,7 @@ CREATE TABLE mig_opportunity (
   location_address_country__c varchar(255) DEFAULT NULL,
   PostalCode__c varchar(255) DEFAULT NULL,
   location_address_state__c varchar(255) DEFAULT NULL,
+  location_address_state_code__c varchar(255) DEFAULT NULL,
   location_address_street__c varchar(255) DEFAULT NULL,
   won_loss_notes__c varchar(255) DEFAULT NULL,
   won_loss_reason__c varchar(255) DEFAULT NULL,
@@ -44,6 +45,7 @@ INSERT INTO mig_opportunity(
   location_address_country__c,
   PostalCode__c,
   location_address_state__c,
+  location_address_state_code__c,
   location_address_street__c,
   won_loss_notes__c,
   won_loss_reason__c,
@@ -65,19 +67,28 @@ INSERT INTO mig_opportunity(
   oc.estimated_irrigation_c,
   oc.facility_id_c,
   oc.location_address_city_c,
-  oc.location_address_country_c,
+  -- oc.location_address_country_c,
+  vlookup('Country', oc.location_address_country_c) AS location_address_country_c,
   oc.location_address_postalcode_c,
-  oc.location_address_state_c,
+  -- oc.location_address_state_c,
+	case 
+		when LENGTH(oc.location_address_state_c) > 2 AND oc.location_address_country_c != 'AU'
+			then oc.location_address_state_c
+	END AS location_address_state_c,
+	case 
+		when LENGTH(oc.location_address_state_c) = 2 OR (LENGTH(oc.location_address_state_c) = 3 AND oc.location_address_country_c = 'AU')
+			then oc.location_address_state_c
+	END AS location_address_state_c_code,	
   oc.location_address_street_c,
   oc.loss_notes_c,
   oc.loss_reason_c,
   oc.probability_category_c  
-  FROM hunter.opportunities o
-  INNER JOIN hunter.opportunities_cstm oc ON oc.id_c = o.id
+  FROM opportunities o
+  INNER JOIN opportunities_cstm oc ON oc.id_c = o.id
   WHERE o.deleted = 0 AND o.sales_stage IN ('Prospecting','Active_Project_Lead','Perception Analysis')
 );
 
-update mig_opportunity set AccountId = (select account_id from hunter.accounts_opportunities where opportunity_id = mig_opportunity.External_ID__c and deleted = 0 limit 1) where AccountId is null;
+update mig_opportunity set AccountId = (select account_id from accounts_opportunities where opportunity_id = mig_opportunity.External_ID__c and deleted = 0 limit 1) where AccountId is null;
 
 select count(*) from mig_opportunity;
 select count(*) from mig_opportunity where AccountId is null;
