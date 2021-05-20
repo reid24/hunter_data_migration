@@ -62,3 +62,7 @@ mysql -u root hunter_sfdc < meetings.sql
 echo ""
 echo "*** Calls ***"
 mysql -u root hunter_sfdc < calls.sql
+
+echo ""
+echo "*** Tasks ***"
+mysql -u root hunter_sfdc < tasks.sql
