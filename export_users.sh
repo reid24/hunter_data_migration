@@ -1,1 +1,1 @@
-sfdx force:data:soql:query -u $1 -q "SELECT Id, Username FROM User" -r csv > data/ref_users.csv
+sfdx force:data:soql:query -u $1 -q "SELECT Id, Username, Sugar_User_ID__c FROM User" -r csv > data/ref_users.csv
