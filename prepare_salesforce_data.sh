@@ -12,9 +12,9 @@ echo ""
 echo "*** Setup ****"
 mysql -u root hunter_sfdc < setup.sql
 
-echo ""
-echo "*** Program ****"
-mysql -u root hunter_sfdc < programs.sql
+# echo ""
+# echo "*** Program ****"
+# mysql -u root hunter_sfdc < programs.sql
 
 echo ""
 echo "*** Account (ERP) ****"
@@ -58,3 +58,7 @@ mysql -u root hunter_sfdc < fsm_sites.sql
 echo ""
 echo "*** Meetings ***"
 mysql -u root hunter_sfdc < meetings.sql
+
+echo ""
+echo "*** Calls ***"
+mysql -u root hunter_sfdc < calls.sql
