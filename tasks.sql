@@ -8,7 +8,8 @@ CREATE TABLE mig_task (
     Status varchar(255),
     CreatedDate datetime,
     OwnerId varchar(255),
-    CreatedById varchar(255)
+    CreatedById varchar(255),
+    LastModifiedDate datetime
 );
 
 INSERT INTO mig_task (
@@ -20,7 +21,8 @@ INSERT INTO mig_task (
     Status,
     CreatedDate,
     OwnerId,
-    CreatedById
+    CreatedById,
+    LastModifiedDate
 ) (
     SELECT 
     t.id,
@@ -31,14 +33,15 @@ INSERT INTO mig_task (
     t.status,
     t.date_entered,
     owner_user.id, 
-    creator.id
+    creator.id,
+    t.date_modified    
     FROM 
-    hunter.tasks t
-    LEFT OUTER JOIN hunter.contacts c ON c.id = t.parent_id AND c.deleted = 0
-    LEFT OUTER JOIN hunter.leads l ON l.id = t.parent_id AND l.deleted = 0
+    tasks t
+    LEFT OUTER JOIN contacts c ON c.id = t.parent_id AND c.deleted = 0
+    LEFT OUTER JOIN leads l ON l.id = t.parent_id AND l.deleted = 0
     LEFT OUTER JOIN ref_users owner_user ON owner_user.sugar_id = t.assigned_user_id
     LEFT OUTER JOIN ref_users creator ON creator.sugar_id = t.created_by
-    WHERE t.deleted = 0
+    WHERE t.deleted = 0 AND t.date_modified > DATE_SUB(NOW(), INTERVAL 3 YEAR)
 );
 
 select count(*) NumberOfTasks from mig_task;
