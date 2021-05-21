@@ -118,6 +118,7 @@ CREATE TABLE mig_account (
 	`rotor_count__c` varchar(25)  DEFAULT NULL,
 	`rotor_type__c` varchar(100)  DEFAULT NULL,
 	`sales_reporting_number__c` varchar(50)  DEFAULT NULL,
+	`Ship_To_Number__c` varchar(50)  DEFAULT NULL,
 	`services__c` text  DEFAULT NULL,
 	`specialty_list__c` text  DEFAULT NULL,
 	`sso_account_name__c` varchar(50)  DEFAULT NULL,

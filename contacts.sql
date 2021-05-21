@@ -335,7 +335,7 @@ SELECT c.id, c.first_name, c.last_name, ac.account_id, c.description, c_cstm.cus
 );
 
 -- back up to the non-primary
-update mig_contact set AccountId = (select contact_id from accounts_contacts where contact_id = mig_contact.External_ID__c and deleted = 0 limit 1) where AccountId is null;
+update mig_contact set AccountId = (select account_id from accounts_contacts where contact_id = mig_contact.External_ID__c and deleted = 0 limit 1) where AccountId is null;
 
 select count(*) from mig_contact;
 select count(*) from mig_contact where AccountId is null;
