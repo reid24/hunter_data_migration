@@ -23,6 +23,9 @@ CREATE TABLE mig_opportunity (
   won_loss_notes__c varchar(255) DEFAULT NULL,
   won_loss_reason__c varchar(255) DEFAULT NULL,
   ForecastCategory varchar(255) DEFAULT NULL,
+	OwnerId char(36) DEFAULT NULL,
+	CreatedById char(36) DEFAULT NULL,
+	CreatedDate datetime DEFAULT NULL,
   PRIMARY KEY (External_ID__c)
 );
 
@@ -49,7 +52,10 @@ INSERT INTO mig_opportunity(
   location_address_street__c,
   won_loss_notes__c,
   won_loss_reason__c,
-  ForecastCategory
+  ForecastCategory,
+  OwnerId, 
+  CreatedById, 
+  CreatedDate
   ) (
   SELECT DISTINCT 
   o.id, 
@@ -82,13 +88,18 @@ INSERT INTO mig_opportunity(
   oc.location_address_street_c,
   oc.loss_notes_c,
   oc.loss_reason_c,
-  oc.probability_category_c  
-  FROM opportunities o
-  INNER JOIN opportunities_cstm oc ON oc.id_c = o.id
+  oc.probability_category_c,
+  owner_user.id,
+  creator.id,
+  o.date_entered
+  FROM hunter.opportunities o
+  INNER JOIN hunter.opportunities_cstm oc ON oc.id_c = o.id
+  LEFT OUTER JOIN ref_users owner_user ON owner_user.sugar_id = o.assigned_user_id
+  LEFT OUTER JOIN ref_users creator ON creator.sugar_id = o.created_by
   WHERE o.deleted = 0 AND o.sales_stage IN ('Prospecting','Active_Project_Lead','Perception Analysis')
 );
 
-update mig_opportunity set AccountId = (select account_id from accounts_opportunities where opportunity_id = mig_opportunity.External_ID__c and deleted = 0 limit 1) where AccountId is null;
+update mig_opportunity set AccountId = (select account_id from hunter.accounts_opportunities where opportunity_id = mig_opportunity.External_ID__c and deleted = 0 limit 1) where AccountId is null;
 
 select count(*) from mig_opportunity;
 select count(*) from mig_opportunity where AccountId is null;
