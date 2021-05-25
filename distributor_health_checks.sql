@@ -44,7 +44,10 @@ CREATE TABLE mig_distributor_health_check (
     store_sales_pct_other_rpt__c varchar(255) NULL,
     store_sales_pct_total_forui__c varchar(255) NULL,
     dhc_scope_c__c varchar(255) NULL,
-    Distributor_Account__c varchar(255) NULL
+    Distributor_Account__c varchar(255) NULL,
+	OwnerId char(36) DEFAULT NULL,
+	CreatedById char(36) DEFAULT NULL,
+	CreatedDate datetime DEFAULT NULL
 );
 
 INSERT INTO mig_distributor_health_check (
@@ -92,7 +95,10 @@ INSERT INTO mig_distributor_health_check (
     store_sales_pct_other_rpt__c,
     store_sales_pct_total_forui__c,
     dhc_scope_c__c,
-    Distributor_Account__c
+    Distributor_Account__c,
+    OwnerId, 
+    CreatedById, 
+    CreatedDate
 )(
     SELECT
         bhc.id,
@@ -139,11 +145,16 @@ INSERT INTO mig_distributor_health_check (
         bhcc.store_sales_pct_other_rpt_c,
         bhcc.store_sales_pct_total_forui_c,
         bhcc.dhc_scope_c,
-        abhc.accounts_bhc_branchhealthchecks_1accounts_ida
+        abhc.accounts_bhc_branchhealthchecks_1accounts_ida,
+        owner_user.id,
+        creator.id,
+        bhc.date_entered
     FROM 
-    bhc_branchhealthchecks bhc
-    INNER JOIN bhc_branchhealthchecks_cstm bhcc ON bhcc.id_c = bhc.id 
-    INNER JOIN accounts_bhc_branchhealthchecks_1_c abhc ON abhc.accounts_bhc_branchhealthchecks_1bhc_branchhealthchecks_idb = bhc.id
+    hunter.bhc_branchhealthchecks bhc
+    INNER JOIN hunter.bhc_branchhealthchecks_cstm bhcc ON bhcc.id_c = bhc.id 
+    INNER JOIN hunter.accounts_bhc_branchhealthchecks_1_c abhc ON abhc.accounts_bhc_branchhealthchecks_1bhc_branchhealthchecks_idb = bhc.id
+    LEFT OUTER JOIN ref_users owner_user ON owner_user.sugar_id = bhc.assigned_user_id
+    LEFT OUTER JOIN ref_users creator ON creator.sugar_id = bhc.created_by
     WHERE bhc.deleted = 0
 );
 
