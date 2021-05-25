@@ -36,15 +36,15 @@ INSERT INTO mig_call (
     owner_user.id, 
     creator.id
     FROM 
-    hunter.calls m
+    calls m
     LEFT OUTER JOIN ref_users owner_user ON owner_user.sugar_id = m.assigned_user_id
     LEFT OUTER JOIN ref_users creator ON creator.sugar_id = m.created_by
-    WHERE deleted = 0
+    WHERE deleted = 0 AND m.date_modified > DATE_SUB(NOW(), INTERVAL 3 YEAR)
 );
 
 select count(*) NumberOfCalls from mig_call;
 select '';
-update mig_call set WhoId = (select id from hunter.calls_contacts where call_id = mig_call.External_ID__c and deleted = 0 limit 1) where WhoId is null;
-update mig_call set WhoId = (select id from hunter.calls_leads where call_id = mig_call.External_ID__c and deleted = 0 limit 1) where WhoId is null;
+update mig_call set WhoId = (select contact_id from calls_contacts where call_id = mig_call.External_ID__c and deleted = 0 limit 1) where WhoId is null;
+update mig_call set WhoId = (select lead_id from calls_leads where call_id = mig_call.External_ID__c and deleted = 0 limit 1) where WhoId is null;
 select '';
 select count(*) CallsWithWhoId from mig_call where WhoId is not null;

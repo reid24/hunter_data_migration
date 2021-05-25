@@ -36,15 +36,15 @@ INSERT INTO mig_meeting (
     owner_user.id, 
     creator.id
     FROM 
-    hunter.meetings m
+    meetings m
     LEFT OUTER JOIN ref_users owner_user ON owner_user.sugar_id = m.assigned_user_id
     LEFT OUTER JOIN ref_users creator ON creator.sugar_id = m.created_by
-    WHERE deleted = 0
+    WHERE deleted = 0 AND m.date_modified > DATE_SUB(NOW(), INTERVAL 3 YEAR)
 );
 
 select count(*) NumberOfMeetings from mig_meeting;
 select '';
-update mig_meeting set WhoId = (select id from hunter.meetings_contacts where meeting_id = mig_meeting.External_ID__c and deleted = 0 limit 1) where WhoId is null;
-update mig_meeting set WhoId = (select id from hunter.meetings_leads where meeting_id = mig_meeting.External_ID__c and deleted = 0 limit 1) where WhoId is null;
+update mig_meeting set WhoId = (select contact_id from meetings_contacts where meeting_id = mig_meeting.External_ID__c and deleted = 0 limit 1) where WhoId is null;
+update mig_meeting set WhoId = (select lead_id from meetings_leads where meeting_id = mig_meeting.External_ID__c and deleted = 0 limit 1) where WhoId is null;
 select '';
 select count(*) MeetingsWithWhoId from mig_meeting where WhoId is not null;
