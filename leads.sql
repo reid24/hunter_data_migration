@@ -45,6 +45,9 @@ CREATE TABLE mig_lead (
     fx_luminaire_lighting_emails__c varchar(255) NULL,
     senninger_agriculture_irriga__c varchar(255) NULL,
     HasOptedOutOfEmail varchar(255) NULL,
+	OwnerId char(36) DEFAULT NULL,
+	CreatedById char(36) DEFAULT NULL,
+	CreatedDate datetime DEFAULT NULL,
     PRIMARY KEY(External_ID__c)
 );
 
@@ -93,7 +96,10 @@ INSERT INTO mig_lead (
     hunter_irrigation_emails__c,
     fx_luminaire_lighting_emails__c,
     senninger_agriculture_irriga__c,
-    HasOptedOutOfEmail    
+    HasOptedOutOfEmail,
+    OwnerId, 
+    CreatedById, 
+    CreatedDate
 ) (
     SELECT l.id,
     l.account_name,
@@ -139,9 +145,14 @@ INSERT INTO mig_lead (
     lc.hunter_irrigation_emails_c,
     lc.fx_luminaire_lighting_emails_c,
     lc.senninger_agriculture_irriga_c,
-    lc.unsubscribe_all_c
+    lc.unsubscribe_all_c,
+    owner_user.id,
+    creator.id,
+    l.date_entered
     FROM hunter.leads l
     INNER JOIN hunter.leads_cstm lc ON lc.id_c = l.id
+    LEFT OUTER JOIN ref_users owner_user ON owner_user.sugar_id = l.assigned_user_id
+    LEFT OUTER JOIN ref_users creator ON creator.sugar_id = l.created_by
     WHERE l.deleted = 0 AND l.status IN ('New','Assigned')
 );
 
