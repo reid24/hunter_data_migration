@@ -105,6 +105,9 @@ CREATE TABLE mig_contact (
   hunter_golf_irrigation_sub__c TINYINT(1) DEFAULT 0,
   fx_luminaire_lighting_sub__c TINYINT(1) DEFAULT 0,
   senninger_ag_irr_sub__c TINYINT(1) DEFAULT 0,
+	OwnerId char(36) DEFAULT NULL,
+	CreatedById char(36) DEFAULT NULL,
+	CreatedDate datetime DEFAULT NULL,
   PRIMARY KEY (External_ID__c)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -207,7 +210,10 @@ INSERT INTO mig_contact(External_ID__c, FirstName, LastName, AccountId, Descript
   hunter_irrigation_subscribe__c,
   hunter_golf_irrigation_sub__c,
   fx_luminaire_lighting_sub__c,
-  senninger_ag_irr_sub__c
+  senninger_ag_irr_sub__c,
+  OwnerId, 
+  CreatedById, 
+  CreatedDate
     ) (
 SELECT c.id, c.first_name, c.last_name, ac.account_id, c.description, c_cstm.customer_type_c,
   c.salutation, 
@@ -327,15 +333,20 @@ SELECT c.id, c.first_name, c.last_name, ac.account_id, c.description, c_cstm.cus
   c_cstm.hunter_irrigation_subscribe_c,
   c_cstm.hunter_golf_irrigation_sub_c,
   c_cstm.fx_luminaire_lighting_sub_c,
-  c_cstm.senninger_ag_irr_sub_c
-  FROM contacts c
-  INNER JOIN contacts_cstm c_cstm ON c_cstm.id_c = c.id
-  LEFT OUTER JOIN accounts_contacts ac ON ac.contact_id = c.id AND ac.deleted = 0 AND ac.primary_account = 1
+  c_cstm.senninger_ag_irr_sub_c,
+  owner_user.id,
+  creator.id,
+  c.date_entered
+  FROM hunter.contacts c
+  INNER JOIN hunter.contacts_cstm c_cstm ON c_cstm.id_c = c.id
+  LEFT OUTER JOIN hunter.accounts_contacts ac ON ac.contact_id = c.id AND ac.deleted = 0 AND ac.primary_account = 1
+  LEFT OUTER JOIN ref_users owner_user ON owner_user.sugar_id = c.assigned_user_id
+  LEFT OUTER JOIN ref_users creator ON creator.sugar_id = c.created_by
   WHERE c.deleted = 0
 );
 
 -- back up to the non-primary
-update mig_contact set AccountId = (select account_id from accounts_contacts where contact_id = mig_contact.External_ID__c and deleted = 0 limit 1) where AccountId is null;
+update mig_contact set AccountId = (select account_id from hunter.accounts_contacts where contact_id = mig_contact.External_ID__c and deleted = 0 limit 1) where AccountId is null;
 
 select count(*) from mig_contact;
 select count(*) from mig_contact where AccountId is null;
