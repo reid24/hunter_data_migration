@@ -127,7 +127,10 @@ BEGIN
 		`sso_account_name__c`,
 		`year_established__c`,
 		`ParentId`,
-		`sales_reporting_number__c`
+		`sales_reporting_number__c`,
+		OwnerId, 
+		CreatedById, 
+		CreatedDate
 		)
 		(
 		SELECT 
@@ -275,7 +278,10 @@ BEGIN
 		ac.sso_account_name_c,
 		ac.year_established_c,
 		case when a.parent_id = a.id then NULL ELSE a.parent_id END AS parent_id,
-		pac.sales_reporting_number_c
+		pac.sales_reporting_number_c,
+		owner_user.id,
+		creator.id,
+		a.date_entered
 		FROM hunter.accounts a
 		INNER JOIN hunter.accounts_cstm ac ON ac.id_c = a.id
 		LEFT OUTER JOIN hunter.accounts pa ON pa.id = a.parent_id
@@ -283,6 +289,8 @@ BEGIN
 		LEFT OUTER JOIN ref_vlookup sugar_segment ON sugar_segment.vlookup_type = 'SugarCustomerSegment' AND sugar_segment.sugar_type = ac.customer_type_category_c
 		LEFT OUTER JOIN ref_customer_segmentation segment_rule ON segment_rule.sugar_customer_segment = sugar_segment.sfdc_type and a.account_type = segment_rule.sugar_customer_type
 		LEFT OUTER JOIN ref_record_type rt ON rt.Name = segment_rule.sfdc_record_type_name
+		LEFT OUTER JOIN ref_users owner_user ON owner_user.sugar_id = a.assigned_user_id
+		LEFT OUTER JOIN ref_users creator ON creator.sugar_id = a.created_by
 		WHERE 
 		a.deleted = 0
 		AND (a.parent_id IS NOT NULL AND a.parent_id != a.id)
