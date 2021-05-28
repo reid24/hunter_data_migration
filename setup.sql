@@ -24,7 +24,7 @@ LOAD DATA LOCAL INFILE 'data/vlookup_country.csv' INTO TABLE ref_vlookup FIELDS 
 LOAD DATA LOCAL INFILE 'data/vlookup_accounttype.csv' INTO TABLE ref_vlookup FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\r\n';
 LOAD DATA LOCAL INFILE 'data/vlookup_sugar_customer_segment.csv' INTO TABLE ref_vlookup FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\r\n';
 LOAD DATA LOCAL INFILE 'data/vlookup_sugar_specialty_list.csv' INTO TABLE ref_vlookup FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\r\n';
-
+LOAD DATA LOCAL INFILE 'data/vlookup_preferred_language.csv' INTO TABLE ref_vlookup FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\r\n';
 
 DROP TABLE IF EXISTS ref_record_type;
 CREATE TABLE ref_record_type (

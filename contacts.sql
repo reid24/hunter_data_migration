@@ -228,28 +228,28 @@ SELECT c.id, c.first_name, c.last_name, ac.account_id, c.description, c_cstm.cus
   c.primary_address_street,
   c.primary_address_city,
   -- c.primary_address_state,
-	case 
-		when LENGTH(c.primary_address_state) > 2 AND c.primary_address_country != 'AU'
-			then c.primary_address_state 
-	END AS primary_address_state,
-	case 
-		when LENGTH(c.primary_address_state) = 2 OR (LENGTH(c.primary_address_state) = 3 AND c.primary_address_country = 'AU')
-			then c.primary_address_state
-	END AS primary_address_state_code,	
+		case 
+			when LENGTH(c.primary_address_state) = 3 AND c.primary_address_country IN ('AU','Australia') then null
+			when LENGTH(c.primary_address_state) > 2 then c.primary_address_state
+		END AS primary_address_state,
+		case
+			when LENGTH(c.primary_address_state) = 3 AND c.primary_address_country IN ('AU','Australia') then c.primary_address_state
+			when LENGTH(c.primary_address_state) = 2 then c.primary_address_state
+		END AS primary_address_state_code,
   c.primary_address_postalcode,
   -- c.primary_address_country,
   vlookup('Country', c.primary_address_country) AS primary_address_country,
   c.alt_address_street,
   c.alt_address_city,
   -- c.alt_address_state,
-  	case 
-		when LENGTH(c.alt_address_state) > 2 AND c.alt_address_country != 'AU'
-			then c.alt_address_state
-	END AS alt_address_state,
-	case 
-		when LENGTH(c.alt_address_state) = 2 OR (LENGTH(c.alt_address_state) = 3 AND c.alt_address_country = 'AU')
-			then c.alt_address_state
-	END AS alt_address_state_code,	
+		case 
+			when LENGTH(c.alt_address_state) = 3 AND c.alt_address_country IN ('AU','Australia') then null
+			when LENGTH(c.alt_address_state) > 2 then c.alt_address_state
+		END AS alt_address_state,
+		case
+			when LENGTH(c.alt_address_state) = 3 AND c.alt_address_country IN ('AU','Australia') then c.alt_address_state
+			when LENGTH(c.alt_address_state) = 2 then c.alt_address_state
+		END AS alt_address_state_code,
   c.alt_address_postalcode,
   -- c.alt_address_country,
   vlookup('Country', c.alt_address_country) AS alt_address_country,
@@ -257,7 +257,8 @@ SELECT c.id, c.first_name, c.last_name, ac.account_id, c.description, c_cstm.cus
   c.assistant_phone,
   c.lead_source,
   c.birthdate,
-  c.preferred_language,
+  -- c.preferred_language,
+  vlookup('PreferredLanguage', c.preferred_language) AS preferred_language,
   c_cstm.hmds_id_c,
   c_cstm.customer_marketing_priority_c,
   c_cstm.distributor_rep_c,
@@ -336,12 +337,12 @@ SELECT c.id, c.first_name, c.last_name, ac.account_id, c.description, c_cstm.cus
   c_cstm.senninger_ag_irr_sub_c,
   owner_user.id,
   creator.id,
-  c.date_entered
+  case when c.date_entered = '0000-00-00 00:00:00' then NULL else c.date_entered END AS date_entered
   FROM hunter.contacts c
   INNER JOIN hunter.contacts_cstm c_cstm ON c_cstm.id_c = c.id
   LEFT OUTER JOIN hunter.accounts_contacts ac ON ac.contact_id = c.id AND ac.deleted = 0 AND ac.primary_account = 1
-  LEFT OUTER JOIN ref_users owner_user ON owner_user.sugar_id = c.assigned_user_id
-  LEFT OUTER JOIN ref_users creator ON creator.sugar_id = c.created_by
+  LEFT OUTER JOIN ref_users owner_user ON owner_user.sugar_id = c.assigned_user_id AND c.assigned_user_id <> ''
+  LEFT OUTER JOIN ref_users creator ON creator.sugar_id = c.created_by AND c.created_by <> ''
   WHERE c.deleted = 0
 );
 

@@ -140,21 +140,21 @@ BEGIN
 		segment_rule.sfdc_account_type,
 		segment_rule.sfdc_business_unit,
 		replace(segment_rule.sfdc_market,', ',';') AS sfdc_market,
-		rt.id, -- record type id
+		rt.id AS rectypeid, -- record type id
 		a.annual_revenue,
 		a.billing_address_city,
 		vlookup('Country', a.billing_address_country),
 		-- a.billing_address_country,
 		a.billing_address_postalcode,
-		-- a.billing_address_state,
+		-- a.billing_address_state,		
 		case 
-			when LENGTH(a.billing_address_state) > 2 AND a.billing_address_country != 'AU'
-				then a.billing_address_state 
+			when LENGTH(a.billing_address_state) = 3 AND a.billing_address_country IN ('AU','Australia') then null
+			when LENGTH(a.billing_address_state) > 2 then a.billing_address_state
 		END AS billing_address_state,
-		case 
-			when LENGTH(a.billing_address_state) = 2 OR (LENGTH(a.billing_address_state) = 3 AND a.billing_address_country = 'AU')
-				then a.billing_address_state 
-		END AS shipping_address_state_code,	
+		case
+			when LENGTH(a.billing_address_state) = 3 AND a.billing_address_country IN ('AU','Australia') then a.billing_address_state
+			when LENGTH(a.billing_address_state) = 2 then a.billing_address_state
+		END AS billing_address_state_code,
 		a.billing_address_street,
 		a.description,
 		a.employees,
@@ -169,13 +169,13 @@ BEGIN
 		a.shipping_address_postalcode,
 		-- a.shipping_address_state,
 		case 
-			when LENGTH(a.shipping_address_state) > 2 AND a.shipping_address_country != 'AU'
-				then a.shipping_address_state 
+			when LENGTH(a.shipping_address_state) = 3 AND a.shipping_address_country IN ('AU','Australia') then null
+			when LENGTH(a.shipping_address_state) > 2 then a.shipping_address_state
 		END AS shipping_address_state,
-		case 
-			when LENGTH(a.shipping_address_state) = 2 OR (LENGTH(a.shipping_address_state) = 3 AND a.shipping_address_country = 'AU')
-				then a.shipping_address_state 
-		END AS shipping_address_state_code,		
+		case
+			when LENGTH(a.shipping_address_state) = 3 AND a.shipping_address_country IN ('AU','Australia') then a.shipping_address_state
+			when LENGTH(a.shipping_address_state) = 2 then a.shipping_address_state
+		END AS shipping_address_state_code_c,	
 		a.shipping_address_street,
 		a.website,
 		ac.architect_c,
@@ -278,10 +278,10 @@ BEGIN
 		ac.sso_account_name_c,
 		ac.year_established_c,
 		case when a.parent_id = a.id then NULL ELSE a.parent_id END AS parent_id,
-		pac.sales_reporting_number_c,
-		owner_user.id,
-		creator.id,
-		a.date_entered
+		pac.sales_reporting_number_c AS pac_sales_reporting_number_c,
+		owner_user.id AS owner_user_id,
+		creator.id as creator_id,
+		case when a.date_entered = '0000-00-00 00:00:00' then NULL else a.date_entered END AS date_entered
 		FROM hunter.accounts a
 		INNER JOIN hunter.accounts_cstm ac ON ac.id_c = a.id
 		LEFT OUTER JOIN hunter.accounts pa ON pa.id = a.parent_id
@@ -289,8 +289,8 @@ BEGIN
 		LEFT OUTER JOIN ref_vlookup sugar_segment ON sugar_segment.vlookup_type = 'SugarCustomerSegment' AND sugar_segment.sugar_type = ac.customer_type_category_c
 		LEFT OUTER JOIN ref_customer_segmentation segment_rule ON segment_rule.sugar_customer_segment = sugar_segment.sfdc_type and a.account_type = segment_rule.sugar_customer_type
 		LEFT OUTER JOIN ref_record_type rt ON rt.Name = segment_rule.sfdc_record_type_name
-		LEFT OUTER JOIN ref_users owner_user ON owner_user.sugar_id = a.assigned_user_id
-		LEFT OUTER JOIN ref_users creator ON creator.sugar_id = a.created_by
+		LEFT OUTER JOIN ref_users owner_user ON owner_user.sugar_id = a.assigned_user_id AND a.assigned_user_id <> ''
+		LEFT OUTER JOIN ref_users creator ON creator.sugar_id = a.created_by AND a.created_by <> ''
 		WHERE 
 		a.deleted = 0
 		AND (a.parent_id IS NOT NULL AND a.parent_id != a.id)
