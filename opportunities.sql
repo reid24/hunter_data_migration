@@ -77,14 +77,14 @@ INSERT INTO mig_opportunity(
   vlookup('Country', oc.location_address_country_c) AS location_address_country_c,
   oc.location_address_postalcode_c,
   -- oc.location_address_state_c,
-	case 
-		when LENGTH(oc.location_address_state_c) > 2 AND oc.location_address_country_c != 'AU'
-			then oc.location_address_state_c
-	END AS location_address_state_c,
-	case 
-		when LENGTH(oc.location_address_state_c) = 2 OR (LENGTH(oc.location_address_state_c) = 3 AND oc.location_address_country_c = 'AU')
-			then oc.location_address_state_c
-	END AS location_address_state_c_code,	
+		case 
+			when LENGTH(oc.location_address_state_c) = 3 AND oc.location_address_country_c IN ('AU','Australia') then null
+			when LENGTH(oc.location_address_state_c) > 2 then oc.location_address_state_c
+		END AS location_address_state_c,
+		case
+			when LENGTH(oc.location_address_state_c) = 3 AND oc.location_address_country_c IN ('AU','Australia') then oc.location_address_state_c
+			when LENGTH(oc.location_address_state_c) = 2 then oc.location_address_state_c
+		END AS location_address_state_c_code,
   oc.location_address_street_c,
   oc.loss_notes_c,
   oc.loss_reason_c,
@@ -94,8 +94,8 @@ INSERT INTO mig_opportunity(
   o.date_entered
   FROM hunter.opportunities o
   INNER JOIN hunter.opportunities_cstm oc ON oc.id_c = o.id
-  LEFT OUTER JOIN ref_users owner_user ON owner_user.sugar_id = o.assigned_user_id
-  LEFT OUTER JOIN ref_users creator ON creator.sugar_id = o.created_by
+  LEFT OUTER JOIN ref_users owner_user ON owner_user.sugar_id = o.assigned_user_id AND o.assigned_user_id <> ''
+  LEFT OUTER JOIN ref_users creator ON creator.sugar_id = o.created_by AND o.created_by <> ''
   WHERE o.deleted = 0 AND o.sales_stage IN ('Prospecting','Active_Project_Lead','Perception Analysis')
 );
 

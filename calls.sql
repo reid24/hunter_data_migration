@@ -37,8 +37,8 @@ INSERT INTO mig_call (
     creator.id
     FROM 
     calls m
-    LEFT OUTER JOIN ref_users owner_user ON owner_user.sugar_id = m.assigned_user_id
-    LEFT OUTER JOIN ref_users creator ON creator.sugar_id = m.created_by
+    LEFT OUTER JOIN ref_users owner_user ON owner_user.sugar_id = m.assigned_user_id AND m.assigned_user_id <> ''
+    LEFT OUTER JOIN ref_users creator ON creator.sugar_id = m.created_by AND m.created_by <> ''
     WHERE deleted = 0 AND m.date_modified > DATE_SUB(NOW(), INTERVAL 3 YEAR)
 );
 

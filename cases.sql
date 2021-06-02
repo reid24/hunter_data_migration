@@ -49,8 +49,8 @@ INSERT INTO mig_case (
     FROM 
     hunter.fst_field_service_tickets fst
     INNER JOIN hunter.fst_field_service_tickets_cstm fstc ON fstc.id_c = fst.id
-    LEFT OUTER JOIN ref_users owner_user ON owner_user.sugar_id = fst.assigned_user_id
-    LEFT OUTER JOIN ref_users creator ON creator.sugar_id = fst.created_by
+    LEFT OUTER JOIN ref_users owner_user ON owner_user.sugar_id = fst.assigned_user_id AND fst.assigned_user_id <> ''
+    LEFT OUTER JOIN ref_users creator ON creator.sugar_id = fst.created_by AND fst.created_by <> ''
     WHERE fst.deleted = 0
 );
 
