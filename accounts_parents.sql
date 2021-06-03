@@ -266,6 +266,7 @@ BEGIN
 		)
 		(
 		SELECT 
+		DISTINCT
 		a.id,
 		-- a.account_type,
 		segment_rule.sfdc_record_type_name,
@@ -419,7 +420,8 @@ BEGIN
 		LEFT OUTER JOIN hunter.accounts pa ON pa.id = a.parent_id
 		LEFT OUTER JOIN hunter.accounts_cstm pac ON pac.id_c = pa.id
 		LEFT OUTER JOIN ref_vlookup sugar_segment ON sugar_segment.vlookup_type = 'SugarCustomerSegment' AND sugar_segment.sugar_type = ac.customer_type_category_c
-		LEFT OUTER JOIN ref_customer_segmentation segment_rule ON segment_rule.sugar_customer_segment = sugar_segment.sfdc_type and a.account_type = segment_rule.sugar_customer_type
+		LEFT OUTER JOIN ref_customer_segmentation segment_rule ON (segment_rule.sugar_customer_segment = sugar_segment.sfdc_type and (if(a.account_type is null or a.account_type = '','empty',a.account_type) = if(segment_rule.sugar_customer_type is null or segment_rule.sugar_customer_type = '', 'empty', segment_rule.sugar_customer_type)))
+		OR (if(segment_rule.sugar_customer_segment is null or segment_rule.sugar_customer_segment = '', 'empty', segment_rule.sugar_customer_segment) = if(ac.customer_type_category_c is null or ac.customer_type_category_c = '', 'empty', ac.customer_type_category_c) and (if(a.account_type is null or a.account_type = '','empty',a.account_type) = if(segment_rule.sugar_customer_type is null or segment_rule.sugar_customer_type = '', 'empty', segment_rule.sugar_customer_type)))
 		LEFT OUTER JOIN ref_record_type rt ON rt.Name = segment_rule.sfdc_record_type_name
 		LEFT OUTER JOIN ref_users owner_user ON owner_user.sugar_id = a.assigned_user_id AND a.assigned_user_id <> ''
 		LEFT OUTER JOIN ref_users creator ON creator.sugar_id = a.created_by AND a.created_by <> ''
