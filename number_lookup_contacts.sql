@@ -31,8 +31,8 @@ INSERT INTO mig_number_lookup_contacts (
     nl.date_entered
     FROM 
     hunter.nl_number_lookup nl
-    LEFT OUTER JOIN ref_users owner_user ON owner_user.sugar_id = nl.assigned_user_id
-    LEFT OUTER JOIN ref_users creator ON creator.sugar_id = nl.created_by
+    LEFT OUTER JOIN ref_users owner_user ON owner_user.sugar_id = nl.assigned_user_id AND nl.assigned_user_id <> ''
+    LEFT OUTER JOIN ref_users creator ON creator.sugar_id = nl.created_by AND nl.created_by <> ''
     WHERE nl.deleted = 0
 );
 
