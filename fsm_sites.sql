@@ -20,7 +20,7 @@ INSERT INTO mig_fsm_site (
 	 OwnerId, CreatedById, RecordTypeId
 	  
 ) (
-    SELECT 
+    SELECT DISTINCT
 	 fsm.id, 
 	 fsm.date_entered, 
 	 fsm.name, 
@@ -41,11 +41,13 @@ INSERT INTO mig_fsm_site (
 	 owner_user.id,
 	 creator.id,
 	 rt.id
+	-- ,fst.jr_fsm_sit2d81tickets_idb AS ticket
     FROM jr_fsm_sites fsm
     INNER JOIN jr_fsm_sites_cstm fsmc ON fsmc.id_c = fsm.id
+    JOIN jr_fsm_sites_fst_field_service_tickets_c fst ON fsm.id = fst.jr_fsm_sites_fst_field_service_ticketsjr_fsm_sites_ida 
     LEFT OUTER JOIN ref_record_type rt ON rt.name = 'Indirect Purchaser' AND rt.sobject_type = 'Account'
     LEFT OUTER JOIN ref_users owner_user ON owner_user.sugar_id = fsm.assigned_user_id AND fsm.assigned_user_id <> ''
     LEFT OUTER JOIN ref_users creator ON creator.sugar_id = fsm.created_by AND fsm.created_by <> ''
-    WHERE fsm.deleted = 0
+    WHERE fsm.deleted = 0 
     -- AND fsmc.country_c LIKE 'Au%'
 );

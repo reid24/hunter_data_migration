@@ -339,7 +339,7 @@ Contractor,Sub-Distributor,Indirect Purchaser,Installer/Contractor,RCGL,Irrigati
 Electrical_Channel,,Direct Purchaser,Electrical Distributor,RCGL,Audio & Visual Lighting
 Contractor,Lighting_Designer,Indirect Purchaser,Installer/Contractor,RCGL,Landscape Lighting
 Contractor,Hunter Employee,Influencer,,RCGL,
-SEN Nursery Greenhouse,Dealer Via OEM,Direct Purchaser,Indirect,Senninger,Solid Set
+SEN Nursery Greenhouse,Dealer Via OEM,Direct Purchaser,Dealer - Indirect,Senninger,Solid Set
 Agency,Golf Maintenance/superintendent,Indirect Purchaser,Golf Maintenance/Superintendent,RCGL,Golf
 Contractor,Distributor Branch,Indirect Purchaser,Installer/Contractor,RCGL,Irrigation
 SEN Turf,Grower,Direct Purchaser,OEM,Senninger,Turf
