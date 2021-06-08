@@ -8,7 +8,7 @@ RCGL Distributor,Retailer,Indirect Purchaser,Dealer/Sub-Distributor,RCGL,Irrigat
 RCGL Installer,,Indirect Purchaser,Installer/Contractor,RCGL,Irrigation
 RCGL Installer,Builder,Influencer,Builder/Developer,RCGL,Irrigation
 RCGL Installer,Contractor,Indirect Purchaser,Installer/Contractor,RCGL,Irrigation
-RCGL Installer,General Contractor,Influencer,Construction Managment / GC,RCGL,Irrigation
+RCGL Installer,General Contractor,Influencer,Construction Management/GC,RCGL,Irrigation
 RCGL Installer,Irrigation Contractor,Indirect Purchaser,Installer/Contractor,RCGL,Irrigation
 RCGL Installer,Landscape Contractor,Indirect Purchaser,Installer/Contractor,RCGL,Irrigation
 RCGL Installer,Maintenance Contractor,Indirect Purchaser,Installer/Contractor,RCGL,Irrigation
@@ -193,12 +193,11 @@ Distributor,Distributor_Non_Hunter,Indirect Purchaser,Dealer/Sub-Distributor,RCG
 Distributor,Distributor Headquarters,Direct Purchaser,Landscape Distributor,RCGL,"Irrigation, Landscape Lighting"
 Distributor,,Direct Purchaser,Landscape Distributor,RCGL,"Irrigation, Landscape Lighting"
 Distributor,Sub-Distributor,Indirect Purchaser,Dealer/Sub-Distributor,RCGL,"Irrigation, Landscape Lighting"
-RCGL Dealer,,Indirect Purchaser,Dealer/Sub-Distributor,RCGL,"Irrigation, Landscape Lighting"
 Contractor,,Indirect Purchaser,Installer/Contractor,RCGL,Irrigation
 Contractor,Builder,Influencer,Builder/Developer,RCGL,Irrigation
 Contractor,Other,Indirect Purchaser,Installer/Contractor,RCGL,Irrigation
 Contractor,Contractor,Indirect Purchaser,Installer/Contractor,RCGL,Irrigation
-Contractor,General Contractor,Influencer,Construction Managment / GC,RCGL,Irrigation
+Contractor,General Contractor,Influencer,Construction Management/GC,RCGL,Irrigation
 Contractor,Irrigation Contractor,Indirect Purchaser,Installer/Contractor,RCGL,Irrigation
 Contractor,Landscape Contractor,Indirect Purchaser,Installer/Contractor,RCGL,Irrigation
 Contractor,Maintenance Contractor,Indirect Purchaser,Installer/Contractor,RCGL,Irrigation
@@ -228,7 +227,6 @@ SEN Pivot Solid Set,Dealer,Direct Purchaser,Dealer - Direct,Senninger,"Pivot, So
 Agency,Corporate Institute,Indirect Purchaser,Site - Purchase from Distribution,RCGL,Irrigation
 Electrical_Channel,Electrical_Channel_Specifier,Influencer,,RCGL,Audio & Visual Lighting
 Electrical_Channel,Non Holm C and I Rep,Influencer,,RCGL,Commercial & Industrial Lighting
-Contractor,,Indirect Purchaser,Installer/Contractor,RCGL,Irrigation
 Agency,Memorial Gardens/cemetery,Indirect Purchaser,Site - Purchase from Distribution,RCGL,Irrigation
 Electrical_Channel,Manufacturer_Rep,Influencer,,RCGL,Audio & Visual Lighting
 FXL_Only_Distributor,,Direct Purchaser,FX Only Distributor,RCGL,Landscape Lighting
@@ -247,7 +245,7 @@ Distributor,Retail_Store,Indirect Purchaser,Dealer/Sub-Distributor,RCGL,Irrigati
 Distributor,Sub_Distributor_Non_Hunter,Indirect Purchaser,Dealer/Sub-Distributor,RCGL,Irrigation
 Electrical_Channel,AV_Rep,Influencer,,RCGL,Audio & Visual Lighting
 Electrical_Channel,Electrical_Channel_Contractor,Influencer,,RCGL,Audio & Visual Lighting
-Custom_Manufacturing,,Direct Purchaser,Custom Manufacturing,Custom Manufacturing,
+Custom_Manufacturing,,Direct Purchaser,Custom Manufacturing,RCGL,
 Contractor,Agricultural/greenhouses/growers,Indirect Purchaser,Site - Purchase from Distribution,RCGL,"Irrigation, Nursery & Greenhouse"
 Specifier,Sports_Facilities_Landscape_Architect,Influencer,Specifier/Designer,RCGL,"Sports Fields, Irrigation"
 Contractor,Lighting Designer/Installer,Indirect Purchaser,Installer/Contractor,RCGL,Landscape Lighting
@@ -255,7 +253,7 @@ Distributor,Lighting_Distributor,Direct Purchaser,FX Only Distributor,RCGL,Lands
 Agency,Sports_Surface_Consultant,Indirect Purchaser,Site - Purchase from Distribution,RCGL,Irrigation
 ,Homeowner Associations,Influencer,Other - Influencer,RCGL,"Irrigation, HOA"
 Distributor,Sub-distributors,Indirect Purchaser,Dealer/Sub-Distributor,RCGL,Irrigation
-,Developer / Homebuilder,Influencer,Builder/Developer,RCGL,"Irrigation, Commerical"
+,Developer / Homebuilder,Influencer,Builder/Developer,RCGL,"Irrigation, Commercial"
 SEN Nursery Greenhouse,Grower,Direct Purchaser,End User - Direct,Senninger,Solid Set
 Contractor,Golf Maintenance/superintendent,Indirect Purchaser,Golf Maintenance/Superintendent,RCGL,Golf
 SEN Solid Set,Grower,Direct Purchaser,End User - Direct,Senninger,Solid Set
@@ -288,7 +286,7 @@ SEN Mining,Dealer Via OEM,Indirect Purchaser,OEM,Senninger,Mining
 Electrical_Channel,Electrical_Channel,Influencer,,RCGL,Audio & Visual Lighting
 ,Contractor,Indirect Purchaser,Installer/Contractor,RCGL,Irrigation
 ,Professional Athletic Fields,Indirect Purchaser,Site - Purchase from Distribution,RCGL,"Irrigation, Sports Fields"
-Contractor,Developer / Homebuilder,Influencer,Builder/Developer,RCGL,"Irrigation, Commerical"
+Contractor,Developer / Homebuilder,Influencer,Builder/Developer,RCGL,"Irrigation, Commercial"
 SEN Pivot,Grower,Direct Purchaser,End User - Direct,Senninger,"Pivot, Solid Set"
 Horticulture,Turf,Indirect Purchaser,Site - Purchase from Distribution,RCGL,"Irrigation, Nursery & Greenhouse"
 Agency,AV_Rep,Influencer,Competitor,RCGL,Audio & Visual Lighting
@@ -306,8 +304,6 @@ Contractor,Theme/amusement Park,Indirect Purchaser,Installer/Contractor,RCGL,Irr
 Distributor,Retailer (Retail Store),Indirect Purchaser,Dealer/Sub-Distributor,RCGL,Irrigation
 Contractor,Corporate,Indirect Purchaser,Installer/Contractor,RCGL,Irrigation
 ,Irrigation Contractor,Indirect Purchaser,Installer/Contractor,RCGL,Irrigation
-,Contractor,Indirect Purchaser,Installer/Contractor,RCGL,Irrigation
-,Specifier,Influencer,Specifier/Designer,RCGL,Irrigation
 Agricultural,,Indirect Purchaser,Site - Purchase from Distribution,RCGL,"Irrigation, Nursery & Greenhouse"
 RCGL Dealer,Landscape Designer,Influencer,Specifier/Designer,RCGL,Irrigation
 Contractor,School - Grounds Maintenance,Indirect Purchaser,Site - Purchase from Distribution,RCGL,Irrigation
@@ -349,7 +345,6 @@ Contractor,Distributor Branch,Indirect Purchaser,Installer/Contractor,RCGL,Irrig
 SEN Turf,Grower,Direct Purchaser,OEM,Senninger,Turf
 ,Engineering Architects,Influencer,Specifier/Designer,RCGL,Irrigation
 Specifier,Contractor,Indirect Purchaser,Installer/Contractor,RCGL,Irrigation
-Custom_Manufacturing,,Direct Purchaser,Custom Manufacturing,Custom Manufacturing,
 RCGL Dealer,Specifier,Influencer,Specifier/Designer,RCGL,Irrigation
 Other,Building_Automation,Influencer,Other - Influencer,RCGL,"Irrigation, Commercial"
 SEN Pivot,Consultant Specifier,Influencer,Consultant/Specifier,Senninger,Pivot
