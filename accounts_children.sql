@@ -297,6 +297,7 @@ BEGIN
 		a.deleted = 0
 		AND (a.parent_id IS NOT NULL AND a.parent_id != a.id)
   );
+  update mig_account set specialty_list__c = null where recordtypeid is null;
 END &&
 DELIMITER ;
 
