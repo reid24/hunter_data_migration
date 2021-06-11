@@ -153,6 +153,7 @@ INSERT INTO mig_distributor_health_check (
     hunter.bhc_branchhealthchecks bhc
     INNER JOIN hunter.bhc_branchhealthchecks_cstm bhcc ON bhcc.id_c = bhc.id 
     INNER JOIN hunter.accounts_bhc_branchhealthchecks_1_c abhc ON abhc.accounts_bhc_branchhealthchecks_1bhc_branchhealthchecks_idb = bhc.id
+    		AND abhc.deleted = 0
     LEFT OUTER JOIN ref_users owner_user ON owner_user.sugar_id = bhc.assigned_user_id AND bhc.assigned_user_id <> ''
     LEFT OUTER JOIN ref_users creator ON creator.sugar_id = bhc.created_by AND bhc.created_by <> ''
     WHERE bhc.deleted = 0

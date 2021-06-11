@@ -266,8 +266,17 @@ SELECT c.id, c.first_name, c.last_name, ac.account_id, c.description, c_cstm.cus
   c_cstm.first_name_phonetically_c,
   c_cstm.free_phone_c,
   -- c_cstm.specialty_list_c,
-  REPLACE(REPLACE(replace(REPLACE(replace(c_cstm.specialty_list_c,' ^','^'),',',';'),'^',''),
-		'Res_Com Irrigation','Hunter_Res_Com Irrigation'),'Res-Com Irrigation','Hunter_Res_Com Irrigation') AS specialty_list_c,
+  REPLACE(
+  		REPLACE(
+		  	REPLACE(
+				REPLACE(
+					REPLACE(
+						REPLACE(c_cstm.specialty_list_c,' ^','^'),
+					',',';'),
+				'^',''),
+			'Res_Com Irrigation','Hunter_Res_Com Irrigation'),
+		'Res-Com Irrigation','Hunter_Res_Com Irrigation'),
+	'Sports Fields1','Sports_Fields') AS specialty_list_c,
   c_cstm.mailing_preference_c,
   -- c_cstm.contact_type_c,
   replace(REPLACE(replace(c_cstm.contact_type_c,' ^','^'),',',';'),'^','') AS contact_type_c,
