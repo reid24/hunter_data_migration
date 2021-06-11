@@ -349,5 +349,10 @@ SELECT c.id, c.first_name, c.last_name, ac.account_id, c.description, c_cstm.cus
 -- back up to the non-primary
 update mig_contact set AccountId = (select account_id from hunter.accounts_contacts where contact_id = mig_contact.External_ID__c and deleted = 0 limit 1) where AccountId is null;
 
-select count(*) from mig_contact;
-select count(*) from mig_contact where AccountId is null;
+select count(*) TotalContacts from mig_contact;
+select count(*) NoAccount from mig_contact where AccountId is null;
+-- integrity check on contacts
+select count(*) BadAccountLinks from mig_contact where AccountId is not null and AccountId not in (select External_ID__c from mig_account);
+
+update mig_contact set AccountId = null where AccountId is not null and AccountId not in (select External_ID__c from mig_account);
+select count(*) NoAccount from mig_contact where AccountId is null;
