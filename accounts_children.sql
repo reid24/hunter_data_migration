@@ -278,7 +278,7 @@ BEGIN
 			'Res_Com Irrigation','Hunter_Res_Com Irrigation'),'Res-Com Irrigation','Hunter_Res_Com Irrigation') AS specialty_list_c,
 		ac.sso_account_name_c,
 		ac.year_established_c,
-		case when a.parent_id = a.id then NULL ELSE a.parent_id END AS parent_id,
+		case when a.parent_id = a.id and length(a.parent_id) > 10 then NULL ELSE a.parent_id END AS parent_id,
 		pac.sales_reporting_number_c AS pac_sales_reporting_number_c,
 		owner_user.id AS owner_user_id,
 		creator.id as creator_id,
