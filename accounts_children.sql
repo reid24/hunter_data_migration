@@ -298,9 +298,12 @@ BEGIN
 		AND (a.parent_id IS NOT NULL AND a.parent_id != a.id)
   );
   update mig_account set specialty_list__c = null where recordtypeid is null;
+  select count(*) ChildrenWithMissingParentBefore from mig_account where ParentId is not null and ParentId not in (select External_ID__c from mig_account);
+  update mig_account set ParentId = NULL where ParentId is not null and ParentId not in (select id from hunter.accounts where deleted = 0);
 END &&
 DELIMITER ;
 
 call create_erp_child_accounts();
 
 select count(*) Children from mig_account where `ParentId` is not null;
+select count(*) ChildrenWithMissingParentAfter from mig_account where ParentId is not null and ParentId not in (select External_ID__c from mig_account);
