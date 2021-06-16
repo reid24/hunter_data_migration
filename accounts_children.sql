@@ -308,3 +308,6 @@ call create_erp_child_accounts();
 
 select count(*) Children from mig_account where `ParentId` is not null;
 select count(*) ChildrenWithMissingParentAfter from mig_account where ParentId is not null and ParentId not in (select External_ID__c from mig_account);
+
+-- manual fixes
+update mig_account set billingstatecode = null where external_id__c = '933815a2-d5f9-11e7-b8ca-060c6f621ec1';

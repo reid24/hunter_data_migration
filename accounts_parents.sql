@@ -442,3 +442,7 @@ DELIMITER ;
 call create_erp_parent_accounts();
 
 select count(*) from mig_account;
+
+-- manual fixes
+update mig_account set billingstatecode = null where external_id__c = '62705468-5584-11ea-ad5a-06156affe90a';
+update mig_account set billingstatecode = null where external_id__c = '95d91474-cdac-11eb-9d0d-069eed229002';
