@@ -160,4 +160,8 @@ INSERT INTO mig_distributor_health_check (
 );
 
 select '';
-select count(*) NumberOfRecords from mig_distributor_health_check;
+select count(*) NumberOfRecordsBefore from mig_distributor_health_check;
+select count(*) NumberOfRecordsNoAccountBefore from mig_distributor_health_check where Distributor_Account__c is null;
+delete from mig_distributor_health_check where Distributor_Account__c not in (select External_ID__c from mig_account);
+select count(*) NumberOfRecordsAfter from mig_distributor_health_check;
+select count(*) NumberOfRecordsNoAccountAfter from mig_distributor_health_check where Distributor_Account__c is null;
