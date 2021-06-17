@@ -365,3 +365,21 @@ select count(*) BadAccountLinks from mig_contact where AccountId is not null and
 
 update mig_contact set AccountId = null where AccountId is not null and AccountId not in (select External_ID__c from mig_account);
 select count(*) NoAccount from mig_contact where AccountId is null;
+
+update mig_contact set MailingStateCode = NULL, MailingState = NULL, otherstatecode = NULL, otherstate = NULL 
+where external_id__c IN 
+(
+'16906de0-cbd4-11eb-9774-06156affe90a',
+'2720d366-ce68-11eb-850f-069eed229002',
+'32834228-cdcf-11eb-999e-02d962f59f52',
+'499b0899-eba7-abea-3ffc-4cdd82b874ba',
+'91d78822-285b-a014-cf7e-4cdd82fa70b1',
+'94f7ece5-bde5-0266-f5d4-4cdd8273b189',
+'950bc7c6-cdac-11eb-a575-069eed229002',
+'a7525971-6ab0-1547-c3a1-4cdd823c057f',
+'a79a52ea-2058-11e8-bfc4-02ef9e9f3eb9',
+'b40d10e8-cb73-11eb-9b47-02d962f59f52',
+'bc2d150a-f29a-f95c-5138-4cdd8346886e',
+'c287504b-d384-2353-6b98-4e39c05ae28f',
+'c77bb4d0-cddb-11eb-9c82-02d06230d2dc'
+);

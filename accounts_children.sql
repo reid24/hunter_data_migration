@@ -310,4 +310,17 @@ select count(*) Children from mig_account where `ParentId` is not null;
 select count(*) ChildrenWithMissingParentAfter from mig_account where ParentId is not null and ParentId not in (select External_ID__c from mig_account);
 
 -- manual fixes
-update mig_account set billingstatecode = null where external_id__c = '933815a2-d5f9-11e7-b8ca-060c6f621ec1';
+
+update mig_account set billingstatecode = NULL, billingstate = NULL, shippingstatecode = NULL, shippingstate = NULL 
+where external_id__c IN 
+(
+'62705468-5584-11ea-ad5a-06156affe90a',
+'bfae09b6-ff08-49a0-3e62-4fa15a079fa9',
+'6b588490-744c-2b90-cbec-509c3af62ea6',
+'ef88d215-94ca-71ce-bd80-507a9696d86f',
+'501fa31a-4025-5c6e-2694-4fe33cf74f9b',
+'d5827194-65ab-4d2f-e8e5-4f0dc2b25226',
+'95d91474-cdac-11eb-9d0d-069eed229002',
+'32e02af4-b4dc-dfc7-e9a7-509e72168dcf',
+'933815a2-d5f9-11e7-b8ca-060c6f621ec1' -- child
+);
