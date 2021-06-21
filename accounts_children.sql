@@ -48,7 +48,7 @@ BEGIN
 		`customer_marketing_priority__c`,
 		`days_since_last_contact__c`,
 		`days_until_hsn_expiration__c`,
-		`dealer_number__c`,
+		-- `dealer_number__c`,
 		`dist_irrigation_2018__c`,
 		`dist_irrigation_2019__c`,
 		`dist_lighting_2018__c`,
@@ -130,7 +130,8 @@ BEGIN
 		`sales_reporting_number__c`,
 		OwnerId, 
 		CreatedById, 
-		CreatedDate
+		CreatedDate,
+		Account_Status__c
 		)
 		(
 		SELECT 
@@ -141,7 +142,8 @@ BEGIN
 		segment_rule.sfdc_account_type,
 		segment_rule.sfdc_business_unit,
 		replace(segment_rule.sfdc_market,', ',';') AS sfdc_market,
-		rt.id AS rectypeid, -- record type id
+		-- rt.id AS rectypeid, -- record type id
+		case when rt.id IS NULL then (SELECT id FROM ref_record_type WHERE NAME = 'Indirect Purchaser') ELSE rt.id END AS rectypeid,
 		a.annual_revenue,
 		a.billing_address_city,
 		vlookup('Country', a.billing_address_country),
@@ -196,7 +198,7 @@ BEGIN
 		ac.customer_marketing_priority_c,
 		ac.days_since_last_contact_c,
 		ac.days_until_hsn_expiration_c,
-		ac.dealer_number_c,
+		-- ac.dealer_number_c,
 		ac.dist_irrigation_2018_c,
 		ac.dist_irrigation_2019_c,
 		ac.dist_lighting_2018_c,
@@ -283,7 +285,8 @@ BEGIN
 		pac.sales_reporting_number_c AS pac_sales_reporting_number_c,
 		owner_user.id AS owner_user_id,
 		creator.id as creator_id,
-		case when a.date_entered = '0000-00-00 00:00:00' then NULL else a.date_entered END AS date_entered
+		case when a.date_entered = '0000-00-00 00:00:00' then NULL else a.date_entered END AS date_entered,
+		'Customer' AS account_status
 		FROM hunter.accounts a
 		INNER JOIN hunter.accounts_cstm ac ON ac.id_c = a.id
 		LEFT OUTER JOIN hunter.accounts pa ON pa.id = a.parent_id

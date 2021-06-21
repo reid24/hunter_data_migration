@@ -1,0 +1,12 @@
+#Mapping values
+#Wed Jun 02 05:08:21 SGT 2021
+Description=Description
+ActivityDate=ActivityDate
+External_ID__c=External_ID__c
+Subject=Subject
+CreatedById=CreatedById
+sfdc_whoid=WhoId
+LastModifiedDate=LastModifiedDate
+CreatedDate=CreatedDate
+OwnerId=OwnerId
+Status=Status

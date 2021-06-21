@@ -213,10 +213,10 @@ Electrical_Channel,A_V_Contact,Influencer,,RCGL,Audio & Visual Lighting
 Electrical_Channel,Electrical_Channel_Distributor,Direct Purchaser,Electrical Distributor,RCGL,Audio & Visual Lighting
 Electrical_Channel,C_I_Contact,Influencer,,RCGL,Commercial & Industrial Lighting
 Electrical_Channel,C_I_Distributor,Direct Purchaser,Electrical Distributor,RCGL,Commercial & Industrial Lighting
-SEN Pivot,Dealer,Direct Purchaser,OEM,Senninger,Pivot
-SEN Pivot,Dealer Via OEM,Indirect Purchaser,OEM,Senninger,Pivot
-SEN Turf,Dealer Via OEM,Indirect Purchaser,OEM,Senninger,Turf
-SEN Turf,Dealer,Direct Purchaser,OEM,Senninger,Turf
+SEN Pivot,Dealer,Direct Purchaser,Dealer - Direct,Senninger,Pivot
+SEN Pivot,Dealer Via OEM,Indirect Purchaser,Dealer - Indirect,Senninger,Pivot
+SEN Turf,Dealer Via OEM,Indirect Purchaser,Dealer - Indirect,Senninger,Turf
+SEN Turf,Dealer,Direct Purchaser,Dealer - Direct,Senninger,Turf
 SEN Pivot Solid Set,Dealer Via OEM,Indirect Purchaser,OEM,Senninger,"Pivot, Solid Set"
 SEN Solid Set,Dealer,Direct Purchaser,Dealer - Direct,Senninger,Solid Set
 SEN Nursery Greenhouse,Dealer,Direct Purchaser,Dealer - Direct,Senninger,Solid Set
@@ -331,7 +331,7 @@ Contractor,Hospital/institutions,Indirect Purchaser,Site - Purchase from Distrib
 ,Builder,Influencer,Builder/Developer,RCGL,Irrigation
 Contractor,Specifier,Influencer,Specifier/Designer,RCGL,Irrigation
 RCGL Dealer,Irrigation Contractor,Indirect Purchaser,Installer/Contractor,RCGL,Irrigation
-SEN Pivot,Branch,Direct Purchaser,OEM,Senninger,Pivot
+SEN Pivot,Branch,Direct Purchaser,Dealer - Direct,Senninger,Pivot
 SEN Mining,Grower,Direct Purchaser,End User - Direct,Senninger,Mining
 Agency,Builder,Influencer,Builder/Developer,RCGL,Irrigation
 ,Government,Indirect Purchaser,Municipality/Public Agency,RCGL,Irrigation

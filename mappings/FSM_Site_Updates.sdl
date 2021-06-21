@@ -1,0 +1,13 @@
+#Mapping values
+#Mon Jun 07 02:55:04 SGT 2021
+External_ID__c=External_ID__c
+BillingStateCode=BillingStateCode
+BillingStreet=BillingStreet
+BillingState=BillingState
+BillingPostalCode=BillingPostalCode
+Name=Name
+BillingCountryCode=BillingCountryCode
+OwnerId=OwnerId
+BillingCity=BillingCity
+ID=Id
+RecordTypeId=RecordTypeId

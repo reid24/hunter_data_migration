@@ -1,0 +1,18 @@
+#Mapping values
+#Mon Jun 07 01:39:31 SGT 2021
+Type=Type
+Description=Description
+External_ID__c=External_ID__c
+Expected_Order_Date__c=Expected_Order_Date__c
+Name=Name
+Amount=Amount
+OwnerId=OwnerId
+estimated_irrigation__c=estimated_irrigation__c
+ID=Id
+won_loss_notes__c=won_loss_notes__c
+won_loss_reason__c=won_loss_reason__c
+AccountId=Account\:External_ID__c
+StageName=StageName
+CloseDate=CloseDate
+forecasted_amount__c=forecasted_amount__c
+estimated_lighting__c=estimated_lighting__c

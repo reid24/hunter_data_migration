@@ -1,0 +1,10 @@
+#Mapping values
+#Mon Jun 07 02:37:09 SGT 2021
+ID=Id
+FirstName=FirstName
+LastName=LastName
+Description=Description
+OwnerId=OwnerId
+Email=Email
+External_ID__c=External_ID__c
+AccountId=Account\:External_ID__c

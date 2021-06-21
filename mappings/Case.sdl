@@ -1,0 +1,17 @@
+#Mapping values
+#Wed Jun 02 03:05:45 SGT 2021
+Description=Description
+External_ID__c=External_ID__c
+CreatedById=CreatedById
+CreatedDate=CreatedDate
+Resolution_Notes__c=Resolution_Notes__c
+ContactId=Contact\:External_ID__c
+Date_of_Visit__c=Date_of_Visit__c
+OwnerId=OwnerId
+Emergency_Visit_Required__c=Emergency_Visit_Required__c
+Status=Status
+Reason=Reason
+AccountId=Account\:External_ID__c
+ContactPhone=SuppliedPhone
+Duration_Hours__c=Duration_Hours__c
+Desired_Visit_By__c=Desired_Visit_By__c
