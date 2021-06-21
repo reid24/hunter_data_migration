@@ -108,6 +108,7 @@ CREATE TABLE mig_contact (
 	OwnerId char(36) DEFAULT NULL,
 	CreatedById char(36) DEFAULT NULL,
 	CreatedDate datetime DEFAULT NULL,
+  Email varchar(255),
   PRIMARY KEY (External_ID__c)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -383,3 +384,22 @@ where external_id__c IN
 'c287504b-d384-2353-6b98-4e39c05ae28f',
 'c77bb4d0-cddb-11eb-9c82-02d06230d2dc'
 );
+
+-- emails
+UPDATE mig_contact c SET Email = (
+  SELECT e.email_address FROM 
+  hunter.email_addr_bean_rel beanrel 
+  INNER JOIN hunter.email_addresses e on e.id = beanrel.email_address_id and beanrel.primary_address = 1 and e.deleted = 0 and e.invalid_email = 0
+  WHERE beanrel.bean_module = 'Contacts' and beanrel.bean_id = c.External_ID__c and beanrel.deleted = 0
+);
+
+-- do_not_mail_c vs HasOpted
+select count(*) HasEmail from mig_contact where Email IS NOT NULL;
+select count(*) OptedOutBefore from mig_contact where HasOptedOutOfEmail = TRUE;
+UPDATE mig_contact c SET HasOptedOutOfEmail = TRUE WHERE External_ID__c IN (
+  SELECT beanrel.bean_id FROM 
+  hunter.email_addr_bean_rel beanrel 
+  INNER JOIN hunter.email_addresses e on e.id = beanrel.email_address_id and beanrel.primary_address = 1 and e.deleted = 0 and e.invalid_email = 0 and e.opt_out = 1
+  WHERE beanrel.bean_module = 'Contacts' and beanrel.deleted = 0
+);
+select count(*) OptedOutAfter from mig_contact where HasOptedOutOfEmail = TRUE;
