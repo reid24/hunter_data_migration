@@ -128,6 +128,7 @@ CREATE TABLE mig_account (
 	CreatedById char(36) DEFAULT NULL,
 	CreatedDate datetime DEFAULT NULL,
 	`Account_Status__c` VARCHAR(100) DEFAULT NULL,
+	email_address__c varchar(255) default null,
 	PRIMARY KEY (External_ID__c)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -436,6 +437,15 @@ BEGIN
   );
 
   update mig_account set specialty_list__c = null where recordtypeid is null;
+
+  -- emails
+	UPDATE mig_account a SET email_address__c = (
+	SELECT e.email_address FROM 
+	hunter.email_addr_bean_rel beanrel 
+	INNER JOIN hunter.email_addresses e on e.id = beanrel.email_address_id and beanrel.primary_address = 1 and e.deleted = 0 and e.invalid_email = 0
+	WHERE beanrel.bean_module = 'Accounts' and beanrel.bean_id = a.External_ID__c and beanrel.deleted = 0
+	LIMIT 1
+	);
 END &&
 DELIMITER ;
 

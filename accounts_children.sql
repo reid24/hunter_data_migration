@@ -304,6 +304,14 @@ BEGIN
   update mig_account set specialty_list__c = null where recordtypeid is null;
   select count(*) ChildrenWithMissingParentBefore from mig_account where ParentId is not null and ParentId not in (select External_ID__c from mig_account);
   update mig_account set ParentId = NULL where ParentId is not null and ParentId not in (select id from hunter.accounts where deleted = 0);
+  -- emails
+	UPDATE mig_account a SET email_address__c = (
+	SELECT e.email_address FROM 
+	hunter.email_addr_bean_rel beanrel 
+	INNER JOIN hunter.email_addresses e on e.id = beanrel.email_address_id and beanrel.primary_address = 1 and e.deleted = 0 and e.invalid_email = 0
+	WHERE beanrel.bean_module = 'Accounts' and beanrel.bean_id = a.External_ID__c and beanrel.deleted = 0
+	LIMIT 1
+	);
 END &&
 DELIMITER ;
 
