@@ -73,3 +73,13 @@ CREATE TABLE `hunter`.`ref_task` (
 
 LOAD DATA LOCAL INFILE 'sfdc_extracts/ref_task.csv' INTO TABLE ref_task FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\r\n' IGNORE 1 LINES;
 
+-- EVENT RELATION
+DROP TABLE IF EXISTS ref_eventrelation;
+
+CREATE TABLE `hunter`.`ref_eventrelation` (
+	`ID` VARCHAR(20) NOT NULL,
+	`RelationId` VARCHAR(20) NOT NULL,
+	`EventId` VARCHAR(20) NOT NULL
+);
+
+LOAD DATA LOCAL INFILE 'sfdc_extracts/ref_eventrelation.csv' INTO TABLE ref_eventrelation FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\r\n' IGNORE 1 LINES;

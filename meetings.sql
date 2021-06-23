@@ -45,14 +45,17 @@ INSERT INTO mig_meeting (
 DROP TABLE IF EXISTS mig_event_relation;
 CREATE TABLE mig_event_relation (
     EventId varchar(36),
-    RelationId varchar(36)
+    RelationId varchar(36),
+    IsInvitee VARCHAR(10)
 );
 
 select count(*) NumberOfMeetings from mig_meeting;
 select '';
 -- update mig_meeting set WhoId = (select contact_id from hunter.meetings_contacts where meeting_id = mig_meeting.External_ID__c and deleted = 0 limit 1) where WhoId is null; 
-INSERT INTO mig_event_relation (EventId, RelationId) (
-    SELECT mc.meeting_id, mc.contact_id FROM hunter.meetings_contacts mc
+INSERT INTO mig_event_relation (EventId, RelationId, IsInvitee) (
+    SELECT mc.meeting_id, mc.contact_id, 
+	 'FALSE' as IsInvitee
+	 FROM hunter.meetings_contacts mc
     INNER JOIN mig_meeting mm ON mc.meeting_id = mm.External_ID__c
     WHERE mc.deleted = 0
 );

@@ -411,8 +411,19 @@ BEGIN
 		ac.rotor_type_c,
 		ac.sales_reporting_number_c,
 		replace(REPLACE(replace(ac.services_c,' ^','^'),',',';'),'^','') AS services_c,
-		REPLACE(REPLACE(replace(REPLACE(replace(ac.specialty_list_c,' ^','^'),',',';'),'^',''),
-			'Res_Com Irrigation','Hunter_Res_Com Irrigation'),'Res-Com Irrigation','Hunter_Res_Com Irrigation') AS specialty_list_c,
+		case when rt.id IS NOT NULL then 
+		  REPLACE(
+		  		REPLACE(
+				  	REPLACE(
+						REPLACE(
+							REPLACE(
+								REPLACE(ac.specialty_list_c,' ^','^'),
+							',',';'),
+						'^',''),
+					'Res_Com Irrigation','Hunter_Res_Com Irrigation'),
+				'Res-Com Irrigation','Hunter_Res_Com Irrigation'),
+			'Sports Fields1','Sports_Fields') 
+		ELSE NULL END AS specialty_list_c,
 		ac.sso_account_name_c,
 		ac.year_established_c,
 		case when a.parent_id = a.id and length(a.parent_id) > 10 then NULL ELSE a.parent_id END AS parent_id,
