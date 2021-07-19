@@ -1,0 +1,21 @@
+> Task :app:compileJava NO-SOURCE
+> Task :app:compileGroovy
+> Task :app:processResources UP-TO-DATE
+> Task :app:classes
+
+> Task :app:run
+Hello world.
+/Users/reidb/Documents/projects/simplus/hunter/code/hunter_data_migration/tools/gradle-app/app/../../../mappings/Task.sdl
+[name:"Description", type:"varchar(255)", sfdcField: "Description"],
+[name:"ActivityDate", type:"varchar(255)", sfdcField: "ActivityDate"],
+[name:"External_ID__c", type:"varchar(255)", sfdcField: "External_ID__c"],
+[name:"Subject", type:"varchar(255)", sfdcField: "Subject"],
+[name:"CreatedById", type:"varchar(255)", sfdcField: "CreatedById"],
+[name:"sfdc_whoid", type:"varchar(255)", sfdcField: "WhoId"],
+[name:"LastModifiedDate", type:"varchar(255)", sfdcField: "LastModifiedDate"],
+[name:"CreatedDate", type:"varchar(255)", sfdcField: "CreatedDate"],
+[name:"OwnerId", type:"varchar(255)", sfdcField: "OwnerId"],
+[name:"Status", type:"varchar(255)", sfdcField: "Status"],
+
+BUILD SUCCESSFUL in 2s
+3 actionable tasks: 2 executed, 1 up-to-date
