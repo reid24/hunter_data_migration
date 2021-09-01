@@ -30,9 +30,11 @@ class EventRelation {
     }
 
     public static ObjectDef getInsertObjectDef(){
-        //TODO
         ObjectDef objDef = new ObjectDef(
             [
+                [name:"EventId", type:"varchar(255)", sfdcField:"EventId", refExternalIdField: "External_ID__c"],
+                [name:"RelationId", type:"varchar(255)"],
+                [name:"IsInvitee", type:"bool", sfdcField:"IsInvitee"]
             ]
         )
         objDef.table = "mig_event_relation"

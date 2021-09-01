@@ -44,11 +44,24 @@ class LoadAccounts extends BaseTask {
             select * from (
                 select ${objDef.getMappedColumnsForQuery('mig')} from mig_account mig
                 left outer join ref_account ref on ref.external_id = mig.External_ID__c 
-                where ref.id is null and mig.ParentId is null
+                where ref.id is null and mig.ParentId is null and mig.OwnerId is not null
             ) m
             """
             println query
-            //soap.upsertAll("insert-parent-accounts", objDef, query, [batchSize:200])
+            soap.upsertAll("insert-parent-accounts-owner", objDef, query, [batchSize:200])
+            
+            query = """
+            select * from (
+                select ${objDef.getMappedColumnsForQuery('mig')} from mig_account mig
+                left outer join ref_account ref on ref.external_id = mig.External_ID__c 
+                where ref.id is null and mig.ParentId is null and mig.OwnerId is null
+            ) m
+            """
+            println query
+            objDef.mapping.remove("OwnerId")
+            soap.upsertAll("insert-parent-accounts-noowner", objDef, query, [batchSize:200])
+
+            Util.backupSaveResults(jdbc, "pai")
         }
 
         if(updateParents){
@@ -57,11 +70,23 @@ class LoadAccounts extends BaseTask {
             select * from (
                 select ref.id, ${objDef.getMappedColumnsForQuery('mig')} from mig_account mig
                 left outer join ref_account ref on ref.external_id = mig.External_ID__c 
-                where ref.id is not null and mig.ParentId is null
+                where ref.id is not null and mig.ParentId is null and mig.OwnerId is not null
             ) m
             """
             println query
-            //soap.upsertAll("update-parent-accounts", objDef, query, [batchSize:200])
+            soap.upsertAll("update-parent-accounts-owner", objDef, query, [batchSize:200])
+
+            objDef.mapping.remove("OwnerId")
+            query = """
+            select * from (
+                select ref.id, ${objDef.getMappedColumnsForQuery('mig')} from mig_account mig
+                left outer join ref_account ref on ref.external_id = mig.External_ID__c 
+                where ref.id is not null and mig.ParentId is null and mig.OwnerId is null
+            ) m
+            """
+            println query
+            soap.upsertAll("update-parent-accounts-noowner", objDef, query, [batchSize:200])
+            Util.backupSaveResults(jdbc, "pau")
         }
 
         if(insertChildren){
@@ -70,10 +95,21 @@ class LoadAccounts extends BaseTask {
             select * from (
                 select mig.* from mig_account mig
                 left outer join ref_account ref on ref.external_id = mig.External_ID__c 
-                where ref.id is null and mig.ParentId is not null
+                where ref.id is null and mig.ParentId is not null and mig.OwnerId is not null
             ) m
             """
-            soap.upsertAll("insert-child-accounts", objDef, query, [batchSize:200])
+            soap.upsertAll("insert-child-accounts-owner", objDef, query, [batchSize:200])
+
+            query = """
+            select * from (
+                select mig.* from mig_account mig
+                left outer join ref_account ref on ref.external_id = mig.External_ID__c 
+                where ref.id is null and mig.ParentId is not null and mig.OwnerId is null
+            ) m
+            """
+            objDef.mapping.remove("OwnerId")
+            soap.upsertAll("insert-child-accounts-noowner", objDef, query, [batchSize:200])
+            Util.backupSaveResults(jdbc, "cai")
         }
 
         if(updateChildren){
@@ -82,10 +118,21 @@ class LoadAccounts extends BaseTask {
             select * from (
                 select ref.id, mig.* from mig_account mig
                 left outer join ref_account ref on ref.external_id = mig.External_ID__c 
-                where ref.id is not null and mig.ParentId is not null
+                where ref.id is not null and mig.ParentId is not null and mig.OwnerId is not null
             ) m
             """
-            soap.upsertAll("update-child-accounts", objDef, query, [batchSize:200])
+            soap.upsertAll("update-child-accounts-owner", objDef, query, [batchSize:200])
+
+            query = """
+            select * from (
+                select ref.id, mig.* from mig_account mig
+                left outer join ref_account ref on ref.external_id = mig.External_ID__c 
+                where ref.id is not null and mig.ParentId is not null and mig.OwnerId is null
+            ) m
+            """
+            objDef.mapping.remove("OwnerId")
+            soap.upsertAll("update-child-accounts-no-owner", objDef, query, [batchSize:200])
+            Util.backupSaveResults(jdbc, "cau")
         }
     }
 

@@ -174,4 +174,12 @@ public abstract class Util {
       return map[sfdcType] ? map[sfdcType] : sfdcType
   }
 
+  public static void backupSaveResults(JdbcClient jdbc, String suffix) {
+    java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyMMdd")
+    String tableName = "save_results_${sdf.format(new Date())}_${suffix}"
+    jdbc.execute "DROP TABLE IF EXISTS ${tableName}"
+    jdbc.execute "CREATE TABLE ${tableName} like save_results"
+    jdbc.execute "INSERT INTO ${tableName} SELECT * FROM save_results"
+  }
+
 }

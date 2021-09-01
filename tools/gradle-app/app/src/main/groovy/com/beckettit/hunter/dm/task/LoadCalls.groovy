@@ -35,10 +35,20 @@ class LoadCalls extends BaseTask {
                 select * from ${objDef.table} ma
                 left outer join ref_event ra on ra.external_id = ma.External_ID__c 
                 where ra.id is null
-            ) m
+            ) m where m.OwnerId is not null
             """
-            println query
             soap.upsertAll("insert-calls", objDef, query, [batchSize:200])
+
+            query = """
+            select * from (
+                select * from ${objDef.table} ma
+                left outer join ref_event ra on ra.external_id = ma.External_ID__c 
+                where ra.id is null
+            ) m where m.OwnerId is null
+            """
+            objDef.mapping.remove("OwnerId")
+            soap.upsertAll("insert-calls-nowowner", objDef, query, [batchSize:200])
+            Util.backupSaveResults(jdbc, "calls")
         }
 
         if(update){
@@ -46,11 +56,22 @@ class LoadCalls extends BaseTask {
             String query = """
             select * from (
                 select * from ${objDef.table} ma
-                inner join ref_event ra on ra.external_id = ma.External_ID__c
-            ) m
+                left outer join ref_event ra on ra.external_id = ma.External_ID__c 
+                where ra.id is not null
+            ) m where m.OwnerId is not null
             """
-            println query
             soap.upsertAll("update-calls", objDef, query, [batchSize:200])
+
+            query = """
+            select * from (
+                select * from ${objDef.table} ma
+                left outer join ref_event ra on ra.external_id = ma.External_ID__c 
+                where ra.id is not null
+            ) m where m.OwnerId is null
+            """
+            objDef.mapping.remove("OwnerId")
+            soap.upsertAll("update-calls-nowowner", objDef, query, [batchSize:200])
+            Util.backupSaveResults(jdbc, "calls_u")
         }
     }
 

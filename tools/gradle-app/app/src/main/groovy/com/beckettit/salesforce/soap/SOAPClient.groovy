@@ -1066,7 +1066,7 @@ class SOAPClient {
           } else if(intFields.contains(sfdcField))  {
             def val = m[k]
             if(val?.class == java.math.BigDecimal.class) val = val.intValue()
-            println val?.class
+            //println val?.class
             c.setField(sfdcField, val)
           } else {
             c.setField(sfdcField, m[k])

@@ -51,10 +51,53 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
+// tasks for delta load
+
+task delete_tasks(type:JavaExec) {
+  classpath sourceSets.main.runtimeClasspath
+  mainClass = "com.beckettit.hunter.dm.task.DeleteTasks"
+}
+
+task delete_events(type:JavaExec) {
+  classpath sourceSets.main.runtimeClasspath
+  mainClass = "com.beckettit.hunter.dm.task.DeleteEvents"
+}
+
+
+task delete_dhc(type:JavaExec) {
+  classpath sourceSets.main.runtimeClasspath
+  mainClass = "com.beckettit.hunter.dm.task.DeleteDHC"
+}
+
+task delete_accounts(type:JavaExec) {
+  classpath sourceSets.main.runtimeClasspath
+  mainClass = "com.beckettit.hunter.dm.task.DeleteAccounts"
+}
+
+task delete_contacts(type:JavaExec) {
+  classpath sourceSets.main.runtimeClasspath
+  mainClass = "com.beckettit.hunter.dm.task.DeleteContacts"
+}
+
+task delete_opps(type:JavaExec) {
+  classpath sourceSets.main.runtimeClasspath
+  mainClass = "com.beckettit.hunter.dm.task.DeleteOpportunities"
+}
+
+task delete_cases(type:JavaExec) {
+  classpath sourceSets.main.runtimeClasspath
+  mainClass = "com.beckettit.hunter.dm.task.DeleteCases"
+}
+
+
+
+
+// tasks
 task extract_accounts(type:JavaExec) {
   classpath sourceSets.main.runtimeClasspath
   mainClass = "com.beckettit.hunter.dm.task.ExtractAccounts"
 }
+
 
 task insert_parent_accounts(type:JavaExec) {
   classpath sourceSets.main.runtimeClasspath
@@ -97,6 +140,57 @@ task update_contacts(type:JavaExec) {
   args = ["--update"]
 }
 
+task extract_opps(type:JavaExec) {
+  classpath sourceSets.main.runtimeClasspath
+  mainClass = "com.beckettit.hunter.dm.task.ExtractOpportunities"
+}
+
+task insert_opps(type:JavaExec) {
+  classpath sourceSets.main.runtimeClasspath
+  mainClass = "com.beckettit.hunter.dm.task.LoadOpportunities"
+  args = ["--insert"]
+}
+
+task update_opps(type:JavaExec) {
+  classpath sourceSets.main.runtimeClasspath
+  mainClass = "com.beckettit.hunter.dm.task.LoadOpportunities"
+  args = ["--update"]
+}
+
+task extract_dhc(type:JavaExec) {
+  classpath sourceSets.main.runtimeClasspath
+  mainClass = "com.beckettit.hunter.dm.task.ExtractDHC"
+}
+
+task insert_dhc(type:JavaExec) {
+  classpath sourceSets.main.runtimeClasspath
+  mainClass = "com.beckettit.hunter.dm.task.LoadDHC"
+  args = ["--insert"]
+}
+
+task update_dhc(type:JavaExec) {
+  classpath sourceSets.main.runtimeClasspath
+  mainClass = "com.beckettit.hunter.dm.task.LoadDHC"
+  args = ["--update"]
+}
+
+//cases
+task extract_cases(type:JavaExec) {
+  classpath sourceSets.main.runtimeClasspath
+  mainClass = "com.beckettit.hunter.dm.task.ExtractCases"
+}
+
+task insert_cases(type:JavaExec) {
+  classpath sourceSets.main.runtimeClasspath
+  mainClass = "com.beckettit.hunter.dm.task.LoadCases"
+  args = ["--insert"]
+}
+
+task update_cases(type:JavaExec) {
+  classpath sourceSets.main.runtimeClasspath
+  mainClass = "com.beckettit.hunter.dm.task.LoadCases"
+  args = ["--update"]
+}
 
 //Events
 task extract_events(type:JavaExec) {
@@ -115,8 +209,47 @@ task update_meetings(type:JavaExec) {
   mainClass = "com.beckettit.hunter.dm.task.LoadMeetings"
   args = ["--update"]
 }
+
+task insert_calls(type:JavaExec) {
+  classpath sourceSets.main.runtimeClasspath
+  mainClass = "com.beckettit.hunter.dm.task.LoadCalls"
+  args = ["--insert"]
+}
+
+task update_calls(type:JavaExec) {
+  classpath sourceSets.main.runtimeClasspath
+  mainClass = "com.beckettit.hunter.dm.task.LoadCalls"
+  args = ["--update"]
+}
+
 //EventRelations
 task extract_event_relations(type:JavaExec) {
   classpath sourceSets.main.runtimeClasspath
   mainClass = "com.beckettit.hunter.dm.task.ExtractEventRelations"
 }
+
+task insert_event_relations(type:JavaExec) {
+  classpath sourceSets.main.runtimeClasspath
+  mainClass = "com.beckettit.hunter.dm.task.LoadEventRelations"
+  args = ["--insert"]
+}
+
+//Task
+task extract_tasks(type:JavaExec) {
+  classpath sourceSets.main.runtimeClasspath
+  mainClass = "com.beckettit.hunter.dm.task.ExtractTasks"
+}
+
+task insert_tasks(type:JavaExec) {
+  classpath sourceSets.main.runtimeClasspath
+  mainClass = "com.beckettit.hunter.dm.task.LoadTasks"
+  args = ["--insert"]
+}
+
+
+task update_tasks(type:JavaExec) {
+  classpath sourceSets.main.runtimeClasspath
+  mainClass = "com.beckettit.hunter.dm.task.LoadTasks"
+  args = ["--update"]
+}
+

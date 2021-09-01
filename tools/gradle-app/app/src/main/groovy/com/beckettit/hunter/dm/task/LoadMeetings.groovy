@@ -35,31 +35,51 @@ class LoadMeetings extends BaseTask {
                 select ref.id, mig.*, c.id sfdc_whoid from ${objDef.table} mig
                 left outer join ref_event ref on ref.external_id = mig.External_ID__c
                 left outer join ref_contact c on c.external_id = mig.WhoId
-            ) m WHERE m.id IS NULL and m.OwnerId is null
-            LIMIT 1
+            ) m WHERE m.id IS NULL and m.OwnerId is not null
             """
             println query
-            printCount(query, "meetings to insert...")
-            jdbc.execute "delete from save_results where request_id = 'insert-meetings'"
+            // printCount(query, "meetings to insert...")
+            // jdbc.execute "delete from save_results where request_id = 'insert-meetings'"
             soap.upsertAll("insert-meetings", objDef, query, [batchSize:200])
-            saveUpsertResultsSummary("insert_meetings_result", query, objDef.externalIdField)
-        }
+            // saveUpsertResultsSummary("insert_meetings_result", query, objDef.externalIdField)
 
-        if(update){
-            ObjectDef objDef = Event.getUpdateMeetingsObjectDef()
-            String query = """
-            SELECT * FROM (
+            query = """
+            select * from (
                 select ref.id, mig.*, c.id sfdc_whoid from ${objDef.table} mig
                 left outer join ref_event ref on ref.external_id = mig.External_ID__c
                 left outer join ref_contact c on c.external_id = mig.WhoId
-            ) m WHERE m.id IS NOT NULL and m.OwnerId is null
-            LIMIT 5
+            ) m WHERE m.id IS NULL and m.OwnerId is null
             """
             println query
-            printCount(query, "meetings to update...")
-            jdbc.execute "delete from save_results where request_id = 'update-meetings'"
-            soap.updateAll("update-meetings", objDef, query, [batchSize:200])
-            saveUpdateResultsSummary("update_meetings_result", query)
+            objDef.mapping.remove("OwnerId")
+            soap.upsertAll("insert-meetings", objDef, query, [batchSize:200])
+            Util.backupSaveResults(jdbc, "mtgs")
+        }
+
+        if(update){
+
+            ObjectDef objDef = Event.getUpdateMeetingsObjectDef()
+            String query = """
+            select * from (
+                select ref.id, mig.*, c.id sfdc_whoid from ${objDef.table} mig
+                inner join ref_event ref on ref.external_id = mig.External_ID__c
+                left outer join ref_contact c on c.external_id = mig.WhoId
+            ) m WHERE m.id IS NOT NULL and m.OwnerId is not null
+            """
+            println query
+            soap.upsertAll("update-meetings-owner", objDef, query, [batchSize:200])
+
+            query = """
+            select * from (
+                select ref.id, mig.*, c.id sfdc_whoid from ${objDef.table} mig
+                inner join ref_event ref on ref.external_id = mig.External_ID__c
+                left outer join ref_contact c on c.external_id = mig.WhoId
+            ) m WHERE m.id IS NOT NULL and m.OwnerId is null
+            """
+            println query
+            objDef.mapping.remove("OwnerId")
+            soap.upsertAll("insert-meetings-noowner", objDef, query, [batchSize:200])
+            Util.backupSaveResults(jdbc, "mtgs_u")
         }
     }
 

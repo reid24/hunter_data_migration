@@ -34,7 +34,7 @@ class Task {
                 [name:"Subject", type:"varchar(255)", sfdcField: "Subject"],
                 [name:"CreatedById", type:"varchar(255)", sfdcField: "CreatedById"],
                 [name:"sfdc_whoid", type:"varchar(255)", sfdcField: "WhoId"],
-                [name:"LastModifiedDate", type:"varchar(255)", sfdcField: "LastModifiedDate"],
+                // [name:"LastModifiedDate", type:"varchar(255)", sfdcField: "LastModifiedDate"],
                 [name:"CreatedDate", type:"varchar(255)", sfdcField: "CreatedDate"],
                 [name:"OwnerId", type:"varchar(255)", sfdcField: "OwnerId"],
                 [name:"Status", type:"varchar(255)", sfdcField: "Status"]
@@ -47,7 +47,7 @@ class Task {
     }
 
     public static ObjectDef getUpdateObjectDef() {
-        ObjectDef objDef = getInsertMeetingsObjectDef()
+        ObjectDef objDef = getInsertObjectDef()
         objDef.mapping.remove("CreatedById")
         objDef.mapping.remove("CreatedDate")
         return objDef

@@ -77,7 +77,7 @@ class DHC {
                 [name:"notes_hunter_rescom__c", type:"varchar(255)", sfdcField: "notes_hunter_rescom__c"],
             ]
         )
-        objDef.table = "mig_dhc"
+        objDef.table = "mig_distributor_health_check"
         objDef.sobjType = "Distributor_Health_Check__c"
         objDef.externalIdField= "External_ID__c"
         return objDef
