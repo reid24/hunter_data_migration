@@ -32,7 +32,7 @@ CREATE TABLE mig_contact (
   LeadSource VARCHAR(255) DEFAULT NULL,
   Birthdate VARCHAR(255) DEFAULT NULL,
   preferred_language_list__c VARCHAR(255) DEFAULT NULL,
-  hmds_id__c INTEGER DEFAULT NULL,
+  hmds_id__c VARCHAR(10) DEFAULT NULL,
   customer_marketing_priority__c VARCHAR(255) DEFAULT NULL,
   distributor_rep__c VARCHAR(255) DEFAULT NULL,
   last_name_phonetically__c VARCHAR(255) DEFAULT NULL,
@@ -85,21 +85,21 @@ CREATE TABLE mig_contact (
   county__c TEXT DEFAULT NULL,
   gdprompliant__c TINYINT(1) DEFAULT 0,
   siterec_user__c TINYINT(1) DEFAULT 0,
-  number_of_recommendations__c FLOAT DEFAULT NULL,
+  number_of_recommendations__c INTEGER DEFAULT NULL,
   last_recommendation_sent_dat__c DATE,
   email_group__c VARCHAR(255) DEFAULT NULL,
   price_product_recall_fx__c TINYINT(1) DEFAULT 0,
   holm_price_product_recall__c TINYINT(1) DEFAULT 0,
   golf_price_product_recall__c TINYINT(1) DEFAULT 0,
   sf_lastactivity_default__c DATETIME DEFAULT NULL,
-  hunterompany_news__c TEXT DEFAULT NULL,
+  hunterompany_news__c TINYINT(1) DEFAULT 0,
   hunter_irrigation_emails__c TINYINT(1) DEFAULT 0,
   hunter_golf_irrigation_email__c TINYINT(1) DEFAULT 0,
   fx_luminaire_lighting_emails__c TINYINT(1) DEFAULT 0,
   senninger_agriculture_irriga__c TEXT DEFAULT NULL,
   hpp_primarycontact__c TINYINT(1) DEFAULT 0,
   hpp_secondarycontact__c TINYINT(1) DEFAULT 0,
-  rev_it_up_coins__c FLOAT DEFAULT NULL,
+  rev_it_up_coins__c INTEGER DEFAULT NULL,
   hunterompany_news_subscrib__c TINYINT(1) DEFAULT 0,
   hunter_irrigation_subscribe__c TINYINT(1) DEFAULT 0,
   hunter_golf_irrigation_sub__c TINYINT(1) DEFAULT 0,
@@ -356,6 +356,29 @@ SELECT c.id, c.first_name, c.last_name, ac.account_id, c.description, c_cstm.cus
   WHERE c.deleted = 0
 );
 
+-- checkboxes
+UPDATE mig_contact SET hpp_primarycontact__c = 0 WHERE hpp_primarycontact__c IS NULL;
+UPDATE mig_contact SET hpp_secondarycontact__c = 0 WHERE hpp_secondarycontact__c IS NULL;
+UPDATE mig_contact SET hunter_golf_irrigation_sub__c = 0 WHERE hunter_golf_irrigation_sub__c IS NULL;
+UPDATE mig_contact SET golf_price_product_recall__c = 0 WHERE golf_price_product_recall__c IS NULL;
+UPDATE mig_contact SET fx_luminaire_lighting_sub__c = 0 WHERE fx_luminaire_lighting_sub__c IS NULL;
+UPDATE mig_contact SET holm_price_product_recall__c = 0 WHERE holm_price_product_recall__c IS NULL;
+UPDATE mig_contact SET price_product_recall_fx__c = 0 WHERE price_product_recall_fx__c IS NULL;
+UPDATE mig_contact SET hunter_irrigation_subscribe__c = 0 WHERE hunter_irrigation_subscribe__c IS NULL;
+UPDATE mig_contact SET fx_luminaire_lighting_emails__c = 0 WHERE fx_luminaire_lighting_emails__c IS NULL;
+UPDATE mig_contact SET hydrawiseustomer__c = 0 WHERE hydrawiseustomer__c IS NULL;
+UPDATE mig_contact SET siterec_user__c = 0 WHERE siterec_user__c IS NULL;
+UPDATE mig_contact SET hunterompany_news_subscrib__c = 0 WHERE hunterompany_news_subscrib__c IS NULL;
+UPDATE mig_contact SET hunter_golf_irrigation_email__c = 0 WHERE hunter_golf_irrigation_email__c IS NULL;
+UPDATE mig_contact SET senninger_agriculture_irriga__c = 0 WHERE senninger_agriculture_irriga__c IS NULL;
+UPDATE mig_contact SET hunter_irrigation_emails__c = 0 WHERE hunter_irrigation_emails__c IS NULL;
+UPDATE mig_contact SET authorized_resource__c = 0 WHERE authorized_resource__c IS NULL;
+UPDATE mig_contact SET gdprompliant__c = 0 WHERE gdprompliant__c IS NULL;
+UPDATE mig_contact SET fbsg_sme_initialcheck__c = 0 WHERE fbsg_sme_initialcheck__c IS NULL;
+UPDATE mig_contact SET senninger_ag_irr_sub__c = 0 WHERE senninger_ag_irr_sub__c IS NULL;
+UPDATE mig_contact SET hunterompany_news__c = 0 WHERE hunterompany_news__c IS NULL;
+UPDATE mig_contact SET centralus_user__c = 0 WHERE centralus_user__c IS NULL;
+
 -- back up to the non-primary
 update mig_contact set AccountId = (select account_id from hunter.accounts_contacts where contact_id = mig_contact.External_ID__c and deleted = 0 limit 1) where AccountId is null;
 
@@ -367,23 +390,23 @@ select count(*) BadAccountLinks from mig_contact where AccountId is not null and
 update mig_contact set AccountId = null where AccountId is not null and AccountId not in (select External_ID__c from mig_account);
 select count(*) NoAccount from mig_contact where AccountId is null;
 
-update mig_contact set MailingStateCode = NULL, MailingState = NULL, otherstatecode = NULL, otherstate = NULL 
-where external_id__c IN 
-(
-'16906de0-cbd4-11eb-9774-06156affe90a',
-'2720d366-ce68-11eb-850f-069eed229002',
-'32834228-cdcf-11eb-999e-02d962f59f52',
-'499b0899-eba7-abea-3ffc-4cdd82b874ba',
-'91d78822-285b-a014-cf7e-4cdd82fa70b1',
-'94f7ece5-bde5-0266-f5d4-4cdd8273b189',
-'950bc7c6-cdac-11eb-a575-069eed229002',
-'a7525971-6ab0-1547-c3a1-4cdd823c057f',
-'a79a52ea-2058-11e8-bfc4-02ef9e9f3eb9',
-'b40d10e8-cb73-11eb-9b47-02d962f59f52',
-'bc2d150a-f29a-f95c-5138-4cdd8346886e',
-'c287504b-d384-2353-6b98-4e39c05ae28f',
-'c77bb4d0-cddb-11eb-9c82-02d06230d2dc'
-);
+-- update mig_contact set MailingStateCode = NULL, MailingState = NULL, otherstatecode = NULL, otherstate = NULL 
+-- where external_id__c IN 
+-- (
+-- '16906de0-cbd4-11eb-9774-06156affe90a',
+-- '2720d366-ce68-11eb-850f-069eed229002',
+-- '32834228-cdcf-11eb-999e-02d962f59f52',
+-- '499b0899-eba7-abea-3ffc-4cdd82b874ba',
+-- '91d78822-285b-a014-cf7e-4cdd82fa70b1',
+-- '94f7ece5-bde5-0266-f5d4-4cdd8273b189',
+-- '950bc7c6-cdac-11eb-a575-069eed229002',
+-- 'a7525971-6ab0-1547-c3a1-4cdd823c057f',
+-- 'a79a52ea-2058-11e8-bfc4-02ef9e9f3eb9',
+-- 'b40d10e8-cb73-11eb-9b47-02d962f59f52',
+-- 'bc2d150a-f29a-f95c-5138-4cdd8346886e',
+-- 'c287504b-d384-2353-6b98-4e39c05ae28f',
+-- 'c77bb4d0-cddb-11eb-9c82-02d06230d2dc'
+-- );
 
 -- emails
 UPDATE mig_contact c SET Email = (

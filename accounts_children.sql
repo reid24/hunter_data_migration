@@ -160,7 +160,7 @@ BEGIN
 		END AS billing_address_state_code,
 		a.billing_address_street,
 		a.description,
-		a.employees,
+		CASE WHEN a.employees REGEXP '^[0-9]+$' = 1 THEN a.employees ELSE NULL END,
 		a.name,
 		a.next_renewal_date,
 		a.phone_alternate,
@@ -323,6 +323,9 @@ BEGIN
 	WHERE beanrel.bean_module = 'Accounts' and beanrel.bean_id = a.External_ID__c and beanrel.deleted = 0
 	LIMIT 1
 	);
+	
+	UPDATE mig_account SET level__c = 'Platinum IV' where level__c = 'platinumiv';
+	UPDATE mig_account SET level__c = 'Platinum II' where level__c = 'platinumii';
 END &&
 DELIMITER ;
 
@@ -332,17 +335,20 @@ select count(*) Children from mig_account where `ParentId` is not null;
 select count(*) ChildrenWithMissingParentAfter from mig_account where ParentId is not null and ParentId not in (select External_ID__c from mig_account);
 
 -- manual fixes
+-- boolean to true when null
+update mig_account set hunter_pilot_course__c = 0 where hunter_pilot_course__c is null;
+update mig_account set hunter_service_network__c = 0 where hunter_service_network__c is null; 
 
-update mig_account set billingstatecode = NULL, billingstate = NULL, shippingstatecode = NULL, shippingstate = NULL 
-where external_id__c IN 
-(
-'62705468-5584-11ea-ad5a-06156affe90a',
-'bfae09b6-ff08-49a0-3e62-4fa15a079fa9',
-'6b588490-744c-2b90-cbec-509c3af62ea6',
-'ef88d215-94ca-71ce-bd80-507a9696d86f',
-'501fa31a-4025-5c6e-2694-4fe33cf74f9b',
-'d5827194-65ab-4d2f-e8e5-4f0dc2b25226',
-'95d91474-cdac-11eb-9d0d-069eed229002',
-'32e02af4-b4dc-dfc7-e9a7-509e72168dcf',
-'933815a2-d5f9-11e7-b8ca-060c6f621ec1' -- child
-);
+-- update mig_account set billingstatecode = NULL, billingstate = NULL, shippingstatecode = NULL, shippingstate = NULL 
+-- where external_id__c IN 
+-- (
+-- '62705468-5584-11ea-ad5a-06156affe90a',
+-- 'bfae09b6-ff08-49a0-3e62-4fa15a079fa9',
+-- '6b588490-744c-2b90-cbec-509c3af62ea6',
+-- 'ef88d215-94ca-71ce-bd80-507a9696d86f',
+-- '501fa31a-4025-5c6e-2694-4fe33cf74f9b',
+-- 'd5827194-65ab-4d2f-e8e5-4f0dc2b25226',
+-- '95d91474-cdac-11eb-9d0d-069eed229002',
+-- '32e02af4-b4dc-dfc7-e9a7-509e72168dcf',
+-- '933815a2-d5f9-11e7-b8ca-060c6f621ec1' -- child
+-- );

@@ -14,7 +14,7 @@ CREATE TABLE mig_account (
 	`BillingStateCode` varchar(100)  DEFAULT NULL,
 	`BillingStreet` varchar(150)  DEFAULT NULL,
 	`Description` text  DEFAULT NULL,
-	`NumberOfEmployees` varchar(10)  DEFAULT NULL,
+	`NumberOfEmployees` int(10)  DEFAULT NULL,
 	`Name` varchar(150)  DEFAULT NULL,
 	`next_renewal_date__c` date  DEFAULT NULL,
 	`phone_alternate__c` varchar(100)  DEFAULT NULL,
@@ -58,7 +58,8 @@ CREATE TABLE mig_account (
 	`golf_distributor_billing__c` varchar(255)  DEFAULT NULL,
 	`golf_holes_type__c` varchar(100)  DEFAULT NULL,
 	`golf_irrigation_installation__c` date  DEFAULT NULL,
-	`hmds_id__c` int(11)  DEFAULT NULL,
+	-- `hmds_id__c` int(11)  DEFAULT NULL,
+	`hmds_id__c` varchar(255)  DEFAULT NULL,
 	-- `hpp_primary_contact__c` varchar(50)  DEFAULT NULL,
 	-- `hpp_primary_contact_email__c` varchar(255)  DEFAULT NULL,
 	-- `hpp_secondary_contact__c` varchar(255)  DEFAULT NULL,
@@ -73,7 +74,7 @@ CREATE TABLE mig_account (
 	`hunter_product_samples__c` varchar(100)  DEFAULT NULL,
 	`hunter_service_network__c` tinyint(1)  DEFAULT NULL,
 	`hydrawise_customers__c` int(50)  DEFAULT NULL,
-	`hydrawise_id__c` int(50)  DEFAULT NULL,
+	`hydrawise_id__c` varchar(50)  DEFAULT NULL,
 	`irrigation_2016__c` varchar(50)  DEFAULT NULL,
 	`irrigation_2017__c` varchar(50)  DEFAULT NULL,
 	`irrigation_2018__c` varchar(50)  DEFAULT NULL,
@@ -122,7 +123,7 @@ CREATE TABLE mig_account (
 	`services__c` text  DEFAULT NULL,
 	`specialty_list__c` text  DEFAULT NULL,
 	`sso_account_name__c` varchar(50)  DEFAULT NULL,
-	`year_established__c` int(4)  DEFAULT NULL,
+	`year_established__c` varchar(4)  DEFAULT NULL,
 	`ParentId` VARCHAR(255) DEFAULT NULL,
 	OwnerId char(36) DEFAULT NULL,
 	CreatedById char(36) DEFAULT NULL,
@@ -294,7 +295,7 @@ BEGIN
 		END AS billing_address_state_code,
 		a.billing_address_street,
 		a.description,
-		a.employees,
+		CASE WHEN a.employees REGEXP '^[0-9]+$' = 1 THEN a.employees ELSE NULL END,
 		a.name,
 		a.next_renewal_date,
 		a.phone_alternate,
@@ -448,6 +449,9 @@ BEGIN
   );
 
   update mig_account set specialty_list__c = null where recordtypeid is null;
+  -- boolean to true when null
+  update mig_account set hunter_pilot_course__c = 0 where hunter_pilot_course__c is null;
+  update mig_account set hunter_service_network__c = 0 where hunter_service_network__c is null; 
 
   -- emails
 	UPDATE mig_account a SET email_address__c = (
@@ -457,6 +461,9 @@ BEGIN
 	WHERE beanrel.bean_module = 'Accounts' and beanrel.bean_id = a.External_ID__c and beanrel.deleted = 0
 	LIMIT 1
 	);
+
+	UPDATE mig_account SET level__c = 'Platinum IV' where level__c = 'platinumiv';
+	UPDATE mig_account SET level__c = 'Platinum II' where level__c = 'platinumii';
 END &&
 DELIMITER ;
 
@@ -469,15 +476,15 @@ call create_erp_parent_accounts();
 select count(*) from mig_account;
 
 -- manual fixes
-update mig_account set billingstatecode = NULL, billingstate = NULL, shippingstatecode = NULL, shippingstate = NULL 
-where external_id__c IN 
-(
-'62705468-5584-11ea-ad5a-06156affe90a',
-'bfae09b6-ff08-49a0-3e62-4fa15a079fa9',
-'6b588490-744c-2b90-cbec-509c3af62ea6',
-'ef88d215-94ca-71ce-bd80-507a9696d86f',
-'501fa31a-4025-5c6e-2694-4fe33cf74f9b',
-'d5827194-65ab-4d2f-e8e5-4f0dc2b25226',
-'95d91474-cdac-11eb-9d0d-069eed229002',
-'32e02af4-b4dc-dfc7-e9a7-509e72168dcf'
-);
+-- update mig_account set billingstatecode = NULL, billingstate = NULL, shippingstatecode = NULL, shippingstate = NULL 
+-- where external_id__c IN 
+-- (
+-- '62705468-5584-11ea-ad5a-06156affe90a',
+-- 'bfae09b6-ff08-49a0-3e62-4fa15a079fa9',
+-- '6b588490-744c-2b90-cbec-509c3af62ea6',
+-- 'ef88d215-94ca-71ce-bd80-507a9696d86f',
+-- '501fa31a-4025-5c6e-2694-4fe33cf74f9b',
+-- 'd5827194-65ab-4d2f-e8e5-4f0dc2b25226',
+-- '95d91474-cdac-11eb-9d0d-069eed229002',
+-- '32e02af4-b4dc-dfc7-e9a7-509e72168dcf'
+-- );

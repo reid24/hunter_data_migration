@@ -26,6 +26,7 @@ mysqldump -u root hunter fst_field_service_tickets > fst_field_service_tickets.s
 mysqldump -u root hunter fst_field_service_tickets_cstm > fst_field_service_tickets_cstm.sql
 mysqldump -u root hunter nl_number_lookup > nl_number_lookup.sql
 mysqldump -u root hunter jr_fsm_sites > jr_fsm_sites.sql
+mysqldump -u root hunter jr_fsm_sites_cstm > jr_fsm_sites_cstm.sql
 mysqldump -u root hunter hml_hunter_my_list > hml_hunter_my_list.sql
 mysqldump -u root hunter js_fxl_my_list > js_fxl_my_list.sql
 mysqldump -u root hunter meetings > meetings.sql
@@ -41,6 +42,14 @@ mysqldump -u root hunter tasks_cstm > tasks_cstm.sql
 mysqldump -u root hunter hi_homeowners > hi_homeowners.sql
 mysqldump -u root hunter contacts_fst_field_service_tickets_1_c > contacts_fst_field_service_tickets_1_c.sql
 mysqldump -u root hunter fst_field_service_tickets_accounts_c > fst_field_service_tickets_accounts_c.sql
+mysqldump -u root hunter calls > calls.sql
+mysqldump -u root hunter calls_contacts > calls_contacts.sql
+mysqldump -u root hunter calls_leads > calls_leads.sql
+mysqldump -u root hunter meetings_contacts > meetings_contacts.sql
+mysqldump -u root hunter meetings_leads > meetings_leads.sql
+mysqldump -u root hunter jr_fsm_sites_fst_field_service_tickets_c > jr_fsm_sites_fst_field_service_tickets_c.sql
+mysqldump -u root hunter email_addr_bean_rel > email_addr_bean_rel.sql
+mysqldump -u root hunter email_addresses > email_addresses.sql
 
 zip sugar_data.zip *.sql
 rm *.sql

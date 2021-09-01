@@ -1,0 +1,1 @@
+sfdx force:data:soql:query -u $1 -q "SELECT Id, External_ID__c, Name FROM Account WHERE External_ID__c != NULL" -r csv > data/ref_migrated_accounts.csv
